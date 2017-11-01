@@ -69,7 +69,14 @@ public class LoginFrame extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null); // center on screen
 		this.setVisible(true);
-		if (ConnectDB.getConnect() == null) {
+		if(ConnectDB.CheckInternetConnection()){
+			if (ConnectDB.getConnect() == null) {
+				this.userIn.setEditable(false);
+				this.passIn.setEditable(false);
+				this.loginBtn.setEnabled(false);
+			}
+		}else{
+			JOptionPane.showMessageDialog(this, "Can't connect internet please check Internet Conection","Error",JOptionPane.ERROR_MESSAGE);
 			this.userIn.setEditable(false);
 			this.passIn.setEditable(false);
 			this.loginBtn.setEnabled(false);

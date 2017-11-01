@@ -1,7 +1,8 @@
 package Controller;
 
-
-
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -20,10 +21,23 @@ public class ConnectDB {
 			Connection conDb = DriverManager.getConnection(url, user, pass);
 			return conDb;
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "failed to connect database server.\n"+e.getMessage(), "ERROR",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "failed to connect database server.\n" + e.getMessage(), "ERROR",
+					JOptionPane.ERROR_MESSAGE);
 		} catch (ClassNotFoundException ex) {
-                        JOptionPane.showMessageDialog(null, "file class "+driver+" not found.", "ERROR",JOptionPane.ERROR_MESSAGE);
-            }
+			JOptionPane.showMessageDialog(null, "file class " + driver + " not found.", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+		}
 		return null;
+	}
+
+	public static boolean CheckInternetConnection() {
+		try {
+			URL url = new URL("http://www.google.co.th/");
+			URLConnection conn = url.openConnection();
+			conn.connect();
+			return true;
+		} catch (IOException e) {
+			return false;
+		}
 	}
 }
