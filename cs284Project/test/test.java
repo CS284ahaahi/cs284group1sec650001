@@ -48,7 +48,7 @@ public class test {
 			User s = us.checkUserPass("5909650029", "");
 			assertNull(s);
 		} catch (Exception e) {
-			fail("error username pass null");
+			fail("error username pass null!!");
 		}
 	}
 	@Test
