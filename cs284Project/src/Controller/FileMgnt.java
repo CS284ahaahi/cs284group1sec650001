@@ -10,6 +10,7 @@ import java.sql.Statement;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Model.Subject;
 
@@ -17,11 +18,13 @@ public class FileMgnt {
 
 	public static boolean exportExcelGrade(Subject s) {
 		JFileChooser chooser = new JFileChooser();
-		String sql = "select * from " + s.getTableName();
+		chooser.setFileFilter(new FileNameExtensionFilter("CSV (Comma delimited,Excel)", "csv"));
+		String sql = "select * from " + s.getTableName();	
 		int check = chooser.showSaveDialog(null);
 		if (check == JFileChooser.APPROVE_OPTION) {
 			ResultSet rs;
 			File file = chooser.getSelectedFile();
+			file = new File(file.getAbsolutePath()+".csv");
 			try (PrintWriter write = new PrintWriter(file);) {
 				Connection con = ConnectMgnt.getConnect();
 				Statement st = con.createStatement();
