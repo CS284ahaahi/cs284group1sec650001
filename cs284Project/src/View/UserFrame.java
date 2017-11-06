@@ -33,7 +33,6 @@ public class UserFrame extends JFrame {
 		lastName = new JLabel(user.getLastName());
 		email = new JLabel(user.getEmail());
 		rank = new JLabel(user.getRank());
-		status = new JLabel(user.getStatus());
 		this.exit = new JButton("Exit");
 		this.logout = new JButton("Logout");
 		this.exit.addActionListener(new ActionListener() {
@@ -66,7 +65,6 @@ public class UserFrame extends JFrame {
 		info.add(ranklb);
 		info.add(rank);
 		info.add(statuslb);
-		info.add(status);
 		JPanel btnPanel = new JPanel();
 		btnPanel.add(logout);
 		btnPanel.add(exit);

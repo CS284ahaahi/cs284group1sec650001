@@ -17,7 +17,6 @@ public class UserMgnt {
 			Statement st = con.createStatement();
 			rs = st.executeQuery(sql);
 			while (rs.next()) {
-				//System.out.println(rs.getString(3) + " " + rs.getString(4));
 				if (rs.getString(3).equals(user.trim()) && rs.getString(4).equals(pass.trim())) {
 					String userID, userName, passWord, firstName, lastName, email, rank, status;
 					userID = rs.getString(2);
@@ -27,8 +26,7 @@ public class UserMgnt {
 					lastName = rs.getString(6);
 					email = rs.getString(7);
 					rank = rs.getString(8);
-					status = rs.getString(9);
-					return new User(userID, userName, passWord, firstName, lastName, email, rank, status);
+					return new User(userID, userName, passWord, firstName, lastName, email, rank);
 				}
 			}
 
