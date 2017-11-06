@@ -13,11 +13,11 @@ public class UserMgnt {
 		String sql = "select * from USER_DATA";
 		ResultSet rs;
 		try {
-			Connection con = ConnectDB.getConnect();
+			Connection con = ConnectMgnt.getConnect();
 			Statement st = con.createStatement();
 			rs = st.executeQuery(sql);
 			while (rs.next()) {
-				System.out.println(rs.getString(3) + " " + rs.getString(4));
+				//System.out.println(rs.getString(3) + " " + rs.getString(4));
 				if (rs.getString(3).equals(user.trim()) && rs.getString(4).equals(pass.trim())) {
 					String userID, userName, passWord, firstName, lastName, email, rank, status;
 					userID = rs.getString(2);

@@ -1,6 +1,6 @@
 package View;
 
-import Controller.ConnectDB;
+import Controller.ConnectMgnt;
 import Model.User;
 
 import java.awt.Dimension;
@@ -69,8 +69,8 @@ public class LoginFrame extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null); // center on screen
 		this.setVisible(true);
-		if(ConnectDB.CheckInternetConnection()){
-			if (ConnectDB.getConnect() == null) {
+		if(ConnectMgnt.CheckInternetConnection()){
+			if (ConnectMgnt.getConnect() == null) {
 				this.userIn.setEditable(false);
 				this.passIn.setEditable(false);
 				this.loginBtn.setEnabled(false);
