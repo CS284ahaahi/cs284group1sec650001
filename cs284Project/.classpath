@@ -5,6 +5,9 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/DB"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/PDFWriter"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/DatabaseM"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/DBlib"/>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
