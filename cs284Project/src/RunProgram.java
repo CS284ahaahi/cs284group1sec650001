@@ -1,8 +1,8 @@
 
-import View.LoginFrame;
+import View.LoginPage;
 
 public class RunProgram {
 	public static void main(String[] args) {
-		new LoginFrame();
+		LoginPage login = new LoginPage();
 	}
 }

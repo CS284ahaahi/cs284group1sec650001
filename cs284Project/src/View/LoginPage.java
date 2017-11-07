@@ -1,16 +1,37 @@
 package View;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Collections;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 import Model.User;
 import Controller.UserMgnt;
-public class home extends javax.swing.JPanel implements ActionListener{
-    public home() {
+
+public class LoginPage extends JPanel{
+	
+	private JFrame frame;
+    public LoginPage() {
         initComponents();
+        frame = new JFrame("CS284 Project");
+        frame.add(this);
+        frame.pack();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null); // center on screen
+        frame.setVisible(true);
     }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
@@ -42,45 +63,71 @@ public class home extends javax.swing.JPanel implements ActionListener{
         registerbtt.setForeground(new java.awt.Color(255, 102, 102));
         registerbtt.setText("REGISTER");
         registerbtt.setBorder(null);
-        registerbtt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        registerbtt.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 registerbttActionPerformed(evt);
             }
         });
 
-        loginbtt.setBackground(new java.awt.Color(204, 204, 204));
-        loginbtt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        loginbtt.setForeground(new java.awt.Color(255, 102, 102));
+        loginbtt.setBackground(new Color(204, 204, 204));
+        loginbtt.setFont(new Font("Tahoma", 0, 18)); // NOI18N
+        loginbtt.setForeground(new Color(255, 102, 102));
         loginbtt.setText("LOGIN");
         loginbtt.setBorder(null);
-        loginbtt.addActionListener(this);
+        loginbtt.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				loginbttActionPerformed(e);
+			}
+		});
 
         logoTU.setIcon(new javax.swing.ImageIcon(getClass().getResource("Logo-TU.png"))); // NOI18N
 
         bigbackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("background-TU.png"))); // NOI18N
-        bigbackground.setMaximumSize(new java.awt.Dimension(600, 800));
-        bigbackground.setMinimumSize(new java.awt.Dimension(600, 800));
-        bigbackground.setPreferredSize(new java.awt.Dimension(600, 736));
+        bigbackground.setMaximumSize(new Dimension(600, 800));
+        bigbackground.setMinimumSize(new Dimension(600, 800));
+        bigbackground.setPreferredSize(new Dimension(600, 736));
 
-        passwordInput.setBackground(new java.awt.Color(255, 51, 51));
-        passwordInput.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        passwordInput.setForeground(new java.awt.Color(255, 255, 255));
+        passwordInput.setBackground(new Color(255, 51, 51));
+        passwordInput.setFont(new Font("Century Gothic", 0, 18)); // NOI18N
+        passwordInput.setForeground(new Color(255, 255, 255));
         passwordInput.setText("000000000000");
         passwordInput.setBorder(null);
         passwordInput.setOpaque(false);//clear
         
-        passwordInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        passwordInput.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 passwordInputActionPerformed(evt);
             }
         });
+        
+        passwordInput.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mousePressed(MouseEvent e) {
+        		passwordInputMousePressed(e);
+        	}
+		});
 
-        IDinput.setBackground(new java.awt.Color(255, 51, 51));
-        IDinput.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        IDinput.setForeground(new java.awt.Color(255, 255, 255));
+        IDinput.setBackground(new Color(255, 51, 51));
+        IDinput.setFont(new Font("Century Gothic", 0, 18)); // NOI18N
+        IDinput.setForeground(new Color(255, 255, 255));
         IDinput.setText("Enter you ID");
         IDinput.setBorder(null);
         IDinput.setOpaque(false);
+        IDinput.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS,Collections.EMPTY_SET);
+        IDinput.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mousePressed(MouseEvent e) {
+        		IDinputMousePressed(e);
+        	}
+		});
+        
+        IDinput.addKeyListener(new KeyAdapter() {
+        	@Override
+        	public void keyPressed(KeyEvent e) {
+        		IDinputKeyPressed(e);
+        	}
+		});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -143,15 +190,81 @@ public class home extends javax.swing.JPanel implements ActionListener{
         );
     }                 
 
-    private void passwordInputActionPerformed(java.awt.event.ActionEvent evt) {
-    	
+  
+    
+	private void IDinputKeyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_TAB) {
+			this.passwordInput.grabFocus();
+			if(IDinput.getText().equals("")) {
+				this.IDinput.setText("Enter you ID");
+			}
+			String password = new String(passwordInput.getPassword());
+			if(password.equals("000000000000")) {
+				this.passwordInput.setText("");
+			}
+		}
+	}
+	private void IDinputMousePressed(MouseEvent e) {
+		if(IDinput.getText().equals("Enter you ID")) {
+			this.IDinput.setText("");
+		}
+		String password = new String(passwordInput.getPassword());
+		if(password.equals("")) {
+			this.passwordInput.setText("000000000000");
+		}
+	}
+	private void passwordInputMousePressed(MouseEvent e) {
+		String password = new String(passwordInput.getPassword());
+		if(password.equals("000000000000")) {
+			this.passwordInput.setText("");
+		}
+		if(IDinput.getText().equals("")) {
+			this.IDinput.setText("Enter you ID");
+		}
+	}
+	private void loginbttActionPerformed(ActionEvent evt) {
+		submit();
+	}
+	private void passwordInputActionPerformed(ActionEvent evt) {
+    	submit();
     }                                             
 
-    private void registerbttActionPerformed(java.awt.event.ActionEvent evt) {
-    	
+    private void registerbttActionPerformed(ActionEvent evt) {
+    	JOptionPane.showMessageDialog(this, "Coming soon");
     }                                           
 
-                  
+    private void submit() {
+		String user = this.IDinput.getText().trim();
+		String pass = new String(this.passwordInput.getPassword());
+		if (user.equals("") || pass.equals("")) {
+			JOptionPane.showMessageDialog(this, "Please Enter Username,Password", "Message", JOptionPane.ERROR_MESSAGE);
+		} else {
+			User us = UserMgnt.checkUserPass(user, pass);
+			if (us != null) {
+				if(us.getRank().equals("STUDENT")){
+					JOptionPane.showMessageDialog(this, "Page for student coming soon");
+					this.IDinput.setText("");
+					this.passwordInput.setText("");
+					this.IDinput.grabFocus();
+				}else if(us.getRank().equals("ADMIN")){
+					JOptionPane.showMessageDialog(this, "Page for admin coming soon");
+					this.IDinput.setText("");
+					this.passwordInput.setText("");
+					this.IDinput.grabFocus();
+				}else {
+					this.frame.dispose();
+					new UserFrame(us);
+				}
+			} else {
+				this.IDinput.setText("");
+				this.passwordInput.setText("");
+				this.IDinput.grabFocus();
+				JOptionPane.showMessageDialog(this, "Username Or Password incorrect!", "Message",
+						JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+    
     private javax.swing.JTextField IDinput;
     private javax.swing.JLabel IDtxt;
     private javax.swing.JLabel bigbackground;
@@ -162,33 +275,6 @@ public class home extends javax.swing.JPanel implements ActionListener{
     private javax.swing.JPasswordField passwordInput;
     private javax.swing.JLabel passwordtxt;
     private javax.swing.JButton registerbtt;
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().equals(loginbtt.getActionCommand())){
-			submit();
-		}
-	}
-	public void submit() {
-		String user = this.IDinput.getText().trim();
-		String pass = new String(this.passwordInput.getPassword());
-		if (user.equals("") || pass.equals("")) {
-			JOptionPane.showMessageDialog(this, "Please Enter Username,Password", "Message", JOptionPane.ERROR_MESSAGE);
-		} else {
-			User us = UserMgnt.checkUserPass(user, pass);
-			if (us != null) {
-				new UserFrame(us);
-				if(us.getRank().equals("STUDENT")){
-					
-				}else{
-					
-				}
-			} else {
-				this.IDinput.setText("");
-				this.passwordInput.setText("");
-				JOptionPane.showMessageDialog(this, "Username Or Password incorrect!", "Message",
-						JOptionPane.ERROR_MESSAGE);
-			}
 
-		}
-	}
+	
 }
