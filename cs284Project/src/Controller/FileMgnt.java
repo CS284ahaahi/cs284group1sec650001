@@ -45,11 +45,11 @@ public class FileMgnt {
 		return false;
 	}
 
-	public static void main(String[] args) {
-		Subject sub = new Subject("Test", "CS284", "650001", "test", "1", "2560");
-		if(exportExcelGrade(sub)) {
-			JOptionPane.showMessageDialog(null, "Export เสร็จสิ้น");
-		}
-	}
+//	public static void main(String[] args) {
+//		Subject sub = new Subject("Test", "CS284", "650001", "test", "1", "2560");
+//		if(exportExcelGrade(sub)) {
+//			JOptionPane.showMessageDialog(null, "Export เสร็จสิ้น");
+//		}
+//	}
 
 }
