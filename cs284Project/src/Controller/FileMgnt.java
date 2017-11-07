@@ -31,25 +31,25 @@ public class FileMgnt {
 				rs = st.executeQuery(sql);
 				write.println("เลขทะเบียนนักศึกษา\tเกรด");
 				while (rs.next()) {
-					String str = rs.getString(2) + "\t";
-					str += rs.getString(6);
+					String str = rs.getString("ID_STUDENT") + "\t";
+					str += rs.getString("GRADE");
 					write.println(str);
 				}
 				return true;
 			} catch (SQLException e) {
 				JOptionPane.showMessageDialog(null, "Database Error.!!!", "ERROR", JOptionPane.ERROR_MESSAGE);
 			} catch (IOException e) {
-
+				JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		return false;
 	}
 
-//	public static void main(String[] args) {
-//		Subject sub = new Subject("Test", "CS284", "650001", "test", "1", "2017");
-//		if(exportExcelGrade(sub)) {
-//			JOptionPane.showMessageDialog(null, "Export เสร็จสิ้น");
-//		}
-//	}
+	public static void main(String[] args) {
+		Subject sub = new Subject("Test", "CS284", "650001", "test", "1", "2560");
+		if(exportExcelGrade(sub)) {
+			JOptionPane.showMessageDialog(null, "Export เสร็จสิ้น");
+		}
+	}
 
 }
