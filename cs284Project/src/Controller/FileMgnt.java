@@ -18,25 +18,23 @@ public class FileMgnt {
 
 	public static boolean exportExcelGrade(Subject s) {
 		JFileChooser chooser = new JFileChooser();
-		chooser.setFileFilter(new FileNameExtensionFilter("CSV (Comma delimited,Excel)", "csv"));
-		String sql = "select * from " + s.getTableName();	
+		chooser.setFileFilter(new FileNameExtensionFilter("Text File (*.txt)", "txt"));
+		String sql = "select * from " + s.getTableName()+" Where STATUS like '%N%'";	
 		int check = chooser.showSaveDialog(null);
 		if (check == JFileChooser.APPROVE_OPTION) {
 			ResultSet rs;
 			File file = chooser.getSelectedFile();
-			file = new File(file.getAbsolutePath()+".csv");
+			file = new File(file.getAbsolutePath()+".txt");
 			try (PrintWriter write = new PrintWriter(file);) {
 				Connection con = ConnectMgnt.getConnect();
 				Statement st = con.createStatement();
-				StringBuilder sb = new StringBuilder();
 				rs = st.executeQuery(sql);
-				sb.append("เลขทะเบียนนักศึกษา,เกรด\n");
+				write.println("เลขทะเบียนนักศึกษา\tเกรด");
 				while (rs.next()) {
-					String str = rs.getString(2) + ",";
+					String str = rs.getString(2) + "\t";
 					str += rs.getString(6);
-					sb.append(str+"\n");
+					write.println(str);
 				}
-				write.print(sb.toString());
 				return true;
 			} catch (SQLException e) {
 				JOptionPane.showMessageDialog(null, "Database Error.!!!", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -47,11 +45,11 @@ public class FileMgnt {
 		return false;
 	}
 
-	public static void main(String[] args) {
-		Subject sub = new Subject("Test", "CS284", "650001", "test", "1", "2017");
-		if(exportExcelGrade(sub)) {
-			JOptionPane.showMessageDialog(null, "Export เสร็จสิ้น");
-		}
-	}
+//	public static void main(String[] args) {
+//		Subject sub = new Subject("Test", "CS284", "650001", "test", "1", "2017");
+//		if(exportExcelGrade(sub)) {
+//			JOptionPane.showMessageDialog(null, "Export เสร็จสิ้น");
+//		}
+//	}
 
 }
