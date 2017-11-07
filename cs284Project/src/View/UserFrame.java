@@ -47,7 +47,7 @@ public class UserFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new LoginFrame();
+				new LoginPage();
 			}
 		});
 		this.setTitle("Welcome " + user.getFirstName());

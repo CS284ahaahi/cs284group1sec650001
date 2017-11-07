@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import Model.User;
+import Controller.ConnectMgnt;
 import Controller.UserMgnt;
 
 public class LoginPage extends JPanel{
@@ -30,6 +31,20 @@ public class LoginPage extends JPanel{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null); // center on screen
         frame.setVisible(true);
+        if(ConnectMgnt.CheckInternetConnection()){
+			if (ConnectMgnt.getConnect() == null) {
+				this.IDinput.setEditable(false);
+				this.passwordInput.setEditable(false);
+				this.loginbtt.setEnabled(false);
+				this.registerbtt.setEnabled(false);
+			}
+		}else{
+			JOptionPane.showMessageDialog(this, "Can't connect internet please check Internet Conection","Error",JOptionPane.ERROR_MESSAGE);
+			this.IDinput.setEditable(false);
+			this.passwordInput.setEditable(false);
+			this.loginbtt.setEnabled(false);
+			this.registerbtt.setEnabled(false);
+		}
     }
     
     @SuppressWarnings("unchecked")
