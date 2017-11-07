@@ -1,7 +1,5 @@
 import static org.junit.Assert.*;
 
-import javax.swing.JOptionPane;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,141 +8,93 @@ import Controller.UserMgnt;
 import Model.User;
 
 public class test {
-	UserMgnt us;
+	User trueUser;
+
 	@Before
 	public void setUp() throws Exception {
-		us= new UserMgnt();
+		trueUser = new User("5909650029", "5909650029", "12345678", "Potsathon", "Treewattanawong",
+				"potsathon20@gmail.com", "PROFESSOR");
 	}
+
 	@After
 	public void tearDown() throws Exception {
-		us = null;
+		trueUser = null;
 	}
-	@Test
-	public void testusernamecorrect() {
-		try
-		{
-			User s = us.checkUserPass("5909650029", "12345678");
-			assertNotNull(s);
-			User trueUser = new User("5909650029", "5909650029", "12345678", "Potsathon", "Treewattanawong", "potsathon20@gmail.com", "PROFESSOR");
-			assertEquals(s.getFirstName(),trueUser.getFirstName());
-			assertEquals(s.getLastName(),trueUser.getLastName());
-			assertEquals(s.getUserID(),trueUser.getUserID());
-			assertEquals(s.getPassWord(),trueUser.getPassWord());
-			assertEquals(s.getEmail(),trueUser.getEmail());
-			assertEquals(s.getRank(),trueUser.getRank());
-			assertEquals(s.getClass(),trueUser.getClass());
-			assertEquals(s.getUserName(),trueUser.getUserName());
 
-		}catch(Exception e)
-		{
-			fail("error username pass correct");
-		}
-	}
-	
 	@Test
-	public void testUsernamecorrpassnull()
-	{
-		try {
-			User s = us.checkUserPass("5909650029", "");
-			assertNull(s);
-		} catch (Exception e) {
-			fail("error username pass null!!");
-		}
+	public void testUsernamePasswordCorrect() {
+		User s = UserMgnt.checkUserPass("5909650029", "12345678");
+		assertNotNull(s);
+		assertEquals("Error Username not Equal", s.getUserName(), trueUser.getUserName());
+		assertEquals("Error ID not Equal", s.getUserID(), trueUser.getUserID());
+		assertEquals("Error Password not Equal", s.getPassWord(), trueUser.getPassWord());
+		assertEquals("Error Firstname not Equal", s.getFirstName(), trueUser.getFirstName());
+		assertEquals("Error Lastname not Equal", s.getLastName(), trueUser.getLastName());
+		assertEquals("Error Email not Equal", s.getEmail(), trueUser.getEmail());
+		assertEquals("Error Rank not Equal", s.getRank(), trueUser.getRank());
 	}
+
 	@Test
-	public void testUsernamecorrpasswrong()
-	{
-		try {
-			User s = us.checkUserPass("5909650029", "asdadgadfaddg");
-			assertNull(s);
-		} catch (Exception e) {
-			fail("error username pass null");
-		}
+	public void testUsernameCorrPassBlack() {
+		User s = UserMgnt.checkUserPass("5909650029", "");
+		assertNull("unknown user must be NULL", s);
 	}
+
 	@Test
-	public void testUsernamepasswrong()
-	{
-		try {
-			User s = us.checkUserPass("59096500299", "asdadgadfaddg");
-			assertNull(s);
-		} catch (Exception e) {
-			fail("error try to put username pass wrong");
-		}
+	public void testUsernameCorrPassWrong() {
+		User s = UserMgnt.checkUserPass("5909650029", "asdadgadfaddg");
+		assertNull("unknown user must be NULL", s);
 	}
+
 	@Test
-	public void testUsernamewrongpasscorr()
-	{
-		try {
-			User s = us.checkUserPass("59096dsf500299", "12345678");
-			assertNull(s);
-		} catch (Exception e) {
-			fail("error try to put username wrong pass correct");
-		}
+	public void testUsernamePassWrong() {
+		User s = UserMgnt.checkUserPass("59096500299", "asdadgadfaddg");
+		assertNull("unknown user must be NULL", s);
 	}
+
 	@Test
-	public void testUsernameallnull()
-	{
-		try {
-			User s = us.checkUserPass("", "");
-			assertNull(s);
-		} catch (Exception e) {
-			fail("error try to put username pass null");
-		}
+	public void testUsernameWrongPassCorr() {
+		User s = UserMgnt.checkUserPass("59096dsf500299", "12345678");
+		assertNull("unknown user must be NULL", s);
 	}
+
 	@Test
-	public void testUsernamenullpasscorr()
-	{
-		try {
-			User s = us.checkUserPass("", "12345678");
-			assertNull(s);
-		} catch (Exception e) {
-			fail("error try to put username null pass corr");
-		}
+	public void testUsernamePasswordBlank() {
+		User s = UserMgnt.checkUserPass("", "");
+		assertNull("unknown user must be NULL", s);
 	}
+
 	@Test
-	public void testUsernamenullpasswrong()
-	{
-		try {
-			User s = us.checkUserPass("", "123456789");
-			assertNull(s);
-		} catch (Exception e) {
-			fail("error try to put username null pass wrong");
-		}
+	public void testUsernameBlankPassCorr() {
+		User s = UserMgnt.checkUserPass("", "12345678");
+		assertNull("unknown user must be NULL", s);
 	}
+
 	@Test
-	public void testUsernamewrongpassnull()
-	{
-		try {
-			User s = us.checkUserPass("dsfd", "");
-			assertNull(s);
-		} catch (Exception e) {
-			fail("error try to put username wrong pass null");
-		}
+	public void testUsernameBlankPassWrong() {
+		User s = UserMgnt.checkUserPass("", "123456789");
+		assertNull("unknown user must be NULL", s);
 	}
+
 	@Test
-	public void testRankcorrect()
-	{
-		try {
-			
-			User s = us.checkUserPass("5909650185", "123456");
-			assertNotNull(s);
-			assertEquals(s.getRank(),"STUDENT");
-		} catch (Exception e) {
-			fail("error try to put username null pass corr!");
-		}
+	public void testUsernamewrongpassnull() {
+		User s = UserMgnt.checkUserPass("dsfd", "");
+		assertNull("unknown user must be NULL", s);
 	}
+
 	@Test
-	public void testRankcorrect3()
-	{
-		try {
-			
-			User s = us.checkUserPass("5909650029", "12345678");
-			assertNotNull(s);
-			assertEquals(s.getRank(),"PROFESSOR");
-		} catch (Exception e) {
-			fail("error try to put username null pass corr");
-		}
+	public void testRankcorrect() {
+		User s = UserMgnt.checkUserPass("5909650185", "123456");
+		assertNotNull("User must not Null", s);
+		assertEquals("Error rank not equal", s.getRank(), "ADMIN");
 	}
-	
+
+	@Test
+	public void testRankcorrect3() {
+		User s = UserMgnt.checkUserPass("5909650029", "12345678");
+		assertNotNull("User must not Null", s);
+		assertEquals("Error rank not equal", s.getRank(), trueUser.getRank());
+
+	}
 
 }
