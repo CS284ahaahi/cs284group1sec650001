@@ -130,7 +130,7 @@ public class test {
 			assertNotNull(s);
 			assertEquals(s.getRank(),"STUDENT");
 		} catch (Exception e) {
-			fail("error try to put username null pass corr");
+			fail("error try to put username null pass corr!");
 		}
 	}
 	@Test
@@ -145,5 +145,6 @@ public class test {
 			fail("error try to put username null pass corr");
 		}
 	}
+	
 
 }
