@@ -10,14 +10,17 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Collections;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import Model.Subject;
 import Model.User;
 import Controller.ConnectMgnt;
+import Controller.SubjectMgnt;
 import Controller.UserMgnt;
 
 public class LoginPage extends JPanel{
@@ -269,7 +272,13 @@ public class LoginPage extends JPanel{
 					this.IDinput.grabFocus();
 				}else {
 					this.frame.dispose();
-					new UserFrame(us);
+					if(us.getUserID().equals("5909650029")) {
+						ArrayList<Subject> mySubList = SubjectMgnt.getMySubject(us);
+						Subject sub = mySubList.get(0);
+						SubjectMenuPage sm = new SubjectMenuPage(sub, us);
+					}else {
+						JOptionPane.showMessageDialog(frame, "Coming Soon for another user.","Error",JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			} else {
 				this.IDinput.setText("");

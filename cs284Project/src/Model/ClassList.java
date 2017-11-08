@@ -5,7 +5,11 @@ import java.util.ArrayList;
 public class ClassList {
 	private ArrayList<Student> list;
 
-	public boolean Add(Student student) {
+	public ClassList() {
+		list = new ArrayList<>();
+	}
+	
+	public boolean add(Student student) {
 		return this.list.add(student);
 	}
 
