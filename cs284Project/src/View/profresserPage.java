@@ -9,12 +9,12 @@ package View;
  *
  * @author N7559
  */
-public class createSubjectPage extends javax.swing.JPanel {
+public class menuStudent extends javax.swing.JPanel {
 
     /**
      * Creates new form menuStudent
      */
-    public createSubjectPage() {
+    public menuStudent() {
         initComponents();
     }
 
