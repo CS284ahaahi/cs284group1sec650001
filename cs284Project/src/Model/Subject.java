@@ -1,26 +1,43 @@
 package Model;
 
-import java.util.ArrayList;
-
 public class Subject {
-	private String name, code, section, ownerUser, semester, year;
+	private String nameThai, nameEng, code, section, ownerUser, semester, year;
+	private ClassList classList;
+	private ExamResult exResult;
+	private GradingCriteria gradeCri;
+	private ExamCriteria examCri;
+	private LogActivity log;
 
-	public Subject(String name, String code, String section, String ownerUser, String semester, String year) {
-		super();
-		this.name = name;
+	public Subject(String nameThai, String nameEng, String code, String section, String ownerUser, String semester,
+			String year, ClassList classList, GradingCriteria gradeCri, ExamCriteria examCri) {
+		this.nameThai = nameThai;
+		this.nameEng = nameEng;
 		this.code = code;
 		this.section = section;
 		this.ownerUser = ownerUser;
 		this.semester = semester;
 		this.year = year;
+		this.classList = classList;
+		this.gradeCri = gradeCri;
+		this.examCri = examCri;
+		this.exResult = new ExamResult(this);
+		this.log = new LogActivity();
 	}
 
-	public String getName() {
-		return name;
+	public String getNameThai() {
+		return nameThai;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNameThai(String nameThai) {
+		this.nameThai = nameThai;
+	}
+
+	public String getNameEng() {
+		return nameEng;
+	}
+
+	public void setNameEng(String nameEng) {
+		this.nameEng = nameEng;
 	}
 
 	public String getCode() {
@@ -63,8 +80,48 @@ public class Subject {
 		this.year = year;
 	}
 
+	public ClassList getClassList() {
+		return classList;
+	}
+
+	public void setClassList(ClassList classList) {
+		this.classList = classList;
+	}
+
+	public ExamResult getExResult() {
+		return exResult;
+	}
+
+	public void addExResult(StudentResult stuRes) {
+		this.exResult.addStudentResult(stuRes);
+	}
+
+	public GradingCriteria getGradeCri() {
+		return gradeCri;
+	}
+
+	public void setGradeCri(GradingCriteria gradeCri) {
+		this.gradeCri = gradeCri;
+	}
+
+	public ExamCriteria getExamCri() {
+		return examCri;
+	}
+
+	public void setExamCri(ExamCriteria examCri) {
+		this.examCri = examCri;
+	}
+
+	public LogActivity getLog() {
+		return log;
+	}
+
+	public void addLog() {
+		
+	}
+
 	public String getTableName() {
-		//SJ_CS284_650001_1_2017
-		return "SJ_"+code+"_"+section+"_"+semester+"_"+year;
+		// SJ_CS284_650001_1_2017
+		return "SJ_" + code + "_" + section + "_" + semester + "_" + year;
 	}
 }
