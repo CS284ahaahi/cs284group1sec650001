@@ -32,14 +32,13 @@ public class TestUser {
 		assertEquals("Error Lastname not Equal", s.getLastName(), trueUser.getLastName());
 		assertEquals("Error Email not Equal", s.getEmail(), trueUser.getEmail());
 		assertEquals("Error Rank not Equal", s.getRank(), trueUser.getRank());
+		
 	}
-
 	@Test
 	public void testUsernameCorrPassBlack() {
 		User s = UserMgnt.checkUserPass("5909650029", "");
 		assertNull("unknown user must be NULL", s);
 	}
-
 	@Test
 	public void testUsernameCorrPassWrong() {
 		User s = UserMgnt.checkUserPass("5909650029", "asdadgadfaddg");
