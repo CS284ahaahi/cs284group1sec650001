@@ -29,6 +29,7 @@ public class LoginPage extends JPanel{
         frame.add(this);
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
         frame.setLocationRelativeTo(null); // center on screen
         frame.setVisible(true);
         if(ConnectMgnt.CheckInternetConnection()){
