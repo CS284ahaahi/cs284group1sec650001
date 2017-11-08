@@ -2,6 +2,7 @@ package Controller;
 
 import java.util.ArrayList;
 
+import Model.ClassList;
 import Model.GradingCriteria;
 import Model.StudentResult;
 import Model.Subject;
@@ -9,21 +10,21 @@ import Model.User;
 
 public class SubjectMgnt {
 
-	public ArrayList<StudentResult> checkGrading() { // return นักศึกษาที่คะแนนยังไม่ครบ
+	public static ArrayList<StudentResult> checkGrading() { // return นักศึกษาที่คะแนนยังไม่ครบ
 		return null;
 	}
 
-	private boolean dropStudent(String id) {// Coming Soon
+	private static boolean dropStudent(String id) {// Coming Soon
 		return false;
 	}
 
-	public ArrayList<Subject> getAllSubject() {
+	public static ArrayList<Subject> getAllSubject() {
 		ArrayList<Subject> subList = new ArrayList<>();
 		// database
 		return null;
 	}
 
-	public ArrayList<Subject> getMySubject(User user) {
+	public static ArrayList<Subject> getMySubject(User user) {
 		if (user.getRank().equals("PROFESSOR")) {
 			ArrayList<Subject> mySub = new ArrayList<>();
 			for (Subject subject : mySub) {
@@ -38,8 +39,12 @@ public class SubjectMgnt {
 		return null;
 	}
 
-	public boolean editGradingCriteria(GradingCriteria grade, Subject s) {
-		//Database
+	public static boolean editGradingCriteria(GradingCriteria grade, String tableName) {
+		// Database
 		return false;
+	}
+
+	public static ClassList getClassList(String tableName) {
+		return null;
 	}
 }
