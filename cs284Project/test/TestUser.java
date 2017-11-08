@@ -94,7 +94,6 @@ public class TestUser {
 		User s = UserMgnt.checkUserPass("5909650029", "12345678");
 		assertNotNull("User must not Null", s);
 		assertEquals("Error rank not equal", s.getRank(), trueUser.getRank());
-
 	}
 
 }
