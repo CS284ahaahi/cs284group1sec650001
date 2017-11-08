@@ -7,7 +7,7 @@ import org.junit.Test;
 import Controller.UserMgnt;
 import Model.User;
 
-public class test {
+public class TestUser {
 	User trueUser;
 
 	@Before
