@@ -15,14 +15,12 @@ public class TestExport {
 	@Test
 	public void testcanExportFile()
 	{
-			//Subject s = new Subject("SE INTRO", "CS284", "650001", "Potsathon", "1", "2560");
-			//assertTrue(FileMgnt.exportExcelGrade(s));
+			assertTrue(FileMgnt.exportExcelGrade("SJ_CS284_650001_1_2560"));
 	}
 	@Test
 	public void testExporttocancel()
 	{
-			//Subject s = new Subject("SE INTRO", "CS284", "650001", "Potsathon", "1", "2560");
-			//assertFalse(FileMgnt.exportExcelGrade(s));
+			assertFalse(FileMgnt.exportExcelGrade("SJ_CS284_650001_1_2560"));
 	}
 	/*@Test
 	public void teststudentExporttocancel()

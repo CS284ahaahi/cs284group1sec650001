@@ -16,15 +16,15 @@ import Model.Subject;
 
 public class FileMgnt {
 
-	public static boolean exportExcelGrade(Subject s) {
+	public static boolean exportExcelGrade(String tableName) {
 		JFileChooser chooser = new JFileChooser();
 		chooser.setFileFilter(new FileNameExtensionFilter("Text File (*.txt)", "txt"));
-		String sql = "select * from " + s.getTableName()+" Where STATUS like '%N%'";	
+		String sql = "select * from " + tableName + " Where STATUS like '%N%'";
 		int check = chooser.showSaveDialog(null);
 		if (check == JFileChooser.APPROVE_OPTION) {
 			ResultSet rs;
 			File file = chooser.getSelectedFile();
-			file = new File(file.getAbsolutePath()+".txt");
+			file = new File(file.getAbsolutePath() + ".txt");
 			try (PrintWriter write = new PrintWriter(file);) {
 				Connection con = ConnectMgnt.getConnect();
 				Statement st = con.createStatement();
@@ -45,11 +45,11 @@ public class FileMgnt {
 		return false;
 	}
 
-//	public static void main(String[] args) {
-//		Subject sub = new Subject("Test", "CS284", "650001", "test", "1", "2560");
-//		if(exportExcelGrade(sub)) {
-//			JOptionPane.showMessageDialog(null, "Export เสร็จสิ้น");
-//		}
-//	}
+	// public static void main(String[] args) {
+	// Subject sub = new Subject("Test", "CS284", "650001", "test", "1", "2560");
+	// if(exportExcelGrade(sub)) {
+	// JOptionPane.showMessageDialog(null, "Export เสร็จสิ้น");
+	// }
+	// }
 
 }
