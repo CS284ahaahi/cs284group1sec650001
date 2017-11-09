@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 import Model.ClassList;
 import Model.ExamCriteria;
+import Model.ExamResult;
 import Model.GradingCriteria;
 import Model.Student;
 import Model.StudentResult;
@@ -17,19 +18,36 @@ import Model.User;
 
 public class SubjectMgnt {
 
-	public static ArrayList<StudentResult> checkGrading(String tableName) { // return นักศึกษาที่คะแนนยังไม่ครบ
+	public static ArrayList<StudentResult> checkGrading(Subject sub) { // return นักศึกษาที่คะแนนยังไม่ครบ
 		ArrayList<StudentResult> noneGrade = new ArrayList<>();
-		String sql = "select * from " + tableName + " Where GRADE like '%xx%'";
+		String sql = "select * from " + sub.getTableName();
 		ResultSet rs;
 		try {
 			Connection con = ConnectMgnt.getConnect();
 			Statement st = con.createStatement();
 			rs = st.executeQuery(sql);
 			while (rs.next()) {
-				StudentResult str = new StudentResult(rs.getString("ID_STUDENT"), 0);
-				noneGrade.add(str);
+				String id = rs.getString("ID");
+				double midScore = Double.parseDouble(rs.getString("MID"));
+				double finalScore = Double.parseDouble(rs.getString("FINAL"));
+				double score[] = new double[sub.getExamCri().getScoreAmount()];
+				for (int i = 1; i <= score.length; i++) {
+					String index = "SCORE_" + i;
+					score[i - 1] = Double.parseDouble(rs.getString(index));
+				}
+				StudentResult str = new StudentResult(id, midScore, finalScore, score);
+				if (midScore == -2 || finalScore == -2) {
+					noneGrade.add(str);
+					continue;
+				}
+				for (int i = 0; i < score.length; i++) {
+					if (score[i] == -2) {
+						noneGrade.add(str);
+						break;
+					}
+				}
 			}
-			if(noneGrade.size()>0) {
+			if (noneGrade.size() > 0) {
 				return noneGrade;
 			}
 		} catch (SQLException e) {
@@ -66,13 +84,12 @@ public class SubjectMgnt {
 					String ownerUser = rs.getString("S_OWNER_USER");
 					String semester = rs.getString("S_SEMESTER");
 					String year = rs.getString("S_YEAR");
-					// System.out.println(nameThai);
 					ClassList classList = SubjectMgnt.getClassList(rs.getString("S_CLASSLIST_TABLE"));
 					GradingCriteria gradeCri = new GradingCriteria(rs.getString("GRADING_CRITERIA"));
-					// System.out.println(gradeCri.getA());
 					ExamCriteria examCri = new ExamCriteria(rs.getString("EXAM_CRITERIA"));
+					ExamResult exResult = SubjectMgnt.getExamResult(rs.getString("S_CLASSLIST_TABLE"), examCri);
 					Subject sub = new Subject(nameThai, nameEng, code, section, ownerUser, semester, year, classList,
-							gradeCri, examCri);
+							exResult, gradeCri, examCri, null);
 					mySub.add(sub);
 				}
 			} catch (SQLException e) {
@@ -94,7 +111,8 @@ public class SubjectMgnt {
 			Statement st = con.createStatement();
 			return !st.execute(sql);
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Database Error.!!!"+e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Database Error.!!!" + e.getMessage(), "ERROR",
+					JOptionPane.ERROR_MESSAGE);
 		}
 		return false;
 	}
@@ -117,6 +135,10 @@ public class SubjectMgnt {
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Database Error.!!!", "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
+		return null;
+	}
+
+	public static ExamResult getExamResult(String tableName, ExamCriteria ex) {
 		return null;
 	}
 }

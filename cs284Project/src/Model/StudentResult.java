@@ -2,12 +2,15 @@ package Model;
 
 public class StudentResult {
 	private String id;
-	private double total;
+	private double midScore, finalScore;
+	private double score[];
 
-	public StudentResult(String id, double total) {
+	public StudentResult(String id, double midScore, double finalScore, double[] score) {
 		super();
 		this.id = id;
-		this.total = total;
+		this.midScore = midScore;
+		this.finalScore = finalScore;
+		this.score = score;
 	}
 
 	public String getId() {
@@ -18,11 +21,39 @@ public class StudentResult {
 		this.id = id;
 	}
 
-	public double getTotal() {
-		return total;
+	public double getMidScore() {
+		return midScore;
 	}
 
-	public void setTotal(double total) {
-		this.total = total;
+	public void setMidScore(double midScore) {
+		this.midScore = midScore;
+	}
+
+	public double getFinalScore() {
+		return finalScore;
+	}
+
+	public void setFinalScore(double finalScore) {
+		this.finalScore = finalScore;
+	}
+
+	public double[] getScore() {
+		return score;
+	}
+
+	public void setScore(double[] score) {
+		this.score = score;
+	}
+
+	public int getScoreAmount() {
+		return score.length;
+	}
+
+	public double getScoreByIndex(int index) {
+		return score[index];
+	}
+
+	public void setScoreByIndex(double sc, int index) {
+		score[index] = sc;
 	}
 }

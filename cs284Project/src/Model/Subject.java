@@ -9,7 +9,9 @@ public class Subject {
 	private LogActivity log;
 
 	public Subject(String nameThai, String nameEng, String code, String section, String ownerUser, String semester,
-			String year, ClassList classList, GradingCriteria gradeCri, ExamCriteria examCri) {
+			String year, ClassList classList, ExamResult exResult, GradingCriteria gradeCri, ExamCriteria examCri,
+			LogActivity log) {
+		super();
 		this.nameThai = nameThai;
 		this.nameEng = nameEng;
 		this.code = code;
@@ -18,10 +20,10 @@ public class Subject {
 		this.semester = semester;
 		this.year = year;
 		this.classList = classList;
+		this.exResult = exResult;
 		this.gradeCri = gradeCri;
 		this.examCri = examCri;
-		this.exResult = new ExamResult(this);
-		this.log = new LogActivity();
+		this.log = log;
 	}
 
 	public String getNameThai() {
@@ -116,8 +118,8 @@ public class Subject {
 		return log;
 	}
 
-	public void addLog() {
-		
+	public void addLog(LogList log) {
+		this.log.addLogList(log);
 	}
 
 	public String getTableName() {

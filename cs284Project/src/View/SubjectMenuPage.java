@@ -292,9 +292,9 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 	private void valiBtnActionPerformed(java.awt.event.ActionEvent evt) {
 		validateFn();
 	}
-	
+
 	private void validateFn() {
-		ArrayList<StudentResult> str = SubjectMgnt.checkGrading(sub.getTableName());
+		ArrayList<StudentResult> str = SubjectMgnt.checkGrading(sub);
 		if (str != null) {
 			String strList = "";
 			for (StudentResult sr : str) {
@@ -314,8 +314,10 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 				JOptionPane.showMessageDialog(null, "Export เสร็จสิ้น");
 			}
 		} else {
-			int check = JOptionPane.showConfirmDialog(frame, "ท่านยังไม่ได้ตรวจสอบความถูกต้องของคะแนน/เกรด ต้องการตรวจสอบหรือไม่", "Message", JOptionPane.YES_NO_OPTION);
-			if(check == JOptionPane.YES_OPTION) {
+			int check = JOptionPane.showConfirmDialog(frame,
+					"ท่านยังไม่ได้ตรวจสอบความถูกต้องของคะแนน/เกรด ต้องการตรวจสอบหรือไม่", "Message",
+					JOptionPane.YES_NO_OPTION);
+			if (check == JOptionPane.YES_OPTION) {
 				validateFn();
 			}
 		}

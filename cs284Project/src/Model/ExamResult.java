@@ -3,11 +3,8 @@ package Model;
 import java.util.ArrayList;
 
 public class ExamResult {
-	private Subject subj;
 	private ArrayList<StudentResult> list;
-
-	public ExamResult(Subject subj) {
-		this.subj = subj;
+	public ExamResult() {
 		this.list = new ArrayList<>();
 	}
 
@@ -19,7 +16,12 @@ public class ExamResult {
 		return this.list.get(index);
 	}
 
-	public StudentResult getById(int id) {
+	public StudentResult getById(String id) {
+		for (StudentResult studentResult : list) {
+			if (studentResult.getId().equals(id)) {
+				return studentResult;
+			}
+		}
 		return null;
 	}
 
