@@ -45,7 +45,7 @@ public class EditSubjectPage extends javax.swing.JPanel {
 		cScore.setText(gc.getC() + "");
 		dpScore.setText(gc.getDp() + "");
 		dScore.setText(gc.getD() + "");
-		fScore.setText("0-" + (gc.getD() - 1));
+		fScore.setText("< "+gc.getD());
 		fScore.setEditable(false);
 		logoutBtt.setText("Back");
 		backBtt.setText("Save");
