@@ -300,7 +300,7 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 			for (StudentResult sr : str) {
 				strList += sr.getId() + "\n";
 			}
-			strList += "ยังไม่มีเกรด";
+			strList += "ยังไม่มีคะแนนในบางส่วน โปรดเช็คการให้คะแนน";
 			JOptionPane.showMessageDialog(frame, strList, "Warning!!", JOptionPane.ERROR_MESSAGE);
 		} else {
 			JOptionPane.showMessageDialog(frame, "ตรวจสอบเสร็จสิ้น ท่านสามารถ export ได้แล้วขณะนี้");

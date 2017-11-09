@@ -27,9 +27,9 @@ public class SubjectMgnt {
 			Statement st = con.createStatement();
 			rs = st.executeQuery(sql);
 			while (rs.next()) {
-				String id = rs.getString("ID");
-				double midScore = Double.parseDouble(rs.getString("MID"));
-				double finalScore = Double.parseDouble(rs.getString("FINAL"));
+				String id = rs.getString("ID_STUDENT");
+				double midScore = Double.parseDouble(rs.getString("SCORE_MID"));
+				double finalScore = Double.parseDouble(rs.getString("SCORE_FINAL"));
 				double score[] = new double[sub.getExamCri().getScoreAmount()];
 				for (int i = 1; i <= score.length; i++) {
 					String index = "SCORE_" + i;
@@ -141,4 +141,6 @@ public class SubjectMgnt {
 	public static ExamResult getExamResult(String tableName, ExamCriteria ex) {
 		return null;
 	}
+	
+	
 }
