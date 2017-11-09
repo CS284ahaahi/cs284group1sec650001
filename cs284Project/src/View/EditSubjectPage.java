@@ -494,16 +494,22 @@ public class EditSubjectPage extends javax.swing.JPanel {
 			C = Integer.parseInt(cScore.getText());
 			Dp = Integer.parseInt(dpScore.getText());
 			D = Integer.parseInt(dScore.getText());
-			if (A > Bp && Bp > B && B > Cp && Cp > C && C > Dp && Dp > D) {
-				GradingCriteria gc = new GradingCriteria(A, Bp, B, Cp, C, Dp, D);
-				if (SubjectMgnt.editGradingCriteria(gc, sub)) {		
-					sub.setGradeCri(gc);
-					JOptionPane.showMessageDialog(frame, "Save Complete");	
-					frame.dispose();
+			if (A > 0 && Bp > 0 && B > 0 && Cp > 0 && C > 0 && Dp > 0 && D > 0) {
+				if (A <= 100 && Bp <= 100 && B <= 100 && Cp <= 100 && C <= 100 && Dp <= 100 && D <= 100) {
+					if (A > Bp && Bp > B && B > Cp && Cp > C && C > Dp && Dp > D) {
+
+						GradingCriteria gc = new GradingCriteria(A, Bp, B, Cp, C, Dp, D);
+						if (SubjectMgnt.editGradingCriteria(gc, sub)) {
+							sub.setGradeCri(gc);
+							JOptionPane.showMessageDialog(frame, "Save Complete");
+							frame.dispose();
+							return;
+						}
+					}
 				}
-			}else {
-				JOptionPane.showMessageDialog(frame, "Invalid format input", "Error", JOptionPane.ERROR_MESSAGE);
 			}
+			JOptionPane.showMessageDialog(frame, "Invalid format input", "Error", JOptionPane.ERROR_MESSAGE);
+
 		} catch (NumberFormatException er) {
 			JOptionPane.showMessageDialog(frame, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 		}

@@ -16,9 +16,11 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 	private JFrame frame;
 	private Subject sub;
 	private User us;
+	private boolean isValidate;
 
 	public SubjectMenuPage(Subject sub, User us) {
 		initComponents();
+		isValidate = false;
 		this.sub = sub;
 		this.us = us;
 		this.nameLb.setText(us.getFirstName() + " " + us.getLastName());
@@ -26,7 +28,6 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 		this.sectionShowlb.setText(sub.getSection());
 		this.termShowlb.setText(sub.getSemester());
 		this.yearShowlb.setText(sub.getYear());
-		this.exportBtn.setEnabled(false);
 		frame = new JFrame("CS284 Project");
 		frame.add(this);
 		frame.pack();
@@ -289,23 +290,34 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 	}
 
 	private void valiBtnActionPerformed(java.awt.event.ActionEvent evt) {
+		validateFn();
+	}
+	
+	private void validateFn() {
 		ArrayList<StudentResult> str = SubjectMgnt.checkGrading(sub.getTableName());
 		if (str != null) {
 			String strList = "";
 			for (StudentResult sr : str) {
-				strList += sr.getId()+"\n";
+				strList += sr.getId() + "\n";
 			}
 			strList += "ยังไม่มีเกรด";
 			JOptionPane.showMessageDialog(frame, strList, "Warning!!", JOptionPane.ERROR_MESSAGE);
 		} else {
 			JOptionPane.showMessageDialog(frame, "ตรวจสอบเสร็จสิ้น ท่านสามารถ export ได้แล้วขณะนี้");
-			exportBtn.setEnabled(true);
+			this.isValidate = true;
 		}
 	}
 
 	private void exportBtnActionPerformed(java.awt.event.ActionEvent evt) {
-		if (FileMgnt.exportExcelGrade(sub.getTableName())) {
-			JOptionPane.showMessageDialog(null, "Export เสร็จสิ้น");
+		if (isValidate) {
+			if (FileMgnt.exportExcelGrade(sub.getTableName())) {
+				JOptionPane.showMessageDialog(null, "Export เสร็จสิ้น");
+			}
+		} else {
+			int check = JOptionPane.showConfirmDialog(frame, "ท่านยังไม่ได้ตรวจสอบความถูกต้องของคะแนน/เกรด ต้องการตรวจสอบหรือไม่", "Message", JOptionPane.YES_NO_OPTION);
+			if(check == JOptionPane.YES_OPTION) {
+				validateFn();
+			}
 		}
 	}
 

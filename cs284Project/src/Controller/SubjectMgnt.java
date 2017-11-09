@@ -1,8 +1,5 @@
 package Controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,7 +29,9 @@ public class SubjectMgnt {
 				StudentResult str = new StudentResult(rs.getString("ID_STUDENT"), 0);
 				noneGrade.add(str);
 			}
-			return noneGrade;
+			if(noneGrade.size()>0) {
+				return noneGrade;
+			}
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Database Error.!!!" + e.getMessage(), "ERROR",
 					JOptionPane.ERROR_MESSAGE);
