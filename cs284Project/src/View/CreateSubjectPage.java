@@ -1,5 +1,7 @@
 package View;
 
+import javax.swing.JFrame;
+
 public class CreateSubjectPage extends javax.swing.JPanel {
 
     public CreateSubjectPage() {
@@ -16,7 +18,7 @@ public class CreateSubjectPage extends javax.swing.JPanel {
         logoTU1 = new javax.swing.JLabel();
         loginNametxt = new javax.swing.JLabel();
         nameSurname = new javax.swing.JLabel();
-        logoutBtt = new javax.swing.JButton();
+        backBtt = new javax.swing.JButton();
         loginNametxt1 = new javax.swing.JLabel();
         idSubjectInput = new javax.swing.JTextField();
         loginNametxt2 = new javax.swing.JLabel();
@@ -32,7 +34,6 @@ public class CreateSubjectPage extends javax.swing.JPanel {
         Ctxt = new javax.swing.JLabel();
         DPtxt = new javax.swing.JLabel();
         Dtxt = new javax.swing.JLabel();
-        Atxt1 = new javax.swing.JLabel();
         uploadTxt = new javax.swing.JLabel();
         importBtt = new javax.swing.JButton();
         addBtt = new javax.swing.JButton();
@@ -50,7 +51,6 @@ public class CreateSubjectPage extends javax.swing.JPanel {
         secInput1 = new javax.swing.JTextField();
         loginNametxt5 = new javax.swing.JLabel();
         yearInput1 = new javax.swing.JComboBox<>();
-        backBtt = new javax.swing.JButton();
         PA1 = new javax.swing.JLabel();
         PA3 = new javax.swing.JLabel();
         PA4 = new javax.swing.JLabel();
@@ -58,6 +58,16 @@ public class CreateSubjectPage extends javax.swing.JPanel {
         PA6 = new javax.swing.JLabel();
         PA7 = new javax.swing.JLabel();
         PA8 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        Atxt2 = new javax.swing.JLabel();
+        eq1 = new javax.swing.JLabel();
+        eq2 = new javax.swing.JLabel();
+        eq3 = new javax.swing.JLabel();
+        eq4 = new javax.swing.JLabel();
+        eq5 = new javax.swing.JLabel();
+        eq6 = new javax.swing.JLabel();
+        eq7 = new javax.swing.JLabel();
+        PA9 = new javax.swing.JLabel();
 
         PA2.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         PA2.setText("point");
@@ -66,24 +76,17 @@ public class CreateSubjectPage extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 153, 0));
 
-        logoTU1.setIcon(new javax.swing.ImageIcon(getClass().getResource("Logo-TU.png"))); // NOI18N
+        logoTU1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logo-TU.png"))); // NOI18N
         logoTU1.setPreferredSize(new java.awt.Dimension(150, 150));
 
-        loginNametxt.setFont(new java.awt.Font("Century Gothic", 1, 50)); // NOI18N
-        loginNametxt.setText("Login name : ");
+        loginNametxt.setFont(new java.awt.Font("Century Gothic", 0, 36)); // NOI18N
+        loginNametxt.setText("Profressor : ");
 
         nameSurname.setFont(new java.awt.Font("Century Gothic", 1, 38)); // NOI18N
         nameSurname.setText("NAME + SURNAME");
 
-        logoutBtt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        logoutBtt.setForeground(new java.awt.Color(51, 51, 51));
-        logoutBtt.setText("logout");
-        logoutBtt.setBorder(null);
-        logoutBtt.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                logoutBttMouseClicked(evt);
-            }
-        });
+        backBtt.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        backBtt.setText("back");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -92,29 +95,37 @@ public class CreateSubjectPage extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(57, 57, 57)
                 .addComponent(logoTU1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(loginNametxt)
-                    .addComponent(nameSurname))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(logoutBtt, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(loginNametxt)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(backBtt, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(147, 147, 147))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(85, 85, 85)
+                        .addComponent(nameSurname)
+                        .addGap(0, 501, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(logoutBtt)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(backBtt)
+                .addGap(2, 2, 2)
                 .addComponent(loginNametxt)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(nameSurname)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
             .addComponent(logoTU1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         loginNametxt1.setFont(new java.awt.Font("AngsanaUPC", 0, 40)); // NOI18N
-        loginNametxt1.setText("�����Ԫ�");
+        loginNametxt1.setText("รหัสวิชา");
 
         idSubjectInput.setBackground(new java.awt.Color(255, 233, 114));
         idSubjectInput.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
@@ -145,7 +156,7 @@ public class CreateSubjectPage extends javax.swing.JPanel {
         subjectTxt.setText("Subject");
 
         tearmTxt.setFont(new java.awt.Font("AngsanaUPC", 0, 40)); // NOI18N
-        tearmTxt.setText("���");
+        tearmTxt.setText("เทอม");
 
         subInput.setBackground(new java.awt.Color(255, 233, 114));
         subInput.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
@@ -182,11 +193,8 @@ public class CreateSubjectPage extends javax.swing.JPanel {
         Dtxt.setFont(new java.awt.Font("Adobe Garamond Pro", 0, 32)); // NOI18N
         Dtxt.setText("D");
 
-        Atxt1.setFont(new java.awt.Font("Adobe Garamond Pro", 0, 32)); // NOI18N
-        Atxt1.setText("A");
-
         uploadTxt.setFont(new java.awt.Font("AngsanaUPC", 0, 40)); // NOI18N
-        uploadTxt.setText("�Ѿ��Ŵ�Ҫ���͹ѡ�֡��");
+        uploadTxt.setText("อัพโหลดราชชื่อนักศึกษา");
 
         importBtt.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         importBtt.setText("import");
@@ -201,7 +209,7 @@ public class CreateSubjectPage extends javax.swing.JPanel {
 
         bpScore.setBackground(new java.awt.Color(255, 233, 114));
         bpScore.setFont(new java.awt.Font("Tahoma", 0, 26)); // NOI18N
-        bpScore.setText("75-79");
+        bpScore.setText("75");
         bpScore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bpScoreActionPerformed(evt);
@@ -210,7 +218,7 @@ public class CreateSubjectPage extends javax.swing.JPanel {
 
         aScore.setBackground(new java.awt.Color(255, 233, 114));
         aScore.setFont(new java.awt.Font("Tahoma", 0, 26)); // NOI18N
-        aScore.setText("80-100");
+        aScore.setText("80");
         aScore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aScoreActionPerformed(evt);
@@ -219,7 +227,7 @@ public class CreateSubjectPage extends javax.swing.JPanel {
 
         bScore.setBackground(new java.awt.Color(255, 233, 114));
         bScore.setFont(new java.awt.Font("Tahoma", 0, 26)); // NOI18N
-        bScore.setText("70-74");
+        bScore.setText("70");
         bScore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bScoreActionPerformed(evt);
@@ -228,7 +236,7 @@ public class CreateSubjectPage extends javax.swing.JPanel {
 
         cpScore.setBackground(new java.awt.Color(255, 233, 114));
         cpScore.setFont(new java.awt.Font("Tahoma", 0, 26)); // NOI18N
-        cpScore.setText("58-69");
+        cpScore.setText("58");
         cpScore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cpScoreActionPerformed(evt);
@@ -237,7 +245,7 @@ public class CreateSubjectPage extends javax.swing.JPanel {
 
         cScore.setBackground(new java.awt.Color(255, 233, 114));
         cScore.setFont(new java.awt.Font("Tahoma", 0, 26)); // NOI18N
-        cScore.setText("50-57");
+        cScore.setText("50");
         cScore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cScoreActionPerformed(evt);
@@ -246,7 +254,7 @@ public class CreateSubjectPage extends javax.swing.JPanel {
 
         dpScore.setBackground(new java.awt.Color(255, 233, 114));
         dpScore.setFont(new java.awt.Font("Tahoma", 0, 26)); // NOI18N
-        dpScore.setText("45-49");
+        dpScore.setText("45");
         dpScore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dpScoreActionPerformed(evt);
@@ -255,7 +263,7 @@ public class CreateSubjectPage extends javax.swing.JPanel {
 
         dScore.setBackground(new java.awt.Color(255, 233, 114));
         dScore.setFont(new java.awt.Font("Tahoma", 0, 26)); // NOI18N
-        dScore.setText("40-44");
+        dScore.setText("40");
         dScore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dScoreActionPerformed(evt);
@@ -264,7 +272,7 @@ public class CreateSubjectPage extends javax.swing.JPanel {
 
         fScore.setBackground(new java.awt.Color(255, 233, 114));
         fScore.setFont(new java.awt.Font("Tahoma", 0, 26)); // NOI18N
-        fScore.setText("0-39");
+        fScore.setText("39");
         fScore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fScoreActionPerformed(evt);
@@ -272,13 +280,13 @@ public class CreateSubjectPage extends javax.swing.JPanel {
         });
 
         uploadTxt1.setFont(new java.awt.Font("AngsanaUPC", 0, 40)); // NOI18N
-        uploadTxt1.setText("��������Ԫ�");
+        uploadTxt1.setText("เพิ่มรายวิชา");
 
         yearInput.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         yearInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "summer", " " }));
 
         subjectTxt1.setFont(new java.awt.Font("AngsanaUPC", 0, 40)); // NOI18N
-        subjectTxt1.setText("�����Ԫ�");
+        subjectTxt1.setText("ชื่อวิชา");
 
         secInput1.setBackground(new java.awt.Color(255, 233, 114));
         secInput1.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
@@ -292,13 +300,10 @@ public class CreateSubjectPage extends javax.swing.JPanel {
         });
 
         loginNametxt5.setFont(new java.awt.Font("AngsanaUPC", 0, 40)); // NOI18N
-        loginNametxt5.setText(" �ա���֡��");
+        loginNametxt5.setText(" ปีการศึกษา");
 
         yearInput1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         yearInput1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "year", " " }));
-
-        backBtt.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        backBtt.setText("back");
 
         PA1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         PA1.setText("point");
@@ -316,30 +321,63 @@ public class CreateSubjectPage extends javax.swing.JPanel {
         PA6.setText("point");
 
         PA7.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        PA7.setText("point");
+        PA7.setText("range");
 
         PA8.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         PA8.setText("point");
+
+        jSeparator1.setBackground(new java.awt.Color(153, 153, 153));
+
+        Atxt2.setFont(new java.awt.Font("Adobe Garamond Pro", 0, 32)); // NOI18N
+        Atxt2.setText("A");
+
+        eq1.setFont(new java.awt.Font("Adobe Garamond Pro", 0, 32)); // NOI18N
+        eq1.setText("≥");
+
+        eq2.setFont(new java.awt.Font("Adobe Garamond Pro", 0, 32)); // NOI18N
+        eq2.setText("≥");
+
+        eq3.setFont(new java.awt.Font("Adobe Garamond Pro", 0, 32)); // NOI18N
+        eq3.setText("≥");
+
+        eq4.setFont(new java.awt.Font("Adobe Garamond Pro", 0, 32)); // NOI18N
+        eq4.setText("≥");
+
+        eq5.setFont(new java.awt.Font("Adobe Garamond Pro", 0, 32)); // NOI18N
+        eq5.setText("≥");
+
+        eq6.setFont(new java.awt.Font("Adobe Garamond Pro", 0, 32)); // NOI18N
+        eq6.setText("≥");
+
+        eq7.setFont(new java.awt.Font("Adobe Garamond Pro", 0, 32)); // NOI18N
+        eq7.setText("≥");
+
+        PA9.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        PA9.setText("point");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(110, 110, 110)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(loginNametxt1)
                         .addGap(18, 18, 18)
-                        .addComponent(idSubjectInput, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(idSubjectInput, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(55, 55, 55)
                         .addComponent(loginNametxt2)
                         .addGap(25, 25, 25)
                         .addComponent(secInput1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(185, 185, 185)
-                        .addComponent(Atxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
+                        .addComponent(Atxt2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(eq1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
                         .addComponent(aScore, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20)
                         .addComponent(PA, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -356,7 +394,12 @@ public class CreateSubjectPage extends javax.swing.JPanel {
                             .addComponent(BPtxt)
                             .addComponent(Btxt)
                             .addComponent(CPtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(16, 16, 16)
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(eq2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(eq3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(eq4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(bpScore, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(bScore, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -373,10 +416,12 @@ public class CreateSubjectPage extends javax.swing.JPanel {
                         .addGap(24, 24, 24)
                         .addComponent(loginNametxt5)
                         .addGap(13, 13, 13)
-                        .addComponent(yearInput1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(yearInput1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(120, 120, 120)
                         .addComponent(Ctxt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
+                        .addGap(20, 20, 20)
+                        .addComponent(eq5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
                         .addComponent(cScore, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20)
                         .addComponent(PA6, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -395,7 +440,15 @@ public class CreateSubjectPage extends javax.swing.JPanel {
                             .addComponent(DPtxt)
                             .addComponent(Dtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Ftxt))
-                        .addGap(28, 28, 28)
+                        .addGap(8, 8, 8)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(PA7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(eq6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(eq7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(dpScore, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(dScore, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -404,24 +457,26 @@ public class CreateSubjectPage extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(PA5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(PA8, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PA7, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(44, 44, 44)
-                        .addComponent(backBtt, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(PA9, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
+                .addGap(60, 60, 60)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(loginNametxt1)
                     .addComponent(loginNametxt2)
-                    .addComponent(Atxt1)
+                    .addComponent(Atxt2)
+                    .addComponent(eq1)
                     .addComponent(aScore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(idSubjectInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(secInput1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(PA))))
                 .addGap(3, 3, 3)
@@ -443,6 +498,12 @@ public class CreateSubjectPage extends javax.swing.JPanel {
                         .addGap(8, 8, 8)
                         .addComponent(CPtxt))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(eq2)
+                        .addGap(8, 8, 8)
+                        .addComponent(eq3)
+                        .addGap(8, 8, 8)
+                        .addComponent(eq4))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(bpScore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(bScore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -460,6 +521,7 @@ public class CreateSubjectPage extends javax.swing.JPanel {
                     .addComponent(tearmTxt)
                     .addComponent(loginNametxt5)
                     .addComponent(Ctxt)
+                    .addComponent(eq5)
                     .addComponent(cScore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
@@ -470,21 +532,17 @@ public class CreateSubjectPage extends javax.swing.JPanel {
                 .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(uploadTxt)
-                        .addGap(13, 13, 13)
-                        .addComponent(uploadTxt1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(addBtt)
-                        .addGap(33, 33, 33)
-                        .addComponent(importBtt))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(DPtxt)
                         .addGap(8, 8, 8)
                         .addComponent(Dtxt)
                         .addGap(8, 8, 8)
                         .addComponent(Ftxt))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(eq6)
+                        .addGap(8, 8, 8)
+                        .addComponent(eq7)
+                        .addGap(18, 18, 18)
+                        .addComponent(PA7))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(dpScore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
@@ -493,14 +551,21 @@ public class CreateSubjectPage extends javax.swing.JPanel {
                         .addComponent(fScore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(PA5)
-                        .addGap(27, 27, 27)
-                        .addComponent(PA8)
-                        .addGap(27, 27, 27)
-                        .addComponent(PA7))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(117, 117, 117)
-                        .addComponent(backBtt))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(uploadTxt)
+                                .addGap(13, 13, 13)
+                                .addComponent(uploadTxt1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(addBtt)
+                                .addGap(33, 33, 33)
+                                .addComponent(importBtt))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(PA5)
+                                .addGap(27, 27, 27)
+                                .addComponent(PA8)
+                                .addGap(27, 27, 27)
+                                .addComponent(PA9))))))
         );
     }// </editor-fold>                        
 
@@ -556,13 +621,9 @@ public class CreateSubjectPage extends javax.swing.JPanel {
         // TODO add your handling code here:
     }                                         
 
-    private void logoutBttMouseClicked(java.awt.event.MouseEvent evt) {                                       
-        // TODO add your handling code here:
-    }                                      
-
 
     // Variables declaration - do not modify                     
-    private javax.swing.JLabel Atxt1;
+    private javax.swing.JLabel Atxt2;
     private javax.swing.JLabel BPtxt;
     private javax.swing.JLabel Btxt;
     private javax.swing.JLabel CPtxt;
@@ -579,6 +640,7 @@ public class CreateSubjectPage extends javax.swing.JPanel {
     private javax.swing.JLabel PA6;
     private javax.swing.JLabel PA7;
     private javax.swing.JLabel PA8;
+    private javax.swing.JLabel PA9;
     private javax.swing.JTextField aScore;
     private javax.swing.JButton addBtt;
     private javax.swing.JTextField bScore;
@@ -588,17 +650,24 @@ public class CreateSubjectPage extends javax.swing.JPanel {
     private javax.swing.JTextField cpScore;
     private javax.swing.JTextField dScore;
     private javax.swing.JTextField dpScore;
+    private javax.swing.JLabel eq1;
+    private javax.swing.JLabel eq2;
+    private javax.swing.JLabel eq3;
+    private javax.swing.JLabel eq4;
+    private javax.swing.JLabel eq5;
+    private javax.swing.JLabel eq6;
+    private javax.swing.JLabel eq7;
     private javax.swing.JTextField fScore;
     private javax.swing.JTextField idSubjectInput;
     private javax.swing.JButton importBtt;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator lineID;
     private javax.swing.JLabel loginNametxt;
     private javax.swing.JLabel loginNametxt1;
     private javax.swing.JLabel loginNametxt2;
     private javax.swing.JLabel loginNametxt5;
     private javax.swing.JLabel logoTU1;
-    private javax.swing.JButton logoutBtt;
     private javax.swing.JLabel nameSurname;
     private javax.swing.JTextField secInput1;
     private javax.swing.JTextField subInput;

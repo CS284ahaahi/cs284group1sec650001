@@ -1,5 +1,8 @@
 package View;
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -16,11 +19,11 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 	private JFrame frame;
 	private Subject sub;
 	private User us;
-	private boolean isValidate;
+	private boolean isGrading;
 
 	public SubjectMenuPage(Subject sub, User us) {
 		initComponents();
-		isValidate = false;
+		isGrading = false;
 		this.sub = sub;
 		this.us = us;
 		this.nameLb.setText(us.getFirstName() + " " + us.getLastName());
@@ -46,7 +49,6 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 		logoTU2 = new javax.swing.JLabel();
 		loginLb = new javax.swing.JLabel();
 		nameLb = new javax.swing.JLabel();
-		logoutBtn = new javax.swing.JButton();
 		subjectlb = new javax.swing.JLabel();
 		subjectNamelb = new javax.swing.JLabel();
 		yearShowlb = new javax.swing.JLabel();
@@ -55,10 +57,11 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 		sectionShowlb = new javax.swing.JLabel();
 		sectionlb = new javax.swing.JLabel();
 		yearlb = new javax.swing.JLabel();
-		exportTxt = new javax.swing.JButton();
+		backBtn = new javax.swing.JButton();
+		comingBtn = new javax.swing.JButton();
 		FillBtn = new javax.swing.JButton();
 		exportBtn = new javax.swing.JButton();
-		valiBtn = new javax.swing.JButton();
+		GradingBtn = new javax.swing.JButton();
 		listStudentBtn = new javax.swing.JButton();
 		editSubjectBtn = new javax.swing.JButton();
 
@@ -71,19 +74,10 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 		logoTU2.setIcon(new javax.swing.ImageIcon(getClass().getResource("Logo-TU.png"))); // NOI18N
 
 		loginLb.setFont(new java.awt.Font("Century Gothic", 0, 33)); // NOI18N
-		loginLb.setText("Login name : ");
+		loginLb.setText("Profressor : ");
 
 		nameLb.setFont(new java.awt.Font("Century Gothic", 0, 33)); // NOI18N
 		nameLb.setText("NAME + SURNAME");
-
-		logoutBtn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-		logoutBtn.setText("logout");
-		logoutBtn.setBorder(null);
-		logoutBtn.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				logoutBtnActionPerformed(evt);
-			}
-		});
 
 		subjectlb.setFont(new java.awt.Font("Century Gothic", 0, 33)); // NOI18N
 		subjectlb.setText("Subject : ");
@@ -109,27 +103,30 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 		yearlb.setFont(new java.awt.Font("Century Gothic", 0, 33)); // NOI18N
 		yearlb.setText("Year : ");
 
+		backBtn.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+		backBtn.setText("back");
+		backBtn.setBackground(new Color(204, 204, 204));
+		backBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				backBtnActionPerformed(e);
+			}
+		});
+
 		javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
 		jPanel3.setLayout(jPanel3Layout);
 		jPanel3Layout.setHorizontalGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(jPanel3Layout.createSequentialGroup().addContainerGap().addComponent(logoTU2)
 						.addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+								.addGroup(jPanel3Layout.createSequentialGroup().addGap(34, 34, 34).addComponent(loginLb)
+										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+										.addComponent(nameLb)
+										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 121,
+												javax.swing.GroupLayout.PREFERRED_SIZE))
 								.addGroup(
-										javax.swing.GroupLayout.Alignment.TRAILING,
-										jPanel3Layout
-												.createSequentialGroup()
-												.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-														javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-												.addComponent(
-														logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 59,
-														javax.swing.GroupLayout.PREFERRED_SIZE))
-								.addGroup(jPanel3Layout.createSequentialGroup().addGroup(jPanel3Layout
-										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-										.addGroup(jPanel3Layout.createSequentialGroup().addGap(34, 34, 34)
-												.addComponent(loginLb)
-												.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-												.addComponent(nameLb))
-										.addGroup(jPanel3Layout.createSequentialGroup().addGap(52, 52, 52)
+										jPanel3Layout.createSequentialGroup().addGap(52, 52, 52)
 												.addGroup(jPanel3Layout
 														.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
 														.addComponent(subjectlb).addComponent(sectionlb))
@@ -142,18 +139,14 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 																.addComponent(termlb)
 																.addPreferredGap(
 																		javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																.addComponent(termShowlb).addGap(45, 45, 45)
+																.addComponent(termShowlb).addGap(41, 41, 41)
 																.addComponent(yearlb)
 																.addPreferredGap(
-																		javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																.addComponent(yearShowlb)))))
-										.addGap(0, 345, Short.MAX_VALUE)))
+																		javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+																.addComponent(yearShowlb)))
+												.addGap(0, 345, Short.MAX_VALUE)))
 						.addContainerGap()));
 		jPanel3Layout.setVerticalGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-						jPanel3Layout.createSequentialGroup()
-								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(logoTU2).addContainerGap())
 				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
 						jPanel3Layout.createSequentialGroup().addGap(42, 42, 42)
 								.addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -166,9 +159,12 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 										.addComponent(yearShowlb).addComponent(termShowlb).addComponent(termlb)
 										.addComponent(sectionShowlb).addComponent(sectionlb).addComponent(yearlb))
 								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-				.addGroup(jPanel3Layout.createSequentialGroup().addContainerGap().addComponent(logoutBtn,
-						javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGap(193, 193, 193)));
+				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+						jPanel3Layout.createSequentialGroup()
+								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addComponent(backBtn).addComponent(logoTU2))
+								.addContainerGap()));
 
 		javax.swing.GroupLayout HeadPanelLayout = new javax.swing.GroupLayout(HeadPanel);
 		HeadPanel.setLayout(HeadPanelLayout);
@@ -180,9 +176,14 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 				HeadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jPanel3,
 						javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE));
 
-		exportTxt.setBackground(new java.awt.Color(255, 153, 0));
-		exportTxt.setFont(new java.awt.Font("Century Gothic", 0, 30)); // NOI18N
-		exportTxt.setText("Coming soon");
+		comingBtn.setBackground(new java.awt.Color(255, 153, 0));
+		comingBtn.setFont(new java.awt.Font("Century Gothic", 0, 30)); // NOI18N
+		comingBtn.setText("Coming soon");
+		comingBtn.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				comingBtnActionPerformed(evt);
+			}
+		});
 
 		FillBtn.setBackground(new java.awt.Color(255, 153, 0));
 		FillBtn.setFont(new java.awt.Font("Century Gothic", 0, 30)); // NOI18N
@@ -202,12 +203,12 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 			}
 		});
 
-		valiBtn.setBackground(new java.awt.Color(255, 153, 0));
-		valiBtn.setFont(new java.awt.Font("Century Gothic", 0, 30)); // NOI18N
-		valiBtn.setText("Validate Grade");
-		valiBtn.addActionListener(new java.awt.event.ActionListener() {
+		GradingBtn.setBackground(new java.awt.Color(255, 153, 0));
+		GradingBtn.setFont(new java.awt.Font("Century Gothic", 0, 30)); // NOI18N
+		GradingBtn.setText("Grading");
+		GradingBtn.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				valiBtnActionPerformed(evt);
+				GradingBtnActionPerformed(evt);
 			}
 		});
 
@@ -239,21 +240,21 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 						.addGap(146, 146, 146)
 						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addComponent(listStudentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
+								.addComponent(GradingBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
 										javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addComponent(valiBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
+								.addComponent(listStudentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
 										javax.swing.GroupLayout.PREFERRED_SIZE))
 						.addGap(137, 137, 137)
 						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
 								.addComponent(exportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
 										javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addComponent(exportTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
+								.addComponent(comingBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
 										javax.swing.GroupLayout.PREFERRED_SIZE))
 						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 				.addGroup(layout.createSequentialGroup()
 						.addComponent(HeadPanel, javax.swing.GroupLayout.PREFERRED_SIZE,
 								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addGap(0, 3, Short.MAX_VALUE)));
+						.addGap(0, 0, Short.MAX_VALUE)));
 		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(layout.createSequentialGroup()
 						.addComponent(HeadPanel, javax.swing.GroupLayout.PREFERRED_SIZE,
@@ -262,35 +263,45 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 								.addComponent(FillBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120,
 										javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addComponent(comingBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120,
+										javax.swing.GroupLayout.PREFERRED_SIZE)
 								.addComponent(listStudentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120,
-										javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addComponent(exportTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 120,
 										javax.swing.GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
 						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-								.addComponent(editSubjectBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120,
-										javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addComponent(valiBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120,
-										javax.swing.GroupLayout.PREFERRED_SIZE)
 								.addComponent(exportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120,
+										javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addComponent(GradingBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120,
+										javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addComponent(editSubjectBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120,
 										javax.swing.GroupLayout.PREFERRED_SIZE))
-						.addGap(40, 40, 40)));
+						.addGap(55, 55, 55)));
 	}// </editor-fold>
 
-	private void FillBtnActionPerformed(java.awt.event.ActionEvent evt) {
+	private void comingBtnActionPerformed(ActionEvent evt) {
 		JOptionPane.showMessageDialog(frame, "Coming Soon");
 	}
 
-	private void listStudentBtnActionPerformed(java.awt.event.ActionEvent evt) {
+	private void GradingBtnActionPerformed(ActionEvent evt) {
+		gradingFn();
+	}
+
+	private void backBtnActionPerformed(ActionEvent e) {
+		JOptionPane.showMessageDialog(this, "HomePage Coming Soon / goto Login");
+		this.frame.dispose();
+		LoginPage lp = new LoginPage();
+	}
+
+	private void FillBtnActionPerformed(ActionEvent evt) {
 		JOptionPane.showMessageDialog(frame, "Coming Soon");
 	}
 
-	private void editSubjectBtnActionPerformed(java.awt.event.ActionEvent evt) {
+	private void listStudentBtnActionPerformed(ActionEvent evt) {
+		JOptionPane.showMessageDialog(frame, "Coming Soon");
+	}
+
+	private void editSubjectBtnActionPerformed(ActionEvent evt) {
 		EditSubjectPage esp = new EditSubjectPage(sub, us);
-	}
-
-	private void valiBtnActionPerformed(java.awt.event.ActionEvent evt) {
-		validateFn();
 	}
 
 	private void validateFn() {
@@ -304,41 +315,43 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 			JOptionPane.showMessageDialog(frame, strList, "Warning!!", JOptionPane.ERROR_MESSAGE);
 		} else {
 			JOptionPane.showMessageDialog(frame, "ตรวจสอบเสร็จสิ้น ท่านสามารถ export ได้แล้วขณะนี้");
-			this.isValidate = true;
+			this.isGrading = true;
 		}
 	}
 
-	private void exportBtnActionPerformed(java.awt.event.ActionEvent evt) {
-		if (isValidate) {
+	private void gradingFn() {
+		JOptionPane.showMessageDialog(frame,
+				"ตอนนี้ระบบยังไม่มีระบบการตัดเกรด สามารถทำได้แค่ตรวจสอบความถูกต้องของคะแนนเท่านั้น");
+		validateFn();
+	}
+
+	private void exportBtnActionPerformed(ActionEvent evt) {
+		if (this.isGrading) {
 			if (FileMgnt.exportExcelGrade(sub.getTableName())) {
 				JOptionPane.showMessageDialog(null, "Export เสร็จสิ้น");
 			}
 		} else {
 			int check = JOptionPane.showConfirmDialog(frame,
-					"ท่านยังไม่ได้ตรวจสอบความถูกต้องของคะแนน/เกรด ต้องการตรวจสอบหรือไม่", "Message",
+					"ท่านยังไม่ได้ตรวจสอบความถูกต้องของคะแนน/ตัดเกรด  ต้องการ ตรวจสอบ/ตัดเกรด หรือไม่", "Message",
 					JOptionPane.YES_NO_OPTION);
 			if (check == JOptionPane.YES_OPTION) {
-				validateFn();
+				gradingFn();
 			}
 		}
 	}
 
-	private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {
-		frame.dispose();
-		new LoginPage();
-	}
-
 	// Variables declaration - do not modify
 	private javax.swing.JButton FillBtn;
+	private javax.swing.JButton GradingBtn;
 	private javax.swing.JPanel HeadPanel;
+	private javax.swing.JButton backBtn;
+	private javax.swing.JButton comingBtn;
 	private javax.swing.JButton editSubjectBtn;
 	private javax.swing.JButton exportBtn;
-	private javax.swing.JButton exportTxt;
 	private javax.swing.JPanel jPanel3;
 	private javax.swing.JButton listStudentBtn;
 	private javax.swing.JLabel loginLb;
 	private javax.swing.JLabel logoTU2;
-	private javax.swing.JButton logoutBtn;
 	private javax.swing.JLabel nameLb;
 	private javax.swing.JLabel sectionShowlb;
 	private javax.swing.JLabel sectionlb;
@@ -346,7 +359,6 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 	private javax.swing.JLabel subjectlb;
 	private javax.swing.JLabel termShowlb;
 	private javax.swing.JLabel termlb;
-	private javax.swing.JButton valiBtn;
 	private javax.swing.JLabel yearShowlb;
 	private javax.swing.JLabel yearlb;
 	// End of variables declaration
