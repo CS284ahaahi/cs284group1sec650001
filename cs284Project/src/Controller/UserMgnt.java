@@ -10,27 +10,27 @@ import Model.User;
 
 public class UserMgnt {
 	public static User checkUserPass(String user, String pass) {
-		String sql = "select * from USER_DATA";
+		String sql = "select * from USER_DATA where USER = '" + user + "'";
 		ResultSet rs;
 		try {
 			Connection con = ConnectMgnt.getConnect();
 			Statement st = con.createStatement();
 			rs = st.executeQuery(sql);
-			while (rs.next()) {
-				if (rs.getString(3).equals(user.trim()) && rs.getString(4).equals(pass.trim())) {
-					String userID, userName, passWord, firstName, lastName, email, rank, status;
-					userID = rs.getString(2);
-					userName = rs.getString(3);
-					passWord = rs.getString(4);
-					firstName = rs.getString(5);
-					lastName = rs.getString(6);
-					email = rs.getString(7);
-					rank = rs.getString(8);
+			if (rs.next()) {
+				if (rs.getString("PASS").equals(pass.trim())) {
+					String userID, userName, passWord, firstName, lastName, email, rank;
+					userID = rs.getString("USER_ID");
+					userName = rs.getString("USER");
+					passWord = rs.getString("PASS");
+					firstName = rs.getString("NAME");
+					lastName = rs.getString("LNAME");
+					email = rs.getString("EMAIL");
+					rank = rs.getString("RANK");
 					return new User(userID, userName, passWord, firstName, lastName, email, rank);
 				}
 			}
-
 		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 			JOptionPane.showMessageDialog(null, "Database Error.!!!", "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
 		return null;
