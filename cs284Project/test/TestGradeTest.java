@@ -38,9 +38,10 @@ public class TestGradeTest {
 			g = new GradingCriteria("-80,-75,-70,-65,-60,-55,-50");
 			s = new Subject("วิศวกรรมซอฟต์แวร์เบื้องต้น", "Intro. to Software Engineering", "CS284", "650001", "Owner", "1","2560", null, null,g, null,null);
 			SubjectMgnt.editGradingCriteria(g,s);
-			fail("Error");
+			
 		} catch (Exception e) {
-			// success
+			fail("fail");
+			
 		}
 	}
 	@Test
