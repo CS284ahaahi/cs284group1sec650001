@@ -26,13 +26,13 @@ public class TesTex {
 	@Test
 	public void testexport() {
 
-		assertTrue("error cant export", FileMgnt.exportExcelGrade(s.getTableName()));
+		assertTrue("error cant export", FileMgnt.exportGrade(s.getTableName()));
 	}
 
 	@Test
 	public void testexportandpresscancel() {
 
-		assertFalse("error cant cancel", FileMgnt.exportExcelGrade(s.getTableName()));
+		assertFalse("error cant cancel", FileMgnt.exportGrade(s.getTableName()));
 	}
 
 }

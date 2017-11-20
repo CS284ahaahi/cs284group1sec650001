@@ -327,7 +327,7 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 
 	private void exportBtnActionPerformed(ActionEvent evt) {
 		if (this.isGrading) {
-			if (FileMgnt.exportExcelGrade(sub.getTableName())) {
+			if (FileMgnt.exportGrade(sub.getTableName())) {
 				JOptionPane.showMessageDialog(null, "Export เสร็จสิ้น");
 			}
 		} else {

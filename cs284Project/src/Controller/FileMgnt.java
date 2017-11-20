@@ -1,14 +1,18 @@
 package Controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.NumberFormat;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -18,14 +22,21 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import Model.ClassList;
+import Model.Student;
+
 public class FileMgnt {
 
-	public static boolean exportExcelGrade(String tableName) {
+	public static boolean exportGrade(String tableName) {
 		JFileChooser chooser = new JFileChooser();
 		FileFilter fileTxt = new FileNameExtensionFilter("Text File (*.txt)", "txt");
 		FileFilter fileExcel = new FileNameExtensionFilter("Excel File (*.xlsx)", "xlsx");
@@ -102,4 +113,53 @@ public class FileMgnt {
 		return false;
 	}
 
+	public static ClassList readClassListFile() {
+		JFileChooser chooser = new JFileChooser();
+		FileFilter fileExcel = new FileNameExtensionFilter("Excel File (*xls)", "xls");
+		chooser.setFileFilter(fileExcel);
+		int check = chooser.showOpenDialog(null);
+		ClassList list = new ClassList();
+		if (check == JFileChooser.APPROVE_OPTION) {
+			try (FileInputStream file = new FileInputStream(chooser.getSelectedFile())) {
+				HSSFWorkbook wb = new HSSFWorkbook(file);
+				HSSFSheet sheet = wb.getSheetAt(0);
+				HSSFRow row;
+				HSSFCell cell;
+				Iterator<Row> rows = sheet.rowIterator();
+				rows.next();
+				rows.next();
+				rows.next();
+				rows.next();
+				rows.next();
+				rows.next();
+				row = (HSSFRow) rows.next();
+				Iterator<Cell> cells = row.cellIterator();
+				while (rows.hasNext()) {
+					row = (HSSFRow) rows.next();
+					cells = row.cellIterator();
+					cells.next();
+					cell = (HSSFCell) cells.next();
+					long idLong = (long) cell.getNumericCellValue();
+					String id = Long.toString(idLong);
+					if (id.equals("0")) {
+						break;
+					}
+					// System.out.print(id);
+					cell = (HSSFCell) cells.next();
+					String name = cell.getStringCellValue().trim();
+					// System.out.print(name);
+					// System.out.println();
+					list.add(new Student(id, name));
+				}
+				return list;
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return null;
+	}
+
+	public static void main(String[] args) {
+		FileMgnt.readClassListFile();
+	}
 }
