@@ -144,11 +144,11 @@ public class FileMgnt {
 					if (id.equals("0")) {
 						break;
 					}
-					// System.out.print(id);
+					System.out.print(id);
 					cell = (HSSFCell) cells.next();
 					String name = cell.getStringCellValue().trim();
-					// System.out.print(name);
-					// System.out.println();
+					System.out.print(name);
+					System.out.println();
 					list.add(new Student(id, name));
 				}
 				return list;
