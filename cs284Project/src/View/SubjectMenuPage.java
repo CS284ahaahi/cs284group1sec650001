@@ -301,7 +301,7 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 	}
 
 	private void editSubjectBtnActionPerformed(ActionEvent evt) {
-		EditSubjectPage esp = new EditSubjectPage(sub, us);
+		new EditSubjectPage(sub, us);
 	}
 
 	private void validateFn() {
@@ -327,7 +327,7 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 
 	private void exportBtnActionPerformed(ActionEvent evt) {
 		if (this.isGrading) {
-			if (FileMgnt.exportGrade(sub.getTableName())) {
+			if (FileMgnt.exportGrade(sub.getExResult())) {
 				JOptionPane.showMessageDialog(null, "Export เสร็จสิ้น");
 			}
 		} else {

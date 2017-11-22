@@ -4,13 +4,16 @@ public class StudentResult {
 	private String id;
 	private double midScore, finalScore;
 	private double score[];
+	private String grade;
+	private String status;
 
-	public StudentResult(String id, double midScore, double finalScore, double[] score) {
-		super();
+	public StudentResult(String id, double midScore, double finalScore, double[] score, String status) {
 		this.id = id;
 		this.midScore = midScore;
 		this.finalScore = finalScore;
 		this.score = score;
+		this.grade = "-";
+		this.status = status;
 	}
 
 	public String getId() {
@@ -56,4 +59,22 @@ public class StudentResult {
 	public void setScoreByIndex(double sc, int index) {
 		score[index] = sc;
 	}
+
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	
 }

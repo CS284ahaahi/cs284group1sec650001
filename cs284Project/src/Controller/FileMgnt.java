@@ -5,13 +5,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.NumberFormat;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -32,45 +29,39 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import Model.ClassList;
+import Model.ExamResult;
 import Model.Student;
+import Model.StudentResult;
 
 public class FileMgnt {
 
-	public static boolean exportGrade(String tableName) {
+	public static boolean exportGrade(ExamResult result) {
 		JFileChooser chooser = new JFileChooser();
 		FileFilter fileTxt = new FileNameExtensionFilter("Text File (*.txt)", "txt");
 		FileFilter fileExcel = new FileNameExtensionFilter("Excel File (*.xlsx)", "xlsx");
 		chooser.setFileFilter(fileTxt);
 		chooser.addChoosableFileFilter(fileExcel);
-		String sql = "select * from " + tableName + " Where STATUS like '%N%'";
 		int check = chooser.showSaveDialog(null);
 		if (check == JFileChooser.APPROVE_OPTION) {
-			ResultSet rs;
 			File file = chooser.getSelectedFile();
 			if (chooser.getFileFilter().equals(fileTxt)) { // txt
 				file = new File(file.getAbsolutePath() + ".txt");
 				try (PrintWriter write = new PrintWriter(file);) {
-					Connection con = ConnectMgnt.getConnect();
-					Statement st = con.createStatement();
-					rs = st.executeQuery(sql);
 					write.println("เลขทะเบียนนักศึกษา\tเกรด");
-					while (rs.next()) {
-						String str = rs.getString("ID_STUDENT") + "\t";
-						str += rs.getString("GRADE");
-						write.println(str);
+					for (StudentResult sr : result.getList()) {
+						if (sr.getStatus().equals("N")) {
+							String str = sr.getId() + "\t";
+							str += sr.getGrade();
+							write.println(str);
+						}
 					}
 					return true;
-				} catch (SQLException e) {
-					JOptionPane.showMessageDialog(null, "Database Error.!!!", "ERROR", JOptionPane.ERROR_MESSAGE);
 				} catch (IOException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 				}
 			} else { // xls
 				file = new File(file.getAbsolutePath() + ".xlsx");
 				try {
-					Connection con = ConnectMgnt.getConnect();
-					Statement st = con.createStatement();
-					rs = st.executeQuery(sql);
 					// Blank workbook
 					XSSFWorkbook workbook = new XSSFWorkbook();
 					// Create a blank sheet
@@ -78,8 +69,11 @@ public class FileMgnt {
 					// This data needs to be written (Object[])
 					Map<String, Object[]> data = new TreeMap<String, Object[]>();
 					data.put("1", new Object[] { "เลขทะเบียนนักศึกษา", "เกรด" });
-					for (int i = 2; rs.next(); i++) {
-						data.put(i + "", new Object[] { rs.getString("ID_STUDENT"), rs.getString("GRADE") });
+					for (int i = 2; i < result.getSize(); i++) {
+						StudentResult sr = result.get(i - 2);
+						if (sr.getStatus().equals("N")) {
+							data.put(i + "", new Object[] { sr.getId(), sr.getGrade() });
+						}
 					}
 					// Iterate over data and write to sheet
 					Set<String> keyset = data.keySet();
@@ -101,8 +95,6 @@ public class FileMgnt {
 					workbook.write(out);
 					out.close();
 					return true;
-				} catch (SQLException e) {
-					JOptionPane.showMessageDialog(null, "Database Error.!!!", "ERROR", JOptionPane.ERROR_MESSAGE);
 				} catch (FileNotFoundException e) {
 					System.out.println(e.getMessage());
 				} catch (IOException e) {
@@ -134,6 +126,15 @@ public class FileMgnt {
 				rows.next();
 				row = (HSSFRow) rows.next();
 				Iterator<Cell> cells = row.cellIterator();
+				String sql = "select count(*) FROM CLASS_LIST";
+				Connection con = ConnectMgnt.getConnect();
+				Statement st = con.createStatement();
+				ResultSet rs = st.executeQuery(sql);
+				int i = 1;
+				if (rs.next()) {
+					i = rs.getInt(1);
+					i++;
+				}
 				while (rows.hasNext()) {
 					row = (HSSFRow) rows.next();
 					cells = row.cellIterator();
@@ -144,12 +145,14 @@ public class FileMgnt {
 					if (id.equals("0")) {
 						break;
 					}
-					System.out.print(id);
+					System.out.print(i + " ");
+					System.out.print(id + " ");
 					cell = (HSSFCell) cells.next();
 					String name = cell.getStringCellValue().trim();
 					System.out.print(name);
 					System.out.println();
-					list.add(new Student(id, name));
+					list.add(new Student(i, id, name,"-"));
+					i++;
 				}
 				return list;
 			} catch (Exception e) {
@@ -157,9 +160,5 @@ public class FileMgnt {
 			}
 		}
 		return null;
-	}
-
-	public static void main(String[] args) {
-		FileMgnt.readClassListFile();
 	}
 }

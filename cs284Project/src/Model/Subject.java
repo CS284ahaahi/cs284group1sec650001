@@ -1,6 +1,7 @@
 package Model;
 
 public class Subject {
+	private int id;
 	private String nameThai, nameEng, code, section, ownerUser, semester, year;
 	private ClassList classList;
 	private ExamResult exResult;
@@ -8,10 +9,10 @@ public class Subject {
 	private ExamCriteria examCri;
 	private LogActivity log;
 
-	public Subject(String nameThai, String nameEng, String code, String section, String ownerUser, String semester,
-			String year, ClassList classList, ExamResult exResult, GradingCriteria gradeCri, ExamCriteria examCri,
-			LogActivity log) {
-		super();
+	public Subject(int id, String nameThai, String nameEng, String code, String section, String ownerUser,
+			String semester, String year, ClassList classList, ExamResult exResult, GradingCriteria gradeCri,
+			ExamCriteria examCri, LogActivity log) {
+		this.id = id;
 		this.nameThai = nameThai;
 		this.nameEng = nameEng;
 		this.code = code;
@@ -122,8 +123,13 @@ public class Subject {
 		this.log.addLogList(log);
 	}
 
-	public String getTableName() {
-		// SJ_CS284_650001_1_2017
-		return "SJ_" + code + "_" + section + "_" + semester + "_" + year;
+	public int getId() {
+		return id;
 	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	
 }

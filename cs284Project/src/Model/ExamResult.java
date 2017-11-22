@@ -28,4 +28,8 @@ public class ExamResult {
 	public ArrayList<StudentResult> getList() {
 		return list;
 	}
+	
+	public int getSize() {
+		return this.list.size();
+	}
 }
