@@ -1,27 +1,30 @@
 package Model;
 
 public class StudentResult {
-	private String id;
+	private int ID;
+	private String ids;
 	private double midScore, finalScore;
 	private double score[];
 	private String grade;
 	private String status;
 
-	public StudentResult(String id, double midScore, double finalScore, double[] score, String status) {
-		this.id = id;
+	public StudentResult(int ID, String ids, double midScore, double finalScore, double[] score, String grade,
+			String status) {
+		this.ID = ID;
+		this.ids = ids;
 		this.midScore = midScore;
 		this.finalScore = finalScore;
 		this.score = score;
-		this.grade = "-";
+		this.grade = grade;
 		this.status = status;
 	}
 
-	public String getId() {
-		return id;
+	public String getIDStudent() {
+		return ids;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setIDStudent(String id) {
+		this.ids = id;
 	}
 
 	public double getMidScore() {
@@ -75,6 +78,13 @@ public class StudentResult {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
-	
+
+	public int getID() {
+		return ID;
+	}
+
+	public void setID(int iD) {
+		ID = iD;
+	}
+
 }

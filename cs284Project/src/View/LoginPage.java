@@ -221,6 +221,10 @@ public class LoginPage extends JPanel{
 			if(password.equals("000000000000")) {
 				this.passwordInput.setText("");
 			}
+		}else {
+			if(IDinput.getText().equals("Enter you ID")) {
+				this.IDinput.setText("");
+			}
 		}
 	}
 	private void IDinputMousePressed(MouseEvent e) {

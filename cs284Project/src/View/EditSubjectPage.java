@@ -16,8 +16,8 @@ public class EditSubjectPage extends javax.swing.JPanel {
 	private Subject sub;
 
 	public EditSubjectPage(Subject sub, User us) {
-		initComponents();
 		this.sub = sub;
+		initComponents();
 		this.addBtt.setEnabled(false);
 		idSubjectInput.setEditable(false);
 		idSubjectInput.setText(sub.getCode());
@@ -34,15 +34,14 @@ public class EditSubjectPage extends javax.swing.JPanel {
 		yearInput1.setEnabled(false);
 		yearInput1.addItem(sub.getYear());
 		yearInput1.setSelectedItem(sub.getYear());
-		GradingCriteria gc = sub.getGradeCri();
-		aScore.setText(gc.getA() + "");
-		bpScore.setText(gc.getBp() + "");
-		bScore.setText(gc.getB() + "");
-		cpScore.setText(gc.getCp() + "");
-		cScore.setText(gc.getC() + "");
-		dpScore.setText(gc.getDp() + "");
-		dScore.setText(gc.getD() + "");
-		fScore.setText("< " + gc.getD());
+		aScore.setText(sub.getGradeCri().getA() + "");
+		bpScore.setText(sub.getGradeCri().getBp() + "");
+		bScore.setText(sub.getGradeCri().getB() + "");
+		cpScore.setText(sub.getGradeCri().getCp() + "");
+		cScore.setText(sub.getGradeCri().getC() + "");
+		dpScore.setText(sub.getGradeCri().getDp() + "");
+		dScore.setText(sub.getGradeCri().getD() + "");
+		fScore.setText("< " + sub.getGradeCri().getD());
 		fScore.setEditable(false);
 		frame = new JFrame("CS284 Project");
 		frame.add(this);

@@ -14,8 +14,9 @@ public class TesTex {
 
 	@Before
 	public void setUp() throws Exception {
-		s = new Subject("วิศวกรรมซอฟต์แวร์เบื้องต้น", "Intro. to Software Engineering", "CS284", "650001", "Owner", "1",
-				"2560", null, null, new GradingCriteria("99,75,70,65,60,55,50"), null, null);
+		"วิศวกรรมซอฟต์แวร์เบื้องต้น", "Intro. to Software Engineering", "CS284", "650001", "Owner", "1",
+		"2560"
+		s = new Subject(, null, null, new GradingCriteria("99,75,70,65,60,55,50"), null, null);
 	}
 
 	@After
