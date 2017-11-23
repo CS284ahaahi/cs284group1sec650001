@@ -305,11 +305,11 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 	}
 
 	private void validateFn() {
-		ArrayList<StudentResult> str = SubjectMgnt.checkGrading(sub);
+		ArrayList<StudentResult> str = SubjectMgnt.checkGrading(sub.getId());
 		if (str != null) {
 			String strList = "";
 			for (StudentResult sr : str) {
-				strList += sr.getId() + "\n";
+				strList += sr.getID() + "\n";
 			}
 			strList += "ยังไม่มีคะแนนในบางส่วน โปรดเช็คการให้คะแนน";
 			JOptionPane.showMessageDialog(frame, strList, "Warning!!", JOptionPane.ERROR_MESSAGE);

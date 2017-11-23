@@ -40,4 +40,8 @@ public class ExamResult {
 		this.subjectID = subjectID;
 	}
 
+	public StudentResult get(int index) {
+		return list.get(index);
+	}
+
 }

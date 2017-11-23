@@ -50,7 +50,7 @@ public class FileMgnt {
 					write.println("เลขทะเบียนนักศึกษา\tเกรด");
 					for (StudentResult sr : result.getList()) {
 						if (sr.getStatus().equals("N")) {
-							String str = sr.getId() + "\t";
+							String str = sr.getID() + "\t";
 							str += sr.getGrade();
 							write.println(str);
 						}
@@ -72,7 +72,7 @@ public class FileMgnt {
 					for (int i = 2; i < result.getSize(); i++) {
 						StudentResult sr = result.get(i - 2);
 						if (sr.getStatus().equals("N")) {
-							data.put(i + "", new Object[] { sr.getId(), sr.getGrade() });
+							data.put(i + "", new Object[] { sr.getID(), sr.getGrade() });
 						}
 					}
 					// Iterate over data and write to sheet
@@ -151,7 +151,7 @@ public class FileMgnt {
 					String name = cell.getStringCellValue().trim();
 					System.out.print(name);
 					System.out.println();
-					list.add(new Student(i, id, name,"-"));
+					list.add(new Student(i, id, name, "-"));
 					i++;
 				}
 				return list;
