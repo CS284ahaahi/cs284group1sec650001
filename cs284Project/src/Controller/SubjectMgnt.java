@@ -125,7 +125,12 @@ public class SubjectMgnt {
 				int c = rs.getInt("GRADING_C");
 				int dp = rs.getInt("GRADING_D+");
 				int d = rs.getInt("GRADING_D");
-				GradingCriteria gc = new GradingCriteria(ID, a, bp, b, cp, c, dp, d);
+				GradingCriteria gc;
+				try {
+					gc = new GradingCriteria(ID, a, bp, b, cp, c, dp, d);
+				} catch (Exception e) {
+					return null;
+				}
 				return gc;
 			}
 		} catch (SQLException e) {

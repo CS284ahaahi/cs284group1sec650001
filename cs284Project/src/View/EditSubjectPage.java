@@ -627,11 +627,18 @@ public class EditSubjectPage extends javax.swing.JPanel {
 				if (A <= 100 && Bp <= 100 && B <= 100 && Cp <= 100 && C <= 100 && Dp <= 100 && D <= 100) {
 					if (A > Bp && Bp > B && B > Cp && Cp > C && C > Dp && Dp > D) {
 
-						GradingCriteria gc = new GradingCriteria(0, A, Bp, B, Cp, C, Dp, D);
-						if (SubjectMgnt.editGradingCriteria(gc, sub)) {
-							sub.setGradeCri(gc);
-							JOptionPane.showMessageDialog(frame, "Save Complete");
-							frame.dispose();
+						GradingCriteria gc;
+						try {
+							gc = new GradingCriteria(sub.getGradeCri().getId(), A, Bp, B, Cp, C, Dp, D);
+							if (SubjectMgnt.editGradingCriteria(gc, sub)) {
+								sub.setGradeCri(gc);
+								JOptionPane.showMessageDialog(frame, "Save Complete");
+								frame.dispose();
+								return;
+							}
+						} catch (Exception error) {
+							JOptionPane.showMessageDialog(frame, "Invalid format input", "Error",
+									JOptionPane.ERROR_MESSAGE);
 							return;
 						}
 					}
