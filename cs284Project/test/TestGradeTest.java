@@ -13,49 +13,30 @@ public class TestGradeTest {
 	@Test
 	public void testeditrecordgrade()
 	{
-		g = new GradingCriteria("95,75,70,65,60,55,50");
-		s = new Subject("วิศวกรรมซอฟต์แวร์เบื้องต้น", "Intro. to Software Engineering", "CS284", "650001", "Owner", "1","2560", null, null,g, null,null);
-		assertTrue("error testnotcorrectgrade",SubjectMgnt.editGradingCriteria(g,s));
-	}
-	@Test
-	public void testeditrecordgradedouble()
-	{
+		 
 		try {
-		g = new GradingCriteria("80.5,75.2,70,65,60,55,50");
-		s = new Subject("วิศวกรรมซอฟต์แวร์เบื้องต้น", "Intro. to Software Engineering", "CS284", "650001", "Owner", "1","2560", null, null,g, null,null);
-		SubjectMgnt.editGradingCriteria(g,s);
-		fail("Error");
+			g = new GradingCriteria(1,80,75,70,65,60,55,50);
+			s = new Subject(1,"วิศวกรรมซอฟต์แวร์เบื้องต้น","Intro. to Software Engineering","CS284", "650001", "owner", "1", "2560", null, null, new GradingCriteria(1,80,75,70,65,60,55,50),null, null);
+			SubjectMgnt.editGradingCriteria(g,s);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			fail("fail");
 		}
-		catch(NumberFormatException e)
-		{
-			//success
-		}
+		
 	}
 	@Test
 	public void testgrademinus()
 	{
 		try {
-			g = new GradingCriteria("-80,-75,-70,-65,-60,-55,-50");
-			s = new Subject("วิศวกรรมซอฟต์แวร์เบื้องต้น", "Intro. to Software Engineering", "CS284", "650001", "Owner", "1","2560", null, null,g, null,null);
+			g = new GradingCriteria(1,-80,-75,-70,-65,-60,-55,-50);
+			s = new Subject(1,"วิศวกรรมซอฟต์แวร์เบื้องต้น","Intro. to Software Engineering","CS284", "650001", "owner", "1", "2560", null, null, new GradingCriteria(1,-80,-75,-70,-65,-60,-55,-50),null, null);
 			SubjectMgnt.editGradingCriteria(g,s);
-			
+			fail("grademinus");		
 		} catch (Exception e) {
-			fail("fail");
-			
+			//success
 		}
 	}
-	@Test
-	public void testnoinputgrade()
-	{
-		try {
-			g = new GradingCriteria("");
-			s = new Subject("วิศวกรรมซอฟต์แวร์เบื้องต้น", "Intro. to Software Engineering", "CS284", "650001", "Owner", "1","2560", null, null,g, null,null);
-			SubjectMgnt.editGradingCriteria(g,s);
-			fail("Error");
-		} catch (Exception e) {
-			// success
-		}
-	}
+	
 /*	@Test
 	public void testsomeinputgrade()
 	{

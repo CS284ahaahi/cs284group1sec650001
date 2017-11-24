@@ -94,5 +94,5 @@ public class TestUser {
 		assertNotNull("User must not Null", s);
 		assertEquals("Error rank not equal", s.getRank(), trueUser.getRank());
 	}
-
+	
 }
