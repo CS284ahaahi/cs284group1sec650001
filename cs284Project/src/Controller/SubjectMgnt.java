@@ -27,7 +27,7 @@ public class SubjectMgnt {
 			Statement st = con.createStatement();
 			rs = st.executeQuery(sql);
 			while (rs.next()) {
-				//System.out.println(rs.getString("ID"));
+				// System.out.println(rs.getString("ID"));
 			}
 			if (noneGrade.size() > 0) {
 				return noneGrade;
@@ -176,6 +176,31 @@ public class SubjectMgnt {
 		return null;
 	}
 
+	public static boolean editExamCri(ExamCriteria ec) {
+		String sql = "update EXAM_CRITERIA_LIST SET `MID_FULL` = '" + ec.getMidFull() + "',`MID_PER` = '"
+				+ ec.getMidPer() + "',`FINAL_FULL` = '" + ec.getFinalFull() + "',`FINAL_PER` = '" + ec.getFinalPer()
+				+ "',`SCORE_AMT` = '" + ec.getScoreAmount() + "',";
+		try {
+			Connection con = ConnectMgnt.getConnect();
+			Statement st = con.createStatement();
+			for (int i = 0; i < ec.getScoreAmount(); i++) {
+				int index = i + 1;
+				int scoreFull = ec.getScore()[i];
+				int scorePer = ec.getScorePer()[i];
+				sql += "`SCORE" + index + "_FULL` = '" + scoreFull + "',`SCORE" + index + "_PER` = '" + scorePer + "'";
+				if (i < ec.getScoreAmount() - 1) {
+					sql += ",";
+				}
+			}
+			sql += " Where ID = '" + ec.getId() + "'";
+			return !st.execute(sql);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Database Error.!!!" + e.getMessage(), "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+		}
+		return false;
+	}
+
 	public static ExamResult getExamResultBySubjectID(int id, int scoreAmount) {
 		String sql = "select * from SCORE_LIST Where SUBJECT_ID = '" + id + "'";
 		try {
@@ -206,6 +231,40 @@ public class SubjectMgnt {
 		return null;
 	}
 
+	public static boolean editExamResult(ExamResult er) {
+		try {
+			Connection con = ConnectMgnt.getConnect();
+			Statement st = con.createStatement();
+			int fail = 0;
+			for (StudentResult sr : er.getList()) {
+				String sql = "UPDATE SCORE_LIST SET `SCORE_MID` = '" + sr.getMidScore() + "',`SCORE_FINAL` = '"
+						+ sr.getFinalScore() + "',";
+				for (int i = 0; i < sr.getScoreAmount(); i++) {
+					double score = sr.getScoreByIndex(i);
+					int index = i + 1;
+					sql += "`SCORE_" + index + "` = '" + score + "'";
+					if (i < sr.getScoreAmount() - 1) {
+						sql += ",";
+					}
+				}
+				sql += " where ID = '" + sr.getID() + "'";
+				System.out.println(sql);
+				boolean check = st.execute(sql);
+				if (check) {
+					fail++;
+				}
+			}
+			if (fail > 0) {
+				return false;
+			}
+			return true;
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Database Error.!!!" + e.getMessage(), "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+		}
+		return false;
+	}
+
 	public static boolean editGradingCriteria(GradingCriteria grade, Subject sub) {
 		String sql = "UPDATE GRADING_LIST SET `GRADING_A` = '" + grade.getA() + "',`GRADING_B+` = '" + grade.getBp()
 				+ "', `GRADING_B` = '" + grade.getB() + "', `GRADING_C+` = '" + grade.getCp() + "', `GRADING_C` = '"
@@ -225,6 +284,6 @@ public class SubjectMgnt {
 	}
 
 	public static void main(String[] args) {
-		SubjectMgnt.checkGrading(1);
+
 	}
 }
