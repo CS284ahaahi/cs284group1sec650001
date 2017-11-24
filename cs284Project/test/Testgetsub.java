@@ -89,5 +89,4 @@ public class Testgetsub {
 		assertTrue(SubjectMgnt.getGradingCriBySubjectID(1).getD()==45);
 	}
 	
-	
 }
