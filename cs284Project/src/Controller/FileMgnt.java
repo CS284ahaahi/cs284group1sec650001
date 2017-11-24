@@ -145,18 +145,14 @@ public class FileMgnt {
 					if (id.equals("0")) {
 						break;
 					}
-					System.out.print(i + " ");
-					System.out.print(id + " ");
 					cell = (HSSFCell) cells.next();
 					String name = cell.getStringCellValue().trim();
-					System.out.print(name);
-					System.out.println();
 					list.add(new Student(i, id, name, "-"));
 					i++;
 				}
 				return list;
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
+				JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		return null;
