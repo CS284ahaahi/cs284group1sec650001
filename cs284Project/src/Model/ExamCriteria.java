@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.Arrays;
+
 public class ExamCriteria {
 	private int id;
 	private int scoreAmount;
@@ -70,6 +72,13 @@ public class ExamCriteria {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "ExamCriteria [id=" + id + ", scoreAmount=" + scoreAmount + ", midFull=" + midFull + ", midPer=" + midPer
+				+ ", finalFull=" + finalFull + ", finalPer=" + finalPer + ", score=" + Arrays.toString(score)
+				+ ", scorePer=" + Arrays.toString(scorePer) + "]";
 	}
 
 }

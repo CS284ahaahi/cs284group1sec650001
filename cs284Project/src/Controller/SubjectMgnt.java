@@ -42,6 +42,7 @@ public class SubjectMgnt {
 	}
 
 	public static boolean checkExamCri(ExamCriteria ec) {
+		System.out.println(ec);
 		if (ec.getFinalFull() < 0 || ec.getMidFull() < 0) {
 			return false;
 		}
@@ -53,8 +54,7 @@ public class SubjectMgnt {
 		}
 		if (ec.getScoreAmount() < 0) {
 			return false;
-		}
-		if (ec.getScoreAmount() > 0) {
+		} else if (ec.getScoreAmount() > 0) {
 			for (int i = 0; i < ec.getScoreAmount(); i++) {
 				if (ec.getScore()[i] < 0 || ec.getScorePer()[i] < 0) {
 					return false;
@@ -67,8 +67,12 @@ public class SubjectMgnt {
 			if (totalPer != 100) {
 				return false;
 			}
+		} else {
+			if (ec.getFinalPer() + ec.getMidPer() != 100) {
+				return false;
+			}
 		}
-		return false;
+		return true;
 	}
 
 	public static boolean gradingExam(Subject sub) {
