@@ -10,7 +10,8 @@ public class GradingCriteria {
 			throw new Exception("Error grade must > 0");
 		} else if (a > 100 && bp > 100 && b > 100 && cp > 100 && c > 100 && dp > 100 && d > 100) {
 			throw new Exception("Error grade must < 100");
-		} else {
+		}else if(a>bp&&bp>b&&b>cp&&cp>c&&c>dp&&dp>d)
+		{
 			A = a;
 			Bp = bp;
 			B = b;
@@ -18,6 +19,8 @@ public class GradingCriteria {
 			C = c;
 			Dp = dp;
 			D = d;
+		} else {
+			throw new Exception("error grade ");
 		}
 	}
 

@@ -536,6 +536,25 @@ public class SubjectMgnt {
 		return -1;
 	}
 
+	public static int getRowClassList() {
+		String sql = "select count(*) FROM CLASS_LIST";
+		Connection con = ConnectMgnt.getConnect();
+		Statement st;
+		try {
+			st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			int i = -1;
+			if (rs.next()) {
+				i = rs.getInt(1);
+			}
+			return i;
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Database Error.!!!" + e.getMessage(), "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+		}
+		return -1;
+	}
+	
 	public static void main(String[] args) throws Exception {
 
 	}

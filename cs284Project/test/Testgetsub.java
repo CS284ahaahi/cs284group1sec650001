@@ -23,13 +23,21 @@ public class Testgetsub {
 				"potsathon20@gmail.com", "PROFESSOR");
 		ex = new  ExamResult(1);
 		ex.addStudentResult(new StudentResult(1, "5909650219",25.2, 50.5, new double[] {10,10,10,10,10},"a", "N"));
-		g = new GradingCriteria(1,60,55,54,52,51,50,45);
+		g = new GradingCriteria(1,80,55,54,52,51,50,45);
 		s = new Subject(1,"วิศวกรรมซอฟต์แวร์เบื้องต้น","Intro. to Software Engineering","CS284", "650001", "owner", "1", "2560", null, null, new GradingCriteria(1,80,75,70,65,60,55,50),null, null);
 	}
 	@After
 	public void teardown()
 	{
 		us = null;
+		GradingCriteria gafter;
+		try {
+			gafter = new GradingCriteria(1, 80, 75,70,65,60,55,50);
+			SubjectMgnt.editGradingCriteria(gafter,s);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	@Test
@@ -41,7 +49,7 @@ public class Testgetsub {
 	public void testgetgrade()
 	{
 		assertNotNull("fail it null",SubjectMgnt.getGradingCriBySubjectID(1));
-		assertTrue(SubjectMgnt.getGradingCriBySubjectID(1).getA()==60);
+		assertTrue(SubjectMgnt.getGradingCriBySubjectID(1).getA()==80);
 		assertTrue(SubjectMgnt.getGradingCriBySubjectID(1).getBp()==55);
 		assertTrue(SubjectMgnt.getGradingCriBySubjectID(1).getB()==54);
 		assertTrue(SubjectMgnt.getGradingCriBySubjectID(1).getCp()==52);
@@ -77,16 +85,17 @@ public class Testgetsub {
 		assertTrue(SubjectMgnt.editGradingCriteria(g,s));
 	}
 	@Test
-	public void checkEditgradingciteria()
+	public void checkEditgradingciteria() throws Exception
 	{
-		SubjectMgnt.editGradingCriteria(g,s);
+		GradingCriteria gchange = new GradingCriteria(1, 60, 55, 45, 44, 43, 42, 41);
+		SubjectMgnt.editGradingCriteria(gchange,s);
 		assertTrue(SubjectMgnt.getGradingCriBySubjectID(1).getA()==60);
 		assertTrue(SubjectMgnt.getGradingCriBySubjectID(1).getBp()==55);
-		assertTrue(SubjectMgnt.getGradingCriBySubjectID(1).getB()==54);
-		assertTrue(SubjectMgnt.getGradingCriBySubjectID(1).getCp()==52);
-		assertTrue(SubjectMgnt.getGradingCriBySubjectID(1).getC()==51);
-		assertTrue(SubjectMgnt.getGradingCriBySubjectID(1).getDp()==50);
-		assertTrue(SubjectMgnt.getGradingCriBySubjectID(1).getD()==45);
+		assertTrue(SubjectMgnt.getGradingCriBySubjectID(1).getB()==45);
+		assertTrue(SubjectMgnt.getGradingCriBySubjectID(1).getCp()==44);
+		assertTrue(SubjectMgnt.getGradingCriBySubjectID(1).getC()==43);
+		assertTrue(SubjectMgnt.getGradingCriBySubjectID(1).getDp()==42);
+		assertTrue(SubjectMgnt.getGradingCriBySubjectID(1).getD()==41);
 	}
 	
 }
