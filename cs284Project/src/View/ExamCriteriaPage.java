@@ -557,7 +557,7 @@ public class ExamCriteriaPage extends javax.swing.JFrame {
 	}
 
 	private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {
-		int c = JOptionPane.showConfirmDialog(this, "��ҹ�ѧ����� save ��ͧ��� save �������");
+		int c = JOptionPane.showConfirmDialog(this, "ท่านยังไม่ได้ save ต้องการ save หรือไม่");
 		if (c == JOptionPane.YES_OPTION) {
 			save();
 		} else if (c == JOptionPane.NO_OPTION) {
@@ -616,28 +616,28 @@ public class ExamCriteriaPage extends javax.swing.JFrame {
 				if (SubjectMgnt.checkExamCri(ecNew)) {
 					if (newSub) {
 						ec = ecNew;
-						JOptionPane.showMessageDialog(this, "�ѹ�֡����");
+						JOptionPane.showMessageDialog(this, "บันทึกแล้ว");
 						this.save = true;
 						this.dispose();
 					} else {
 						ecNew.setId(ec.getId());
 						if (SubjectMgnt.editExamCri(ecNew)) {
-							JOptionPane.showMessageDialog(this, "�ѹ�֡����");
+							JOptionPane.showMessageDialog(this, "บันทึกแล้ว");
 							this.save = true;
 							ec = ecNew;
 							this.dispose();
 						}
 					}
 				} else {
-					JOptionPane.showMessageDialog(this, "����Ѵ��ǹ��ṹ���١��ͧ", "Warning!!",
+					JOptionPane.showMessageDialog(this, "ใส่สัดส่วนคะแนนไม่ถูกต้อง", "Warning!!",
 							JOptionPane.ERROR_MESSAGE);
 				}
 			}catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(this, "��ṹ��ͧ�繵���Ţ", "Warning!!",
+				JOptionPane.showMessageDialog(this, "คะแนนต้องเป็นตัวเลข", "Warning!!",
 						JOptionPane.ERROR_MESSAGE);
 			}
 		}else {
-			JOptionPane.showMessageDialog(this, "����Ѵ��ǹ��ṹ���ú", "Warning!!",
+			JOptionPane.showMessageDialog(this, "ใส่สัดส่วนคะแนนไม่ครบ", "Warning!!",
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}

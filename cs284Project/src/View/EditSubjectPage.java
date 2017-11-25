@@ -133,10 +133,9 @@ public class EditSubjectPage extends javax.swing.JPanel {
 
 		backBtn.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 		backBtn.setText("back");
-		backBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				backBtnActionPerformed(e);
+		backBtn.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				backBtnActionPerformed(evt);
 			}
 		});
 
@@ -149,12 +148,10 @@ public class EditSubjectPage extends javax.swing.JPanel {
 						.addGap(41, 41, 41)
 						.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 								.addComponent(profresslb)
-								.addGroup(jPanel1Layout
-										.createSequentialGroup().addGap(44, 44, 44).addComponent(nameSurname)))
-						.addGap(233, 233, 233)
-						.addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 121,
-								javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+								.addGroup(jPanel1Layout.createSequentialGroup().addGap(44, 44, 44)
+										.addComponent(nameSurname)))
+						.addGap(233, 233, 233).addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 121,
+								javax.swing.GroupLayout.PREFERRED_SIZE)));
 		jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addComponent(logoTU1, javax.swing.GroupLayout.PREFERRED_SIZE, 200,
 						javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -220,19 +217,17 @@ public class EditSubjectPage extends javax.swing.JPanel {
 
 		saveBtn.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 		saveBtn.setText("Save");
-		saveBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				saveBtnActionPerformed(e);
+		saveBtn.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				saveBtnActionPerformed(evt);
 			}
 		});
 
 		criteriaBtn.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 		criteriaBtn.setText("Edit");
-		criteriaBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(frame, "Coming Soon");
+		criteriaBtn.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				criteriaBtnActionPerformed(evt);
 			}
 		});
 
@@ -545,15 +540,16 @@ public class EditSubjectPage extends javax.swing.JPanel {
 						.addGap(40, 40, 40)
 						.addComponent(GradeCriPanel, javax.swing.GroupLayout.PREFERRED_SIZE,
 								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addContainerGap(33, Short.MAX_VALUE))
 				.addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
 						Short.MAX_VALUE));
 		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout
 				.createSequentialGroup()
 				.addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
 						javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addGap(30, 30, 30)
 				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout
-						.createSequentialGroup().addGap(30, 30, 30)
+						.createSequentialGroup()
 						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 								.addComponent(loginNametxt1).addComponent(loginNametxt2)
 								.addGroup(layout.createSequentialGroup().addGap(10, 10, 10).addGroup(layout
@@ -597,17 +593,17 @@ public class EditSubjectPage extends javax.swing.JPanel {
 						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 								.addComponent(uploadTxt)
 								.addGroup(layout.createSequentialGroup().addGap(10, 10, 10).addComponent(addBtt)))
-						.addGap(18, 18, 18)
-						.addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50,
-								javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addGap(25, 25, 25))
-						.addGroup(layout.createSequentialGroup()
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(GradeCriPanel, javax.swing.GroupLayout.PREFERRED_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addContainerGap()))));
+						.addGap(43, 43, 43).addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50,
+								javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addGroup(layout.createSequentialGroup().addGap(20, 20, 20).addComponent(GradeCriPanel,
+								javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+								javax.swing.GroupLayout.PREFERRED_SIZE)))
+				.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 	}// </editor-fold>
+
+	private void criteriaBtnActionPerformed(ActionEvent evt) {
+		
+	}
 
 	private void backBtnActionPerformed(ActionEvent e) {
 		frame.dispose();

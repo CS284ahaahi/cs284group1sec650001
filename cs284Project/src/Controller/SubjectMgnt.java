@@ -19,7 +19,7 @@ import Model.User;
 
 public class SubjectMgnt {
 
-	public static ArrayList<StudentResult> checkGrading(ExamResult er) { // return π—°»÷°…“∑’Ë§–·ππ¬—ß‰¡Ë§√∫
+	public static ArrayList<StudentResult> checkGrading(ExamResult er) { // return ‡∏ô‡∏±‡∏Å‡∏®‡∏∂‡∏Å‡∏©‡∏≤‡∏ó‡∏µ‡πà‡∏Ñ‡∏∞‡πÅ‡∏ô‡∏ô‡∏¢‡∏±‡∏á‡πÑ‡∏°‡πà‡∏Ñ‡∏£‡∏ö
 		ArrayList<StudentResult> noneGrade = new ArrayList<>();
 		for (StudentResult sr : er.getList()) {
 			if (sr.getFinalScore() == -2) {
@@ -82,7 +82,7 @@ public class SubjectMgnt {
 			for (StudentResult sr : noneGrd) {
 				strList += sr.getID() + "\n";
 			}
-			strList += "¬—ß‰¡Ë¡’§–·ππ„π∫“ß Ë«π ‚ª√¥‡™Á§°“√„ÀÈ§–·ππ";
+			strList += "‡∏¢‡∏±‡∏á‡πÑ‡∏°‡πà‡∏°‡∏µ‡∏Ñ‡∏∞‡πÅ‡∏ô‡∏ô‡πÉ‡∏ô‡∏ö‡∏≤‡∏á‡∏™‡πà‡∏ß‡∏ô ‡πÇ‡∏õ‡∏£‡∏î‡πÄ‡∏ä‡πá‡∏Ñ‡∏Å‡∏≤‡∏£‡πÉ‡∏´‡πâ‡∏Ñ‡∏∞‡πÅ‡∏ô‡∏ô";
 			JOptionPane.showMessageDialog(null, strList, "Warning!!", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
@@ -99,7 +99,7 @@ public class SubjectMgnt {
 
 	public static boolean gradingStudentResult(StudentResult sr, GradingCriteria gc, ExamCriteria ec) {
 		if (sr.getStatus().equals("W")) {
-			JOptionPane.showMessageDialog(null, "‰¡Ë “¡“√∂µ—¥‡°√¥„ÀÈ§π∑’Ë∂Õπ«‘™“π’È‰ª·≈È«‰¥È", "ERROR",
+			JOptionPane.showMessageDialog(null, "‡πÑ‡∏°‡πà‡∏™‡∏≤‡∏°‡∏≤‡∏£‡∏ñ‡∏ï‡∏±‡∏î‡πÄ‡∏Å‡∏£‡∏î‡πÉ‡∏´‡πâ‡∏Ñ‡∏ô‡∏ó‡∏µ‡πà‡∏ñ‡∏≠‡∏ô‡∏ß‡∏¥‡∏ä‡∏≤‡∏ô‡∏µ‡πâ‡πÑ‡∏õ‡πÅ‡∏•‡πâ‡∏ß‡πÑ‡∏î‡πâ", "ERROR",
 					JOptionPane.ERROR_MESSAGE);
 			return false;
 		} else {
@@ -489,7 +489,7 @@ public class SubjectMgnt {
 		for (Student st : cl.getClassList()) {
 			String email = el.list.get(st.getId());
 			if (email == null) {
-				JOptionPane.showMessageDialog(null, st.getId() + " ‰¡Ë¡’ email", "ERROR", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, st.getId() + " ‡πÑ‡∏°‡πà‡∏°‡∏µ email", "ERROR", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
 			st.setEmail(email);
@@ -519,7 +519,7 @@ public class SubjectMgnt {
 		sub.getExamCri().setId(getRowExamCri() + 1);
 		sub.getGradeCri().setId(getRowGradingCri() + 1);
 		if (SubjectMgnt.checkSameSubject(sub.getCode(), sub.getSection(), sub.getSemester(), sub.getYear())) {
-			JOptionPane.showMessageDialog(null, "¡’«‘™“ " + sub.getCode() + " section π’ÈÕ¬ŸË·≈È«„π‡∑Õ¡π’È", "ERROR",
+			JOptionPane.showMessageDialog(null, "‡∏°‡∏µ‡∏ß‡∏¥‡∏ä‡∏≤ " + sub.getCode() + " section ‡∏ô‡∏µ‡πâ‡∏≠‡∏¢‡∏π‡πà‡πÅ‡∏•‡πâ‡∏ß‡πÉ‡∏ô‡πÄ‡∏ó‡∏≠‡∏°‡∏ô‡∏µ‡πâ", "ERROR",
 					JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
@@ -534,23 +534,23 @@ public class SubjectMgnt {
 			if (ex) {
 				int error = 0;
 				if (!SubjectMgnt.addClassListToDB(sub.getClassList(), sub.getId())) {
-					JOptionPane.showMessageDialog(null, "‰¡Ë “¡“√∂‡æ‘Ë¡√“¬™◊ËÕ„π class list ‡¢È“ ŸË database ‰¥È",
+					JOptionPane.showMessageDialog(null, "‡πÑ‡∏°‡πà‡∏™‡∏≤‡∏°‡∏≤‡∏£‡∏ñ‡πÄ‡∏û‡∏¥‡πà‡∏°‡∏£‡∏≤‡∏¢‡∏ä‡∏∑‡πà‡∏≠‡πÉ‡∏ô class list ‡πÄ‡∏Ç‡πâ‡∏≤‡∏™‡∏π‡πà database ‡πÑ‡∏î‡πâ",
 							"ERROR", JOptionPane.ERROR_MESSAGE);
 					error++;
 				}
 				if (!SubjectMgnt.addExamCriToDB(sub.getExamCri())) {
-					JOptionPane.showMessageDialog(null, "‰¡Ë “¡“√∂‡æ‘Ë¡ —¥ Ë«π–·ππ‡¢È“ ŸË database ‰¥È", "ERROR",
+					JOptionPane.showMessageDialog(null, "‡πÑ‡∏°‡πà‡∏™‡∏≤‡∏°‡∏≤‡∏£‡∏ñ‡πÄ‡∏û‡∏¥‡πà‡∏°‡∏™‡∏±‡∏î‡∏™‡πà‡∏ß‡∏ô‡∏∞‡πÅ‡∏ô‡∏ô‡πÄ‡∏Ç‡πâ‡∏≤‡∏™‡∏π‡πà database ‡πÑ‡∏î‡πâ", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
 					error++;
 				}
 				if (!SubjectMgnt.addExamResultToDB(sub.getClassList(), sub.getId(),
 						sub.getExamCri().getScoreAmount())) {
-					JOptionPane.showMessageDialog(null, "‰¡Ë “¡“√∂‡æ‘Ë¡ ExamResult ‡¢È“ ŸË database ‰¥È", "ERROR",
+					JOptionPane.showMessageDialog(null, "‡πÑ‡∏°‡πà‡∏™‡∏≤‡∏°‡∏≤‡∏£‡∏ñ‡πÄ‡∏û‡∏¥‡πà‡∏° ExamResult ‡πÄ‡∏Ç‡πâ‡∏≤‡∏™‡∏π‡πà database ‡πÑ‡∏î‡πâ", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
 					error++;
 				}
 				if (!SubjectMgnt.addGradingCriteriaToDB(sub.getGradeCri())) {
-					JOptionPane.showMessageDialog(null, "‰¡Ë “¡“√∂‡æ‘Ë¡‡°≥±Ï°“√µ—¥‡°√¥‡¢È“ ŸË database ‰¥È", "ERROR",
+					JOptionPane.showMessageDialog(null, "‡πÑ‡∏°‡πà‡∏™‡∏≤‡∏°‡∏≤‡∏£‡∏ñ‡πÄ‡∏û‡∏¥‡πà‡∏°‡πÄ‡∏Å‡∏ì‡∏ë‡πå‡∏Å‡∏≤‡∏£‡∏ï‡∏±‡∏î‡πÄ‡∏Å‡∏£‡∏î‡πÄ‡∏Ç‡πâ‡∏≤‡∏™‡∏π‡πà database ‡πÑ‡∏î‡πâ", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
 					error++;
 				}

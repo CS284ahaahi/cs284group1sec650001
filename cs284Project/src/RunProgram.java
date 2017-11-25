@@ -5,7 +5,7 @@ import View.LoginPage;
 
 public class RunProgram {
 	public static void main(String[] args) {
-		JOptionPane.showMessageDialog(null, "¹Õè¤×Í version demo ¢Í§ sprint 2");
+		JOptionPane.showMessageDialog(null, "à¸™à¸µà¹ˆà¸„à¸·à¸­ version demo à¸‚à¸­à¸‡ sprint 2");
 		LoginPage login = new LoginPage();
 	}
 }
