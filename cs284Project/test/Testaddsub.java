@@ -27,7 +27,7 @@ public class Testaddsub {
 		ec.setMidPer(25);
 		ec.setScore(new int[] {5,5,5,5,5});
 		ec.setScorePer(new int[] {5,5,5,5,5});
-		s = new Subject(2, "®’¬Ÿ‰Õ", "GUI", "cs211", "650004", "Owner", "1","2560", cs, null, new GradingCriteria(1,95,75,70,65,60,55,50), ec,null);
+		s = new Subject(2, "®’¬Ÿ‰Õ", "GUI", "cs211", "650005", "Owner", "1","2560", cs, null, new GradingCriteria(1,95,75,70,65,60,55,50), ec,null);
 		assertTrue(SubjectMgnt.addSubject(s));
 	}
 	@Test
