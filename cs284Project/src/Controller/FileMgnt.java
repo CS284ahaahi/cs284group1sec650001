@@ -29,6 +29,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import Model.ClassList;
+import Model.EmailList;
 import Model.ExamResult;
 import Model.Student;
 import Model.StudentResult;
@@ -151,6 +152,43 @@ public class FileMgnt {
 					i++;
 				}
 				return list;
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		return null;
+	}
+
+	public static EmailList readEmailExcelFile() {
+		JFileChooser chooser = new JFileChooser();
+		FileFilter fileExcel = new FileNameExtensionFilter("Excel File (*xls)", "xls");
+		chooser.setFileFilter(fileExcel);
+		int check = chooser.showOpenDialog(null);
+		EmailList el = new EmailList();
+		if (check == JFileChooser.APPROVE_OPTION) {
+			try (FileInputStream file = new FileInputStream(chooser.getSelectedFile())) {
+				HSSFWorkbook wb = new HSSFWorkbook(file);
+				HSSFSheet sheet = wb.getSheetAt(0);
+				HSSFRow row;
+				HSSFCell cell;
+				Iterator<Row> rows = sheet.rowIterator();
+				row = (HSSFRow) rows.next();
+				Iterator<Cell> cells = row.cellIterator();
+				while (rows.hasNext()) {
+					row = (HSSFRow) rows.next();
+					cells = row.cellIterator();
+					cell = (HSSFCell) cells.next();
+					long idLong = (long) cell.getNumericCellValue();
+					String id = Long.toString(idLong);
+					if (id.equals("0")) {
+						break;
+					}
+					cell = (HSSFCell) cells.next();
+					String email = cell.getStringCellValue().trim();
+					System.out.println(id+" "+email);
+					el.list.put(id, email);
+				}
+				return el;
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 			}

@@ -305,7 +305,7 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 	}
 
 	private void validateFn() {
-		ArrayList<StudentResult> str = SubjectMgnt.checkGrading(sub.getId());
+		ArrayList<StudentResult> str = SubjectMgnt.checkGrading(sub.getExResult());
 		if (str != null) {
 			String strList = "";
 			for (StudentResult sr : str) {

@@ -12,7 +12,6 @@ import Model.EmailList;
 import Model.ExamCriteria;
 import Model.ExamResult;
 import Model.GradingCriteria;
-import Model.LogActivity;
 import Model.Student;
 import Model.StudentResult;
 import Model.Subject;
@@ -20,30 +19,83 @@ import Model.User;
 
 public class SubjectMgnt {
 
-	public static ArrayList<StudentResult> checkGrading(int id) { // return นักศึกษาที่คะแนนยังไม่ครบ
+	public static ArrayList<StudentResult> checkGrading(ExamResult er) { // return นักศึกษาที่คะแนนยังไม่ครบ
 		ArrayList<StudentResult> noneGrade = new ArrayList<>();
-		String sql = "select * from SCORE_LIST where SUBJECT_ID = '" + id + "'";
-		ResultSet rs;
-		try {
-			Connection con = ConnectMgnt.getConnect();
-			Statement st = con.createStatement();
-			rs = st.executeQuery(sql);
-			while (rs.next()) {
-				// System.out.println(rs.getString("ID"));
+		for (StudentResult sr : er.getList()) {
+			if (sr.getFinalScore() == -2) {
+				noneGrade.add(sr);
+			} else if (sr.getMidScore() == -2) {
+				noneGrade.add(sr);
+			} else {
+				for (int i = 0; i < sr.getScoreAmount(); i++) {
+					if (sr.getScore()[i] == -2) {
+						noneGrade.add(sr);
+						break;
+					}
+				}
 			}
-			if (noneGrade.size() > 0) {
-				return noneGrade;
-			}
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Database Error.!!!" + e.getMessage(), "ERROR",
-					JOptionPane.ERROR_MESSAGE);
 		}
-
+		if (noneGrade.size() > 0) {
+			return noneGrade;
+		}
 		return null;
 	}
 
 	public static boolean gradingExam(Subject sub) {
-		return false;
+		ArrayList<StudentResult> noneGrd = SubjectMgnt.checkGrading(sub.getExResult());
+		if (noneGrd != null) {
+			String strList = "";
+			for (StudentResult sr : noneGrd) {
+				strList += sr.getID() + "\n";
+			}
+			strList += "ยังไม่มีคะแนนในบางส่วน โปรดเช็คการให้คะแนน";
+			JOptionPane.showMessageDialog(null, strList, "Warning!!", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		for (StudentResult sr : sub.getExResult().getList()) {
+			if (sr.getStatus().equals("W")) {
+				continue;
+			}
+			if (!SubjectMgnt.gradingStudentResult(sr, sub.getGradeCri(), sub.getExamCri())) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static boolean gradingStudentResult(StudentResult sr, GradingCriteria gc, ExamCriteria ec) {
+		if (sr.getStatus().equals("W")) {
+			JOptionPane.showMessageDialog(null, "ไม่สามารถตัดเกรดให้คนที่ถอนวิชานี้ไปแล้วได้", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+			return false;
+		} else {
+			double total = 0;
+			double midScore = (sr.getMidScore() / ec.getMidFull()) * ec.getMidPer();
+			double finalScore = (sr.getFinalScore() / ec.getFinalFull()) * ec.getFinalPer();
+			total += midScore + finalScore;
+			for (int i = 0; i < sr.getScoreAmount(); i++) {
+				total += (sr.getScore()[i] / ec.getScore()[i]) * ec.getScorePer()[i];
+			}
+			int grading = (int) Math.round(total);
+			if (grading >= gc.getA()) {
+				sr.setGrade("A");
+			} else if (grading >= gc.getBp()) {
+				sr.setGrade("B+");
+			} else if (grading >= gc.getB()) {
+				sr.setGrade("B");
+			} else if (grading >= gc.getCp()) {
+				sr.setGrade("C+");
+			} else if (grading >= gc.getC()) {
+				sr.setGrade("C");
+			} else if (grading >= gc.getDp()) {
+				sr.setGrade("D+");
+			} else if (grading >= gc.getD()) {
+				sr.setGrade("D");
+			} else {
+				sr.setGrade("F");
+			}
+			return true;
+		}
 	}
 
 	private static boolean dropStudent(String id) {// Coming Soon
@@ -553,9 +605,5 @@ public class SubjectMgnt {
 					JOptionPane.ERROR_MESSAGE);
 		}
 		return -1;
-	}
-	
-	public static void main(String[] args) throws Exception {
-
 	}
 }
