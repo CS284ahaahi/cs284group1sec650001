@@ -19,19 +19,24 @@ public class ExamCriteriaPage extends javax.swing.JFrame {
 		save = false;
 		initComponents();
 		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.setVisible(true);
 	}
 
-	public ExamCriteriaPage(ExamCriteria ec) {
+	public ExamCriteriaPage(ExamCriteria ec,boolean edit) {
 		this.ec = ec;
-		newSub = false;
+		if(edit) {
+			newSub = false;
+		}else {
+			newSub = true;
+		}
 		save = false;
 		initComponents();
 		this.finalFull.setText(ec.getFinalFull() + "");
 		this.finalPer.setText(ec.getFinalPer() + "");
 		this.midFull.setText(ec.getMidFull() + "");
 		this.midPer.setText(ec.getMidPer() + "");
-		this.amountQuiz.setSelectedIndex(ec.getScoreAmount() - 1);
+		this.amountQuiz.setSelectedIndex(ec.getScoreAmount());
 		for (int i = 0; i < ec.getScoreAmount(); i++) {
 			this.scoreFull[i].setEditable(true);
 			this.scoreFull[i].setText(ec.getScore()[i] + "");
@@ -39,6 +44,7 @@ public class ExamCriteriaPage extends javax.swing.JFrame {
 			this.scorePer[i].setText(ec.getScorePer()[i] + "");
 		}
 		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.setVisible(true);
 	}
 
@@ -576,16 +582,20 @@ public class ExamCriteriaPage extends javax.swing.JFrame {
 		String finalPer = this.finalPer.getText().trim();
 		String midFull = this.midFull.getText().trim();
 		String midPer = this.midPer.getText().trim();
-		String[] scoreFulls = new String[ecNew.getScoreAmount()];
-		String[] scorePers = new String[ecNew.getScoreAmount()];
-		for (int i = 0; i < ecNew.getScoreAmount(); i++) {
-			scoreFulls[i] = scoreFull[i].getText().trim();
-			if (scoreFulls[i].equals("")) {
-				check++;
-			}
-			scorePers[i] = scorePer[i].getText().trim();
-			if (scorePers[i].equals("")) {
-				check++;
+		String[] scoreFulls = null;
+		String[] scorePers = null;
+		if (this.amountQuiz.getSelectedIndex() > 0) {
+			scoreFulls = new String[this.amountQuiz.getSelectedIndex()];
+			scorePers = new String[this.amountQuiz.getSelectedIndex()];
+			for (int i = 0; i < ecNew.getScoreAmount(); i++) {
+				scoreFulls[i] = scoreFull[i].getText().trim();
+				if (scoreFulls[i].equals("")) {
+					check++;
+				}
+				scorePers[i] = scorePer[i].getText().trim();
+				if (scorePers[i].equals("")) {
+					check++;
+				}
 			}
 		}
 		if (finalFull.equals("")) {
@@ -632,13 +642,11 @@ public class ExamCriteriaPage extends javax.swing.JFrame {
 					JOptionPane.showMessageDialog(this, "ใส่สัดส่วนคะแนนไม่ถูกต้อง", "Warning!!",
 							JOptionPane.ERROR_MESSAGE);
 				}
-			}catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(this, "คะแนนต้องเป็นตัวเลข", "Warning!!",
-						JOptionPane.ERROR_MESSAGE);
+			} catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(this, "คะแนนต้องเป็นตัวเลข", "Warning!!", JOptionPane.ERROR_MESSAGE);
 			}
-		}else {
-			JOptionPane.showMessageDialog(this, "ใส่สัดส่วนคะแนนไม่ครบ", "Warning!!",
-					JOptionPane.ERROR_MESSAGE);
+		} else {
+			JOptionPane.showMessageDialog(this, "ใส่สัดส่วนคะแนนไม่ครบ", "Warning!!", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -651,7 +659,7 @@ public class ExamCriteriaPage extends javax.swing.JFrame {
 	}
 
 	public static void main(String args[]) {
-		new ExamCriteriaPage();
+		new ExamCriteriaPage(SubjectMgnt.getExamCriBySubjectID(1),false);
 	}
 
 	// Variables declaration - do not modify
@@ -695,4 +703,5 @@ public class ExamCriteriaPage extends javax.swing.JFrame {
 	private javax.swing.JLabel score9lb;
 	private javax.swing.JLabel scorelb;
 	// End of variables declaration
+
 }

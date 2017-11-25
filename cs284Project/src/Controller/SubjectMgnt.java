@@ -5,8 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
-
+import javax.swing.JProgressBar;
 import Model.ClassList;
 import Model.EmailList;
 import Model.ExamCriteria;
@@ -42,7 +43,6 @@ public class SubjectMgnt {
 	}
 
 	public static boolean checkExamCri(ExamCriteria ec) {
-		System.out.println(ec);
 		if (ec.getFinalFull() < 0 || ec.getMidFull() < 0) {
 			return false;
 		}
@@ -390,10 +390,13 @@ public class SubjectMgnt {
 	}
 
 	public static boolean addExamCriToDB(ExamCriteria ec) {
-		String sql = "INSERT INTO EXAM_CRITERIA_LIST (MID_FULL,MID_PER,FINAL_FULL,FINAL_PER,SCORE_AMT,";
+		String sql = "INSERT INTO EXAM_CRITERIA_LIST (MID_FULL,MID_PER,FINAL_FULL,FINAL_PER,SCORE_AMT";
 		try {
 			Connection con = ConnectMgnt.getConnect();
 			Statement st = con.createStatement();
+			if (ec.getScoreAmount() > 0) {
+				sql += ",";
+			}
 			for (int i = 0; i < ec.getScoreAmount(); i++) {
 				int index = i + 1;
 				sql += "SCORE" + index + "_FULL,SCORE" + index + "_PER";
@@ -402,7 +405,10 @@ public class SubjectMgnt {
 				}
 			}
 			sql += ") VALUES ('" + ec.getMidFull() + "','" + ec.getMidPer() + "','" + ec.getFinalFull() + "','"
-					+ ec.getFinalPer() + "','" + ec.getScoreAmount() + "',";
+					+ ec.getFinalPer() + "','" + ec.getScoreAmount() + "'";
+			if (ec.getScoreAmount() > 0) {
+				sql += ",";
+			}
 			for (int i = 0; i < ec.getScoreAmount(); i++) {
 				int scoreFull = ec.getScore()[i];
 				int scorePer = ec.getScorePer()[i];
@@ -454,14 +460,20 @@ public class SubjectMgnt {
 			int fail = 0;
 			for (Student s : cl.getClassList()) {
 				String id = s.getId();
-				String sql = "INSERT INTO SCORE_LIST (USER_ID,SUBJECT_ID,STATUS,GRADE,SCORE_MID,SCORE_FINAL,";
+				String sql = "INSERT INTO SCORE_LIST (USER_ID,SUBJECT_ID,STATUS,GRADE,SCORE_MID,SCORE_FINAL";
+				if (scoreAmount > 0) {
+					sql += ",";
+				}
 				for (int i = 0; i < scoreAmount; i++) {
 					sql += "SCORE_" + (i + 1);
 					if (i < scoreAmount - 1) {
 						sql += ",";
 					}
 				}
-				sql += ") VALUES ('" + id + "','" + subjectId + "','N','-','-2','-2',";
+				sql += ") VALUES ('" + id + "','" + subjectId + "','N','-','-2','-2'";
+				if (scoreAmount > 0) {
+					sql += ",";
+				}
 				for (int i = 0; i < scoreAmount; i++) {
 					sql += "'-2'";
 					if (i < scoreAmount - 1) {
@@ -515,9 +527,9 @@ public class SubjectMgnt {
 	}
 
 	public static boolean addSubject(Subject sub) {
-		sub.setId(getRowSubject() + 1);
-		sub.getExamCri().setId(getRowExamCri() + 1);
-		sub.getGradeCri().setId(getRowGradingCri() + 1);
+		sub.setId(getLastIDSubject() + 1);
+		sub.getExamCri().setId(getLastIDExamCri() + 1);
+		sub.getGradeCri().setId(getLastIDGradingCri()+ 1);
 		if (SubjectMgnt.checkSameSubject(sub.getCode(), sub.getSection(), sub.getSemester(), sub.getYear())) {
 			JOptionPane.showMessageDialog(null, "มีวิชา " + sub.getCode() + " section นี้อยู่แล้วในเทอมนี้", "ERROR",
 					JOptionPane.ERROR_MESSAGE);
@@ -539,7 +551,7 @@ public class SubjectMgnt {
 					error++;
 				}
 				if (!SubjectMgnt.addExamCriToDB(sub.getExamCri())) {
-					JOptionPane.showMessageDialog(null, "ไม่สามารถเพิ่มสัดส่วนะแนนเข้าสู่ database ได้", "ERROR",
+					JOptionPane.showMessageDialog(null, "ไม่สามารถเพิ่มสัดส่วนคะแนนเข้าสู่ database ได้", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
 					error++;
 				}
@@ -565,8 +577,8 @@ public class SubjectMgnt {
 		return false;
 	}
 
-	public static int getRowSubject() {
-		String sql = "select count(*) FROM SUBJECTS_LIST";
+	public static int getLastIDSubject() {
+		String sql = "SELECT MAX(ID) FROM SUBJECTS_LIST";
 		Connection con = ConnectMgnt.getConnect();
 		Statement st;
 		try {
@@ -584,8 +596,8 @@ public class SubjectMgnt {
 		return -1;
 	}
 
-	public static int getRowExamCri() {
-		String sql = "select count(*) FROM EXAM_CRITERIA_LIST";
+	public static int getLastIDExamCri() {
+		String sql = "SELECT MAX(ID) FROM EXAM_CRITERIA_LIST";
 		Connection con = ConnectMgnt.getConnect();
 		Statement st;
 		try {
@@ -603,8 +615,8 @@ public class SubjectMgnt {
 		return -1;
 	}
 
-	public static int getRowGradingCri() {
-		String sql = "select count(*) FROM GRADING_LIST";
+	public static int getLastIDGradingCri() {
+		String sql = "SELECT MAX(ID) FROM GRADING_LIST";
 		Connection con = ConnectMgnt.getConnect();
 		Statement st;
 		try {
@@ -622,8 +634,8 @@ public class SubjectMgnt {
 		return -1;
 	}
 
-	public static int getRowClassList() {
-		String sql = "select count(*) FROM CLASS_LIST";
+	public static int getLastIDClassList() {
+		String sql = "SELECT MAX(ID) FROM CLASS_LIST";
 		Connection con = ConnectMgnt.getConnect();
 		Statement st;
 		try {
@@ -639,5 +651,9 @@ public class SubjectMgnt {
 					JOptionPane.ERROR_MESSAGE);
 		}
 		return -1;
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(SubjectMgnt.getLastIDSubject());
 	}
 }

@@ -185,7 +185,6 @@ public class FileMgnt {
 					}
 					cell = (HSSFCell) cells.next();
 					String email = cell.getStringCellValue().trim();
-					System.out.println(id+" "+email);
 					el.list.put(id, email);
 				}
 				return el;
