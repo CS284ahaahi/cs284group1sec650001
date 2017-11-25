@@ -41,6 +41,36 @@ public class SubjectMgnt {
 		return null;
 	}
 
+	public static boolean checkExamCri(ExamCriteria ec) {
+		if (ec.getFinalFull() < 0 || ec.getMidFull() < 0) {
+			return false;
+		}
+		if (ec.getFinalPer() + ec.getMidPer() < 50) {
+			return false;
+		}
+		if (ec.getFinalPer() < 0 || ec.getMidPer() < 0) {
+			return false;
+		}
+		if (ec.getScoreAmount() < 0) {
+			return false;
+		}
+		if (ec.getScoreAmount() > 0) {
+			for (int i = 0; i < ec.getScoreAmount(); i++) {
+				if (ec.getScore()[i] < 0 || ec.getScorePer()[i] < 0) {
+					return false;
+				}
+			}
+			int totalPer = ec.getFinalPer() + ec.getMidPer();
+			for (int i = 0; i < ec.getScoreAmount(); i++) {
+				totalPer += ec.getScorePer()[i];
+			}
+			if (totalPer != 100) {
+				return false;
+			}
+		}
+		return false;
+	}
+
 	public static boolean gradingExam(Subject sub) {
 		ArrayList<StudentResult> noneGrd = SubjectMgnt.checkGrading(sub.getExResult());
 		if (noneGrd != null) {
