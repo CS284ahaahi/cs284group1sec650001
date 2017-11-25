@@ -14,7 +14,7 @@ public class Testaddexam {
 	Subject s;
 	User us;
 	@Test
-	public void test() throws Exception {
+	public void testadd() throws Exception {
 		ClassList cs =new ClassList();
 		int row = SubjectMgnt.getRowClassList();
 		cs.add(new Student(row++,"5909650158","pcn","pkak2@gmail.com"));
@@ -27,9 +27,9 @@ public class Testaddexam {
 		ec.setMidPer(25);
 		ec.setScore(new int[] {5,5,5,5,5});
 		ec.setScorePer(new int[] {5,5,5,5,5});
-		s = new Subject(2, "®’¬Ÿ‰Õ", "GUI", "cs211", "650021", "Owner", "1","2560", cs, null, new GradingCriteria(1,95,75,70,65,60,55,50), ec,null);
+		s = new Subject(2, "®’¬Ÿ‰Õ", "GUI", "cs211", "650004", "Owner", "1","2560", cs, null, new GradingCriteria(1,95,75,70,65,60,55,50), ec,null);
 		assertTrue(SubjectMgnt.addSubject(s));
-
 	}
+	
 
 }
