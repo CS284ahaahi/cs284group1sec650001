@@ -5,9 +5,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import javax.swing.JComponent;
+import java.util.HashMap;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
-import javax.swing.JProgressBar;
 import Model.ClassList;
 import Model.EmailList;
 import Model.ExamCriteria;
@@ -529,7 +537,7 @@ public class SubjectMgnt {
 	public static boolean addSubject(Subject sub) {
 		sub.setId(getLastIDSubject() + 1);
 		sub.getExamCri().setId(getLastIDExamCri() + 1);
-		sub.getGradeCri().setId(getLastIDGradingCri()+ 1);
+		sub.getGradeCri().setId(getLastIDGradingCri() + 1);
 		if (SubjectMgnt.checkSameSubject(sub.getCode(), sub.getSection(), sub.getSemester(), sub.getYear())) {
 			JOptionPane.showMessageDialog(null, "มีวิชา " + sub.getCode() + " section นี้อยู่แล้วในเทอมนี้", "ERROR",
 					JOptionPane.ERROR_MESSAGE);
@@ -652,8 +660,64 @@ public class SubjectMgnt {
 		}
 		return -1;
 	}
-	
-	public static void main(String[] args) {
-		System.out.println(SubjectMgnt.getLastIDSubject());
+
+	public static boolean sendEmailAll(Subject sub) {
+		String title = "ประกาศผลคะแนนวิชา " + sub.getCode() + " " + sub.getNameThai() + " " + sub.getSection() + " "
+				+ sub.getSemester() + "/" + sub.getYear();
+		class StudentNow {
+			public String name, email;
+
+			public StudentNow(String name, String email) {
+				this.name = name;
+				this.email = email;
+			}
+		}
+		HashMap<String, StudentNow> mail = new HashMap<>();
+		for (Student st : sub.getClassList().getClassList()) {
+			mail.put(st.getId(), new StudentNow(st.getName(), st.getEmail()));
+		}
+		for (StudentResult sr : sub.getExResult().getList()) {
+			if (sr.getStatus().equals("N")) {
+				StudentNow sn = mail.get(sr.getIDStudent());
+				String email = sn.email;
+				String text = "สวัสดี คุณ " + sn.name + " รหัสนักศึกษา " + sr.getIDStudent()
+						+ "\nผลเกรดของวิชาของคุณคือ... " + sr.getGrade();
+				if (!sendEmail(email, title, text)) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	public static boolean sendEmail(String email, String title, String text) {
+		String to = email;
+		String from = "cs284cstu@gmail.com";
+		final String username = "cs284cstu@gmail.com";
+		final String password = "0822808826";
+		String host = "smtp.gmail.com";
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", host);
+		props.put("mail.smtp.port", "587");
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		});
+		try {
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(from));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+			message.setSubject(title);
+			message.setText(text);
+			// Send message
+			Transport.send(message);
+			return true;
+		} catch (MessagingException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
 	}
 }
