@@ -10,7 +10,7 @@ import Model.Student;
 import Model.Subject;
 import Model.User;
 
-public class Testaddexam {
+public class Testaddsub {
 	Subject s;
 	User us;
 	@Test

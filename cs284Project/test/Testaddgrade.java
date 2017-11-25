@@ -5,7 +5,7 @@ import org.junit.Test;
 import Controller.SubjectMgnt;
 import Model.GradingCriteria;
 
-public class Testadd {
+public class Testaddgrade {
 
 	@Test
 	public void  testaddgrading()
