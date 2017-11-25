@@ -48,7 +48,7 @@ public class FileMgnt {
 			if (chooser.getFileFilter().equals(fileTxt)) { // txt
 				file = new File(file.getAbsolutePath() + ".txt");
 				try (PrintWriter write = new PrintWriter(file);) {
-					write.println("�Ţ����¹�ѡ�֡��\t�ô");
+					write.println("เลขทะเบียนนักศึกษา\tเกรด");
 					for (StudentResult sr : result.getList()) {
 						if (sr.getStatus().equals("N")) {
 							String str = sr.getID() + "\t";
@@ -66,10 +66,10 @@ public class FileMgnt {
 					// Blank workbook
 					XSSFWorkbook workbook = new XSSFWorkbook();
 					// Create a blank sheet
-					XSSFSheet sheet = workbook.createSheet("�ô");
+					XSSFSheet sheet = workbook.createSheet("เกรด");
 					// This data needs to be written (Object[])
 					Map<String, Object[]> data = new TreeMap<String, Object[]>();
-					data.put("1", new Object[] { "�Ţ����¹�ѡ�֡��", "�ô" });
+					data.put("1", new Object[] { "เลขทะเบียนนักศึกษา", "เกรด" });
 					for (int i = 2; i < result.getSize(); i++) {
 						StudentResult sr = result.get(i - 2);
 						if (sr.getStatus().equals("N")) {
@@ -185,7 +185,6 @@ public class FileMgnt {
 					}
 					cell = (HSSFCell) cells.next();
 					String email = cell.getStringCellValue().trim();
-					System.out.println(id+" "+email);
 					el.list.put(id, email);
 				}
 				return el;

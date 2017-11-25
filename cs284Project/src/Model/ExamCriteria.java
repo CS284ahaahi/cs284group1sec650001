@@ -14,7 +14,7 @@ public class ExamCriteria {
 		this.scoreAmount = scoreAmount;
 	}
 
-	public double getMidFull() {
+	public int getMidFull() {
 		return midFull;
 	}
 

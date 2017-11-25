@@ -311,28 +311,28 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 			for (StudentResult sr : str) {
 				strList += sr.getID() + "\n";
 			}
-			strList += "�ѧ����դ�ṹ㹺ҧ��ǹ �ô�礡������ṹ";
+			strList += "ยังไม่มีคะแนนในบางส่วน โปรดเช็คการให้คะแนน";
 			JOptionPane.showMessageDialog(frame, strList, "Warning!!", JOptionPane.ERROR_MESSAGE);
 		} else {
-			JOptionPane.showMessageDialog(frame, "��Ǩ�ͺ������� ��ҹ����ö export �����Ǣ�й��");
+			JOptionPane.showMessageDialog(frame, "ตรวจสอบเสร็จสิ้น ท่านสามารถ export ได้แล้วขณะนี้");
 			this.isGrading = true;
 		}
 	}
 
 	private void gradingFn() {
 		JOptionPane.showMessageDialog(frame,
-				"�͹����к��ѧ������к���õѴ�ô ����ö�������Ǩ�ͺ�����١��ͧ�ͧ��ṹ��ҹ��");
+				"ตอนนี้ระบบยังไม่มีระบบการตัดเกรด สามารถทำได้แค่ตรวจสอบความถูกต้องของคะแนนเท่านั้น");
 		validateFn();
 	}
 
 	private void exportBtnActionPerformed(ActionEvent evt) {
 		if (this.isGrading) {
 			if (FileMgnt.exportGrade(sub.getExResult())) {
-				JOptionPane.showMessageDialog(null, "Export �������");
+				JOptionPane.showMessageDialog(null, "Export เสร็จสิ้น");
 			}
 		} else {
 			int check = JOptionPane.showConfirmDialog(frame,
-					"��ҹ�ѧ������Ǩ�ͺ�����١��ͧ�ͧ��ṹ/�Ѵ�ô  ��ͧ��� ��Ǩ�ͺ/�Ѵ�ô �������", "Message",
+					"ท่านยังไม่ได้ตรวจสอบความถูกต้องของคะแนน/ตัดเกรด  ต้องการ ตรวจสอบ/ตัดเกรด หรือไม่", "Message",
 					JOptionPane.YES_NO_OPTION);
 			if (check == JOptionPane.YES_OPTION) {
 				gradingFn();

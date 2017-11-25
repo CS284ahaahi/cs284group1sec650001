@@ -5,8 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
-
+import javax.swing.JProgressBar;
 import Model.ClassList;
 import Model.EmailList;
 import Model.ExamCriteria;
@@ -19,7 +20,7 @@ import Model.User;
 
 public class SubjectMgnt {
 
-	public static ArrayList<StudentResult> checkGrading(ExamResult er) { // return π—°»÷°…“∑’Ë§–·ππ¬—ß‰¡Ë§√∫
+	public static ArrayList<StudentResult> checkGrading(ExamResult er) { // return ‡∏ô‡∏±‡∏Å‡∏®‡∏∂‡∏Å‡∏©‡∏≤‡∏ó‡∏µ‡πà‡∏Ñ‡∏∞‡πÅ‡∏ô‡∏ô‡∏¢‡∏±‡∏á‡πÑ‡∏°‡πà‡∏Ñ‡∏£‡∏ö
 		ArrayList<StudentResult> noneGrade = new ArrayList<>();
 		for (StudentResult sr : er.getList()) {
 			if (sr.getFinalScore() == -2) {
@@ -42,7 +43,6 @@ public class SubjectMgnt {
 	}
 
 	public static boolean checkExamCri(ExamCriteria ec) {
-		System.out.println(ec);
 		if (ec.getFinalFull() < 0 || ec.getMidFull() < 0) {
 			return false;
 		}
@@ -82,7 +82,7 @@ public class SubjectMgnt {
 			for (StudentResult sr : noneGrd) {
 				strList += sr.getID() + "\n";
 			}
-			strList += "¬—ß‰¡Ë¡’§–·ππ„π∫“ß Ë«π ‚ª√¥‡™Á§°“√„ÀÈ§–·ππ";
+			strList += "‡∏¢‡∏±‡∏á‡πÑ‡∏°‡πà‡∏°‡∏µ‡∏Ñ‡∏∞‡πÅ‡∏ô‡∏ô‡πÉ‡∏ô‡∏ö‡∏≤‡∏á‡∏™‡πà‡∏ß‡∏ô ‡πÇ‡∏õ‡∏£‡∏î‡πÄ‡∏ä‡πá‡∏Ñ‡∏Å‡∏≤‡∏£‡πÉ‡∏´‡πâ‡∏Ñ‡∏∞‡πÅ‡∏ô‡∏ô";
 			JOptionPane.showMessageDialog(null, strList, "Warning!!", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
@@ -99,7 +99,7 @@ public class SubjectMgnt {
 
 	public static boolean gradingStudentResult(StudentResult sr, GradingCriteria gc, ExamCriteria ec) {
 		if (sr.getStatus().equals("W")) {
-			JOptionPane.showMessageDialog(null, "‰¡Ë “¡“√∂µ—¥‡°√¥„ÀÈ§π∑’Ë∂Õπ«‘™“π’È‰ª·≈È«‰¥È", "ERROR",
+			JOptionPane.showMessageDialog(null, "‡πÑ‡∏°‡πà‡∏™‡∏≤‡∏°‡∏≤‡∏£‡∏ñ‡∏ï‡∏±‡∏î‡πÄ‡∏Å‡∏£‡∏î‡πÉ‡∏´‡πâ‡∏Ñ‡∏ô‡∏ó‡∏µ‡πà‡∏ñ‡∏≠‡∏ô‡∏ß‡∏¥‡∏ä‡∏≤‡∏ô‡∏µ‡πâ‡πÑ‡∏õ‡πÅ‡∏•‡πâ‡∏ß‡πÑ‡∏î‡πâ", "ERROR",
 					JOptionPane.ERROR_MESSAGE);
 			return false;
 		} else {
@@ -390,10 +390,13 @@ public class SubjectMgnt {
 	}
 
 	public static boolean addExamCriToDB(ExamCriteria ec) {
-		String sql = "INSERT INTO EXAM_CRITERIA_LIST (MID_FULL,MID_PER,FINAL_FULL,FINAL_PER,SCORE_AMT,";
+		String sql = "INSERT INTO EXAM_CRITERIA_LIST (MID_FULL,MID_PER,FINAL_FULL,FINAL_PER,SCORE_AMT";
 		try {
 			Connection con = ConnectMgnt.getConnect();
 			Statement st = con.createStatement();
+			if (ec.getScoreAmount() > 0) {
+				sql += ",";
+			}
 			for (int i = 0; i < ec.getScoreAmount(); i++) {
 				int index = i + 1;
 				sql += "SCORE" + index + "_FULL,SCORE" + index + "_PER";
@@ -402,7 +405,10 @@ public class SubjectMgnt {
 				}
 			}
 			sql += ") VALUES ('" + ec.getMidFull() + "','" + ec.getMidPer() + "','" + ec.getFinalFull() + "','"
-					+ ec.getFinalPer() + "','" + ec.getScoreAmount() + "',";
+					+ ec.getFinalPer() + "','" + ec.getScoreAmount() + "'";
+			if (ec.getScoreAmount() > 0) {
+				sql += ",";
+			}
 			for (int i = 0; i < ec.getScoreAmount(); i++) {
 				int scoreFull = ec.getScore()[i];
 				int scorePer = ec.getScorePer()[i];
@@ -454,14 +460,20 @@ public class SubjectMgnt {
 			int fail = 0;
 			for (Student s : cl.getClassList()) {
 				String id = s.getId();
-				String sql = "INSERT INTO SCORE_LIST (USER_ID,SUBJECT_ID,STATUS,GRADE,SCORE_MID,SCORE_FINAL,";
+				String sql = "INSERT INTO SCORE_LIST (USER_ID,SUBJECT_ID,STATUS,GRADE,SCORE_MID,SCORE_FINAL";
+				if (scoreAmount > 0) {
+					sql += ",";
+				}
 				for (int i = 0; i < scoreAmount; i++) {
 					sql += "SCORE_" + (i + 1);
 					if (i < scoreAmount - 1) {
 						sql += ",";
 					}
 				}
-				sql += ") VALUES ('" + id + "','" + subjectId + "','N','-','-2','-2',";
+				sql += ") VALUES ('" + id + "','" + subjectId + "','N','-','-2','-2'";
+				if (scoreAmount > 0) {
+					sql += ",";
+				}
 				for (int i = 0; i < scoreAmount; i++) {
 					sql += "'-2'";
 					if (i < scoreAmount - 1) {
@@ -489,7 +501,7 @@ public class SubjectMgnt {
 		for (Student st : cl.getClassList()) {
 			String email = el.list.get(st.getId());
 			if (email == null) {
-				JOptionPane.showMessageDialog(null, st.getId() + " ‰¡Ë¡’ email", "ERROR", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, st.getId() + " ‡πÑ‡∏°‡πà‡∏°‡∏µ email", "ERROR", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
 			st.setEmail(email);
@@ -515,11 +527,11 @@ public class SubjectMgnt {
 	}
 
 	public static boolean addSubject(Subject sub) {
-		sub.setId(getRowSubject() + 1);
-		sub.getExamCri().setId(getRowExamCri() + 1);
-		sub.getGradeCri().setId(getRowGradingCri() + 1);
+		sub.setId(getLastIDSubject() + 1);
+		sub.getExamCri().setId(getLastIDExamCri() + 1);
+		sub.getGradeCri().setId(getLastIDGradingCri()+ 1);
 		if (SubjectMgnt.checkSameSubject(sub.getCode(), sub.getSection(), sub.getSemester(), sub.getYear())) {
-			JOptionPane.showMessageDialog(null, "¡’«‘™“ " + sub.getCode() + " section π’ÈÕ¬ŸË·≈È«„π‡∑Õ¡π’È", "ERROR",
+			JOptionPane.showMessageDialog(null, "‡∏°‡∏µ‡∏ß‡∏¥‡∏ä‡∏≤ " + sub.getCode() + " section ‡∏ô‡∏µ‡πâ‡∏≠‡∏¢‡∏π‡πà‡πÅ‡∏•‡πâ‡∏ß‡πÉ‡∏ô‡πÄ‡∏ó‡∏≠‡∏°‡∏ô‡∏µ‡πâ", "ERROR",
 					JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
@@ -534,23 +546,23 @@ public class SubjectMgnt {
 			if (ex) {
 				int error = 0;
 				if (!SubjectMgnt.addClassListToDB(sub.getClassList(), sub.getId())) {
-					JOptionPane.showMessageDialog(null, "‰¡Ë “¡“√∂‡æ‘Ë¡√“¬™◊ËÕ„π class list ‡¢È“ ŸË database ‰¥È",
+					JOptionPane.showMessageDialog(null, "‡πÑ‡∏°‡πà‡∏™‡∏≤‡∏°‡∏≤‡∏£‡∏ñ‡πÄ‡∏û‡∏¥‡πà‡∏°‡∏£‡∏≤‡∏¢‡∏ä‡∏∑‡πà‡∏≠‡πÉ‡∏ô class list ‡πÄ‡∏Ç‡πâ‡∏≤‡∏™‡∏π‡πà database ‡πÑ‡∏î‡πâ",
 							"ERROR", JOptionPane.ERROR_MESSAGE);
 					error++;
 				}
 				if (!SubjectMgnt.addExamCriToDB(sub.getExamCri())) {
-					JOptionPane.showMessageDialog(null, "‰¡Ë “¡“√∂‡æ‘Ë¡ —¥ Ë«π–·ππ‡¢È“ ŸË database ‰¥È", "ERROR",
+					JOptionPane.showMessageDialog(null, "‡πÑ‡∏°‡πà‡∏™‡∏≤‡∏°‡∏≤‡∏£‡∏ñ‡πÄ‡∏û‡∏¥‡πà‡∏°‡∏™‡∏±‡∏î‡∏™‡πà‡∏ß‡∏ô‡∏Ñ‡∏∞‡πÅ‡∏ô‡∏ô‡πÄ‡∏Ç‡πâ‡∏≤‡∏™‡∏π‡πà database ‡πÑ‡∏î‡πâ", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
 					error++;
 				}
 				if (!SubjectMgnt.addExamResultToDB(sub.getClassList(), sub.getId(),
 						sub.getExamCri().getScoreAmount())) {
-					JOptionPane.showMessageDialog(null, "‰¡Ë “¡“√∂‡æ‘Ë¡ ExamResult ‡¢È“ ŸË database ‰¥È", "ERROR",
+					JOptionPane.showMessageDialog(null, "‡πÑ‡∏°‡πà‡∏™‡∏≤‡∏°‡∏≤‡∏£‡∏ñ‡πÄ‡∏û‡∏¥‡πà‡∏° ExamResult ‡πÄ‡∏Ç‡πâ‡∏≤‡∏™‡∏π‡πà database ‡πÑ‡∏î‡πâ", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
 					error++;
 				}
 				if (!SubjectMgnt.addGradingCriteriaToDB(sub.getGradeCri())) {
-					JOptionPane.showMessageDialog(null, "‰¡Ë “¡“√∂‡æ‘Ë¡‡°≥±Ï°“√µ—¥‡°√¥‡¢È“ ŸË database ‰¥È", "ERROR",
+					JOptionPane.showMessageDialog(null, "‡πÑ‡∏°‡πà‡∏™‡∏≤‡∏°‡∏≤‡∏£‡∏ñ‡πÄ‡∏û‡∏¥‡πà‡∏°‡πÄ‡∏Å‡∏ì‡∏ë‡πå‡∏Å‡∏≤‡∏£‡∏ï‡∏±‡∏î‡πÄ‡∏Å‡∏£‡∏î‡πÄ‡∏Ç‡πâ‡∏≤‡∏™‡∏π‡πà database ‡πÑ‡∏î‡πâ", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
 					error++;
 				}
@@ -565,8 +577,8 @@ public class SubjectMgnt {
 		return false;
 	}
 
-	public static int getRowSubject() {
-		String sql = "select count(*) FROM SUBJECTS_LIST";
+	public static int getLastIDSubject() {
+		String sql = "SELECT MAX(ID) FROM SUBJECTS_LIST";
 		Connection con = ConnectMgnt.getConnect();
 		Statement st;
 		try {
@@ -584,8 +596,8 @@ public class SubjectMgnt {
 		return -1;
 	}
 
-	public static int getRowExamCri() {
-		String sql = "select count(*) FROM EXAM_CRITERIA_LIST";
+	public static int getLastIDExamCri() {
+		String sql = "SELECT MAX(ID) FROM EXAM_CRITERIA_LIST";
 		Connection con = ConnectMgnt.getConnect();
 		Statement st;
 		try {
@@ -603,8 +615,8 @@ public class SubjectMgnt {
 		return -1;
 	}
 
-	public static int getRowGradingCri() {
-		String sql = "select count(*) FROM GRADING_LIST";
+	public static int getLastIDGradingCri() {
+		String sql = "SELECT MAX(ID) FROM GRADING_LIST";
 		Connection con = ConnectMgnt.getConnect();
 		Statement st;
 		try {
@@ -622,8 +634,8 @@ public class SubjectMgnt {
 		return -1;
 	}
 
-	public static int getRowClassList() {
-		String sql = "select count(*) FROM CLASS_LIST";
+	public static int getLastIDClassList() {
+		String sql = "SELECT MAX(ID) FROM CLASS_LIST";
 		Connection con = ConnectMgnt.getConnect();
 		Statement st;
 		try {
@@ -639,5 +651,9 @@ public class SubjectMgnt {
 					JOptionPane.ERROR_MESSAGE);
 		}
 		return -1;
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(SubjectMgnt.getLastIDSubject());
 	}
 }
