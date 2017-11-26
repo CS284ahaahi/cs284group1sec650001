@@ -5,9 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import javax.swing.JComponent;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
-import javax.swing.JProgressBar;
 import Model.ClassList;
 import Model.EmailList;
 import Model.ExamCriteria;
@@ -20,19 +19,52 @@ import Model.User;
 
 public class SubjectMgnt {
 
+	public static String getNameByID(String id) {
+		String sql = "select * from CLASS_LIST Where USER_ID = '" + id + "'";
+		try {
+			Connection con = ConnectMgnt.getConnect();
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			if (rs.next()) {
+				return rs.getString("NAME");
+			}
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Database Error.!!!" + e.getMessage(), "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+		}
+		return null;
+	}
+
 	public static ArrayList<StudentResult> checkGrading(ExamResult er) { // return นักศึกษาที่คะแนนยังไม่ครบ
 		ArrayList<StudentResult> noneGrade = new ArrayList<>();
 		for (StudentResult sr : er.getList()) {
-			if (sr.getFinalScore() == -2) {
-				noneGrade.add(sr);
-			} else if (sr.getMidScore() == -2) {
-				noneGrade.add(sr);
-			} else {
-				for (int i = 0; i < sr.getScoreAmount(); i++) {
-					if (sr.getScore()[i] == -2) {
-						noneGrade.add(sr);
-						break;
+			if (sr.getStatus().equals("N")) {
+				if (sr.getFinalScore() == -2) {
+					noneGrade.add(sr);
+				} else if (sr.getMidScore() == -2) {
+					noneGrade.add(sr);
+				} else {
+					for (int i = 0; i < sr.getScoreAmount(); i++) {
+						if (sr.getScore()[i] == -2) {
+							noneGrade.add(sr);
+							break;
+						}
 					}
+				}
+			}
+		}
+		if (noneGrade.size() > 0) {
+			return noneGrade;
+		}
+		return null;
+	}
+
+	public static ArrayList<StudentResult> checkGradingByGrade(ExamResult er) { // return นักศึกษาที่เกรดยังไม่ครบ
+		ArrayList<StudentResult> noneGrade = new ArrayList<>();
+		for (StudentResult sr : er.getList()) {
+			if (sr.getStatus().equals("N")) {
+				if (sr.getGrade().equals("-")) {
+					noneGrade.add(sr);
 				}
 			}
 		}
@@ -80,7 +112,7 @@ public class SubjectMgnt {
 		if (noneGrd != null) {
 			String strList = "";
 			for (StudentResult sr : noneGrd) {
-				strList += sr.getID() + "\n";
+				strList += sr.getIDStudent() + "\n";
 			}
 			strList += "ยังไม่มีคะแนนในบางส่วน โปรดเช็คการให้คะแนน";
 			JOptionPane.showMessageDialog(null, strList, "Warning!!", JOptionPane.ERROR_MESSAGE);
@@ -94,7 +126,10 @@ public class SubjectMgnt {
 				return false;
 			}
 		}
-		return true;
+		if (SubjectMgnt.editExamResult(sub.getExResult())) {
+			return true;
+		}
+		return false;
 	}
 
 	public static boolean gradingStudentResult(StudentResult sr, GradingCriteria gc, ExamCriteria ec) {
@@ -271,10 +306,13 @@ public class SubjectMgnt {
 	public static boolean editExamCri(ExamCriteria ec) {
 		String sql = "update EXAM_CRITERIA_LIST SET `MID_FULL` = '" + ec.getMidFull() + "',`MID_PER` = '"
 				+ ec.getMidPer() + "',`FINAL_FULL` = '" + ec.getFinalFull() + "',`FINAL_PER` = '" + ec.getFinalPer()
-				+ "',`SCORE_AMT` = '" + ec.getScoreAmount() + "',";
+				+ "',`SCORE_AMT` = '" + ec.getScoreAmount() + "'";
 		try {
 			Connection con = ConnectMgnt.getConnect();
 			Statement st = con.createStatement();
+			if (ec.getScoreAmount() > 0) {
+				sql += ",";
+			}
 			for (int i = 0; i < ec.getScoreAmount(); i++) {
 				int index = i + 1;
 				int scoreFull = ec.getScore()[i];
@@ -330,7 +368,10 @@ public class SubjectMgnt {
 			int fail = 0;
 			for (StudentResult sr : er.getList()) {
 				String sql = "UPDATE SCORE_LIST SET `SCORE_MID` = '" + sr.getMidScore() + "',`SCORE_FINAL` = '"
-						+ sr.getFinalScore() + "',";
+						+ sr.getFinalScore() + "' ,`GRADE` = '"+sr.getGrade()+"'";
+				if (sr.getScoreAmount() > 0) {
+					sql += ",";
+				}
 				for (int i = 0; i < sr.getScoreAmount(); i++) {
 					double score = sr.getScoreByIndex(i);
 					int index = i + 1;
@@ -529,7 +570,7 @@ public class SubjectMgnt {
 	public static boolean addSubject(Subject sub) {
 		sub.setId(getLastIDSubject() + 1);
 		sub.getExamCri().setId(getLastIDExamCri() + 1);
-		sub.getGradeCri().setId(getLastIDGradingCri()+ 1);
+		sub.getGradeCri().setId(getLastIDGradingCri() + 1);
 		if (SubjectMgnt.checkSameSubject(sub.getCode(), sub.getSection(), sub.getSemester(), sub.getYear())) {
 			JOptionPane.showMessageDialog(null, "มีวิชา " + sub.getCode() + " section นี้อยู่แล้วในเทอมนี้", "ERROR",
 					JOptionPane.ERROR_MESSAGE);
@@ -652,8 +693,33 @@ public class SubjectMgnt {
 		}
 		return -1;
 	}
-	
-	public static void main(String[] args) {
-		System.out.println(SubjectMgnt.getLastIDSubject());
+
+	public static boolean sendEmailAll(Subject sub) {
+		String title = "ประกาศผลคะแนนวิชา " + sub.getCode() + " " + sub.getNameThai() + " " + sub.getSection() + " "
+				+ sub.getSemester() + "/" + sub.getYear();
+		class StudentNow {
+			public String name, email;
+
+			public StudentNow(String name, String email) {
+				this.name = name;
+				this.email = email;
+			}
+		}
+		HashMap<String, StudentNow> mail = new HashMap<>();
+		for (Student st : sub.getClassList().getClassList()) {
+			mail.put(st.getId(), new StudentNow(st.getName(), st.getEmail()));
+		}
+		for (StudentResult sr : sub.getExResult().getList()) {
+			if (sr.getStatus().equals("N")) {
+				StudentNow sn = mail.get(sr.getIDStudent());
+				String email = sn.email;
+				String text = "สวัสดี คุณ " + sn.name + " รหัสนักศึกษา " + sr.getIDStudent()
+						+ "\nผลเกรดของวิชาของคุณคือ... " + sr.getGrade();
+				if (!ConnectMgnt.sendEmail(email, title, text)) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 }
