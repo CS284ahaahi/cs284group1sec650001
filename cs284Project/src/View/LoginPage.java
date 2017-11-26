@@ -278,7 +278,7 @@ public class LoginPage extends JPanel{
 					this.frame.dispose();
 					if(us.getUserID().equals("5909650029")) {
 						ArrayList<Subject> mySubList = SubjectMgnt.getMySubject(us);
-						Subject sub = mySubList.get(0);
+						Subject sub = mySubList.get(1);
 						SubjectMenuPage sm = new SubjectMenuPage(sub, us);
 					}else {
 						JOptionPane.showMessageDialog(frame, "Coming Soon for another user.","Error",JOptionPane.ERROR_MESSAGE);

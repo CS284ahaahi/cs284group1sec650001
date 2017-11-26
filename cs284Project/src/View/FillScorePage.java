@@ -254,53 +254,57 @@ public class FillScorePage extends javax.swing.JFrame {
 
 	private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {
 		if (!idShow.getText().equals("XXXXXXXXXX")) {
-			StudentResult sr = this.sub.getExResult().get(this.table.getSelectedRow());
-			double finals = -2;
-			if (!finalS.getText().trim().equals("-")) {
-				finals = Double.parseDouble(finalS.getText().trim());
-			}
-			double mids = -2;
-			if (!mid.getText().trim().equals("-")) {
-				mids = Double.parseDouble(mid.getText().trim());
-			}
-			double[] score = null;
-			if (sr.getScoreAmount() > 0) {
-				score = new double[sr.getScoreAmount()];
-				for (int i = 0; i < sr.getScoreAmount(); i++) {
-					if (!q[i].getText().trim().equals("-")) {
-						score[i] = Double.parseDouble(q[i].getText().trim());
-					} else {
-						score[i] = -2;
-					}
+			try {
+				StudentResult sr = this.sub.getExResult().get(this.table.getSelectedRow());
+				double finals = -2;
+				if (!finalS.getText().trim().equals("-")) {
+					finals = Double.parseDouble(finalS.getText().trim());
 				}
-			}
-			int er = 0;
-			if (finals > sub.getExamCri().getFinalFull()) {
-				JOptionPane.showMessageDialog(this, "คะแนนเต็ม " + sub.getExamCri().getFinalFull(), "ERROR",
-						JOptionPane.ERROR_MESSAGE);
-				er++;
-			} else if (mids > sub.getExamCri().getMidFull()) {
-				JOptionPane.showMessageDialog(this, "คะแนนเต็ม " + sub.getExamCri().getMidFull(), "ERROR",
-						JOptionPane.ERROR_MESSAGE);
-				er++;
-			} else {
+				double mids = -2;
+				if (!mid.getText().trim().equals("-")) {
+					mids = Double.parseDouble(mid.getText().trim());
+				}
+				double[] score = null;
 				if (sr.getScoreAmount() > 0) {
+					score = new double[sr.getScoreAmount()];
 					for (int i = 0; i < sr.getScoreAmount(); i++) {
-						if (score[i] > sub.getExamCri().getScore()[i]) {
-							JOptionPane.showMessageDialog(this, "คะแนนเต็ม " + sub.getExamCri().getScore()[i], "ERROR",
-									JOptionPane.ERROR_MESSAGE);
-							er++;
-							break;
+						if (!q[i].getText().trim().equals("-")) {
+							score[i] = Double.parseDouble(q[i].getText().trim());
+						} else {
+							score[i] = -2;
 						}
 					}
 				}
-			}
-			if (er == 0) {
-				sr.setFinalScore(finals);
-				sr.setMidScore(mids);
-				sr.setScore(score);
-				JOptionPane.showMessageDialog(this, "บันทึกผลแล้วแต่จะมีผลหลังจากกดปุ่ม back ไปแล้ว");
-				this.haveChange = true;
+				int er = 0;
+				if (finals > sub.getExamCri().getFinalFull()) {
+					JOptionPane.showMessageDialog(this, "คะแนนเต็ม " + sub.getExamCri().getFinalFull(), "ERROR",
+							JOptionPane.ERROR_MESSAGE);
+					er++;
+				} else if (mids > sub.getExamCri().getMidFull()) {
+					JOptionPane.showMessageDialog(this, "คะแนนเต็ม " + sub.getExamCri().getMidFull(), "ERROR",
+							JOptionPane.ERROR_MESSAGE);
+					er++;
+				} else {
+					if (sr.getScoreAmount() > 0) {
+						for (int i = 0; i < sr.getScoreAmount(); i++) {
+							if (score[i] > sub.getExamCri().getScore()[i]) {
+								JOptionPane.showMessageDialog(this, "คะแนนเต็ม " + sub.getExamCri().getScore()[i], "ERROR",
+										JOptionPane.ERROR_MESSAGE);
+								er++;
+								break;
+							}
+						}
+					}
+				}
+				if (er == 0) {
+					sr.setFinalScore(finals);
+					sr.setMidScore(mids);
+					sr.setScore(score);
+					JOptionPane.showMessageDialog(this, "บันทึกผลแล้วแต่จะมีผลหลังจากกดปุ่ม back ไปแล้ว");
+					this.haveChange = true;
+				}
+			}catch(NumberFormatException er) {
+				JOptionPane.showMessageDialog(this, "ต้องใส่ตัวเลขเท่านั้น", "ERROR", JOptionPane.ERROR_MESSAGE);
 			}
 		} else {
 			JOptionPane.showMessageDialog(this, "ยังไม่ได้เลือกคนที่จะกรอกคะแนน", "ERROR", JOptionPane.ERROR_MESSAGE);

@@ -126,7 +126,10 @@ public class SubjectMgnt {
 				return false;
 			}
 		}
-		return true;
+		if (SubjectMgnt.editExamResult(sub.getExResult())) {
+			return true;
+		}
+		return false;
 	}
 
 	public static boolean gradingStudentResult(StudentResult sr, GradingCriteria gc, ExamCriteria ec) {
@@ -365,7 +368,7 @@ public class SubjectMgnt {
 			int fail = 0;
 			for (StudentResult sr : er.getList()) {
 				String sql = "UPDATE SCORE_LIST SET `SCORE_MID` = '" + sr.getMidScore() + "',`SCORE_FINAL` = '"
-						+ sr.getFinalScore() + "'";
+						+ sr.getFinalScore() + "' ,`GRADE` = '"+sr.getGrade()+"'";
 				if (sr.getScoreAmount() > 0) {
 					sql += ",";
 				}
