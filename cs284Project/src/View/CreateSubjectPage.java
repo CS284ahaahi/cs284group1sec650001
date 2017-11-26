@@ -5,7 +5,6 @@ import javax.swing.JOptionPane;
 
 import Controller.FileMgnt;
 import Controller.SubjectMgnt;
-import Controller.UserMgnt;
 import Model.ClassList;
 import Model.EmailList;
 import Model.ExamCriteria;
@@ -14,7 +13,7 @@ import Model.Subject;
 import Model.User;
 
 public class CreateSubjectPage extends javax.swing.JPanel {
-	private JFrame frame;
+	private JFrame frame, old;
 	private User us;
 	private ExamCriteria ec;
 	private ClassList cl;
@@ -22,8 +21,9 @@ public class CreateSubjectPage extends javax.swing.JPanel {
 	private GradingCriteria gc;
 	private ExamCriteriaPage ecp;
 
-	public CreateSubjectPage(User us) {
+	public CreateSubjectPage(User us, JFrame seframe) {
 		this.us = us;
+		this.old = seframe;
 		initComponents();
 		idSubjectInput.setText("code");
 		nameSurname.setText(us.getFirstName() + " " + us.getLastName());
@@ -682,8 +682,10 @@ public class CreateSubjectPage extends javax.swing.JPanel {
 						Subject sub = new Subject(0, nameThai, nameEng, code, section, us.getUserName(), semester, year,
 								cl, null, gc, ec, null);
 						if (SubjectMgnt.addSubject(sub)) {
-							JOptionPane.showMessageDialog(frame, "สร้างวิชาเรียนสำเร็จ");
 							frame.dispose();
+							JOptionPane.showMessageDialog(frame, "สร้างวิชาเรียนสำเร็จ\nกำลังโหลดหน้าเลือกวิชาใหม่");
+							old.dispose();
+							new SelectSubPage(us);
 						}
 					} catch (Exception e) {
 						JOptionPane.showMessageDialog(frame, "ใส่เกณฑ์คะแนนผิด", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -713,16 +715,12 @@ public class CreateSubjectPage extends javax.swing.JPanel {
 		if (ecp == null) {
 			ecp = new ExamCriteriaPage();
 		} else {
-			ecp = new ExamCriteriaPage(ecp.getExamCri(),false);
+			ecp = new ExamCriteriaPage(ecp.getExamCri(), false);
 		}
 	}
 
 	private void backBttActionPerformed(java.awt.event.ActionEvent evt) { // back
 		frame.dispose();
-	}
-
-	public static void main(String[] args) {
-		new CreateSubjectPage(UserMgnt.checkUserPass("5909650029", "12345678"));
 	}
 
 	// Variables declaration - do not modify

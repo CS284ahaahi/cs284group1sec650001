@@ -299,9 +299,7 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 	}
 
 	private void backBtnActionPerformed(ActionEvent e) {
-		JOptionPane.showMessageDialog(this, "HomePage Coming Soon / goto Login");
 		this.frame.dispose();
-		new LoginPage();
 	}
 
 	private void FillBtnActionPerformed(ActionEvent evt) {
@@ -319,7 +317,7 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 	private void gradingFn() {
 		if (SubjectMgnt.gradingExam(sub)) {
 			JOptionPane.showMessageDialog(frame, "การตัดเกรดเสร็จสิ้น ท่านสามารถ export ได้แล้วขณะนี้");
-		} 
+		}
 	}
 
 	private void exportBtnActionPerformed(ActionEvent evt) {

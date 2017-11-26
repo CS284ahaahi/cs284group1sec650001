@@ -9,8 +9,6 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import Controller.SubjectMgnt;
-import Model.ClassList;
-import Model.ExamResult;
 import Model.Student;
 import Model.StudentResult;
 import Model.Subject;
@@ -29,12 +27,12 @@ public class FillScorePage extends javax.swing.JFrame {
 		}
 		this.sub = sub;
 		initComponents();
-		String str = "-------�Ѵ��ǹ��ṹ-------\n";
-		str += " ��ҧ�Ҥ���               " + sub.getExamCri().getMidFull() + "\n";
-		str += " �����Ҥ���               " + sub.getExamCri().getFinalFull() + "\n";
+		String str = "-------สัดส่วนคะแนน-------\n";
+		str += " กลางภาคเต็ม               " + sub.getExamCri().getMidFull() + "\n";
+		str += " ปลายภาคเต็ม               " + sub.getExamCri().getFinalFull() + "\n";
 		if (sub.getExamCri().getScoreAmount() > 0) {
 			for (int i = 0; i < sub.getExamCri().getScoreAmount(); i++) {
-				str += " ��ṹ" + (i + 1) + "                         " + sub.getExamCri().getScore()[i] + "\n";
+				str += " คะแนน" + (i + 1) + "                         " + sub.getExamCri().getScore()[i] + "\n";
 			}
 		}
 		JOptionPane.showMessageDialog(this, str);
@@ -49,7 +47,7 @@ public class FillScorePage extends javax.swing.JFrame {
 			model.setValueAt(sr.getIDStudent(), row, 0);
 			model.setValueAt(listName.get(sr.getIDStudent()), row, 1);
 		}
-		setTitle("��͡��ṹ�ͧ �� �Ԫ�" + sub.getNameEng());
+		setTitle("กรอกคะแนนของ นศ วิชา" + sub.getNameEng());
 		this.setSize(921, 735);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
@@ -101,7 +99,7 @@ public class FillScorePage extends javax.swing.JFrame {
 
 		table.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
 
-		}, new String[] { "���ʹѡ�֡��", "����" }) {
+		}, new String[] { "รหัสนักศึกษา", "ชื่อ" }) {
 			Class[] types = new Class[] { java.lang.String.class, java.lang.String.class };
 			boolean[] canEdit = new boolean[] { false, false };
 
@@ -136,7 +134,7 @@ public class FillScorePage extends javax.swing.JFrame {
 		});
 
 		finallb.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
-		finallb.setText("�����Ҥ");
+		finallb.setText("ปลายภาค");
 
 		jPanel3.setBackground(new java.awt.Color(255, 223, 114));
 		jPanel3.setLayout(new java.awt.GridLayout(2, 0, 10, 10));
@@ -144,13 +142,13 @@ public class FillScorePage extends javax.swing.JFrame {
 		jPanel3.add(finalS);
 
 		jLabel7.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
-		jLabel7.setText("���ʹѡ�֡��");
+		jLabel7.setText("รหัสนักศึกษา");
 
 		idShow.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
 		idShow.setText("XXXXXXXXXX");
 
 		namelb.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
-		namelb.setText("����");
+		namelb.setText("ชื่อ");
 
 		nameShow.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
 		nameShow.setText("XXXXXX XXXXX");
@@ -159,13 +157,13 @@ public class FillScorePage extends javax.swing.JFrame {
 		lb6.setText("6");
 
 		midlb.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
-		midlb.setText("��ҧ�Ҥ");
+		midlb.setText("กลางภาค");
 
 		TestScore.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
-		TestScore.setText("��ṹ�ͺ");
+		TestScore.setText("คะแนนสอบ");
 
 		score.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
-		score.setText("��ṹ��");
+		score.setText("คะแนนเก็บ");
 
 		lb10.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
 		lb10.setText("10");
@@ -301,18 +299,18 @@ public class FillScorePage extends javax.swing.JFrame {
 				}
 				int er = 0;
 				if (finals > sub.getExamCri().getFinalFull()) {
-					JOptionPane.showMessageDialog(this, "��ṹ��� " + sub.getExamCri().getFinalFull(), "ERROR",
+					JOptionPane.showMessageDialog(this, "คะแนนเต็ม " + sub.getExamCri().getFinalFull(), "ERROR",
 							JOptionPane.ERROR_MESSAGE);
 					er++;
 				} else if (mids > sub.getExamCri().getMidFull()) {
-					JOptionPane.showMessageDialog(this, "��ṹ��� " + sub.getExamCri().getMidFull(), "ERROR",
+					JOptionPane.showMessageDialog(this, "คะแนนเต็ม " + sub.getExamCri().getMidFull(), "ERROR",
 							JOptionPane.ERROR_MESSAGE);
 					er++;
 				} else {
 					if (sr.getScoreAmount() > 0) {
 						for (int i = 0; i < sr.getScoreAmount(); i++) {
 							if (score[i] > sub.getExamCri().getScore()[i]) {
-								JOptionPane.showMessageDialog(this, "��ṹ��� " + sub.getExamCri().getScore()[i],
+								JOptionPane.showMessageDialog(this, "คะแนนเต็ม " + sub.getExamCri().getScore()[i],
 										"ERROR", JOptionPane.ERROR_MESSAGE);
 								er++;
 								break;
@@ -324,21 +322,21 @@ public class FillScorePage extends javax.swing.JFrame {
 					sr.setFinalScore(finals);
 					sr.setMidScore(mids);
 					sr.setScore(score);
-					JOptionPane.showMessageDialog(this, "�ѹ�֡����������ռ���ѧ�ҡ������ back �����");
+					JOptionPane.showMessageDialog(this, "บันทึกผลแล้วแต่จะมีผลหลังจากกดปุ่ม back ไปแล้ว");
 					this.haveChange = true;
 				}
 			} catch (NumberFormatException er) {
-				JOptionPane.showMessageDialog(this, "��ͧ������Ţ��ҹ��", "ERROR", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "ต้องใส่ตัวเลขเท่านั้น", "ERROR", JOptionPane.ERROR_MESSAGE);
 			}
 		} else {
-			JOptionPane.showMessageDialog(this, "�ѧ��������͡�����С�͡��ṹ", "ERROR", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "ยังไม่ได้เลือกคนที่จะกรอกคะแนน", "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
 	private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {
 		if (haveChange) {
 			if (SubjectMgnt.editExamResult(sub.getExResult())) {
-				JOptionPane.showMessageDialog(this, "�ѹ�֡�ŷ�����ŧ�ҹ���������º����");
+				JOptionPane.showMessageDialog(this, "บันทึกผลทั้งหมดลงฐานข้อมูลเรียบร้อย");
 			}
 		}
 		this.dispose();
