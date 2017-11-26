@@ -1,6 +1,5 @@
 package View;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -19,21 +18,19 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 	private JFrame frame;
 	private Subject sub;
 	private User us;
-	private boolean isGrading;
 
 	public SubjectMenuPage(Subject sub, User us) {
 		initComponents();
-		isGrading = false;
 		this.sub = sub;
 		this.us = us;
 		this.nameLb.setText(us.getFirstName() + " " + us.getLastName());
-		this.subjectNamelb.setText(sub.getNameEng());
+		this.subjectNamelb.setText(sub.getNameEng() + "(" + sub.getCode() + ")");
 		this.sectionShowlb.setText(sub.getSection());
 		this.termShowlb.setText(sub.getSemester());
 		this.yearShowlb.setText(sub.getYear());
 		frame = new JFrame("CS284 Project");
 		frame.add(this);
-		frame.pack();
+		frame.setSize(1390, 710);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null); // center on screen
@@ -58,10 +55,10 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 		sectionlb = new javax.swing.JLabel();
 		yearlb = new javax.swing.JLabel();
 		backBtn = new javax.swing.JButton();
-		comingBtn = new javax.swing.JButton();
+		GradingBtn = new javax.swing.JButton();
 		FillBtn = new javax.swing.JButton();
 		exportBtn = new javax.swing.JButton();
-		GradingBtn = new javax.swing.JButton();
+		AnnouncingBtn = new javax.swing.JButton();
 		listStudentBtn = new javax.swing.JButton();
 		editSubjectBtn = new javax.swing.JButton();
 
@@ -103,10 +100,11 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 		yearlb.setFont(new java.awt.Font("Century Gothic", 0, 33)); // NOI18N
 		yearlb.setText("Year : ");
 
+		backBtn.setBackground(new java.awt.Color(204, 204, 204));
 		backBtn.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 		backBtn.setText("back");
-		backBtn.setBackground(new Color(204, 204, 204));
 		backBtn.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				backBtnActionPerformed(e);
@@ -176,12 +174,12 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 				HeadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jPanel3,
 						javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE));
 
-		comingBtn.setBackground(new java.awt.Color(255, 153, 0));
-		comingBtn.setFont(new java.awt.Font("Century Gothic", 0, 30)); // NOI18N
-		comingBtn.setText("Coming soon");
-		comingBtn.addActionListener(new java.awt.event.ActionListener() {
+		GradingBtn.setBackground(new java.awt.Color(255, 153, 0));
+		GradingBtn.setFont(new java.awt.Font("Century Gothic", 0, 30)); // NOI18N
+		GradingBtn.setText("Grading");
+		GradingBtn.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				comingBtnActionPerformed(evt);
+				GradingBtnActionPerformed(evt);
 			}
 		});
 
@@ -203,12 +201,12 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 			}
 		});
 
-		GradingBtn.setBackground(new java.awt.Color(255, 153, 0));
-		GradingBtn.setFont(new java.awt.Font("Century Gothic", 0, 30)); // NOI18N
-		GradingBtn.setText("Grading");
-		GradingBtn.addActionListener(new java.awt.event.ActionListener() {
+		AnnouncingBtn.setBackground(new java.awt.Color(255, 153, 0));
+		AnnouncingBtn.setFont(new java.awt.Font("Century Gothic", 0, 30)); // NOI18N
+		AnnouncingBtn.setText("Announcing");
+		AnnouncingBtn.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				GradingBtnActionPerformed(evt);
+				AnnouncingBtnActionPerformed(evt);
 			}
 		});
 
@@ -240,7 +238,7 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 						.addGap(146, 146, 146)
 						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addComponent(GradingBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
+								.addComponent(AnnouncingBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
 										javax.swing.GroupLayout.PREFERRED_SIZE)
 								.addComponent(listStudentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
 										javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -248,7 +246,7 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
 								.addComponent(exportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
 										javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addComponent(comingBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
+								.addComponent(GradingBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
 										javax.swing.GroupLayout.PREFERRED_SIZE))
 						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 				.addGroup(layout.createSequentialGroup()
@@ -263,7 +261,7 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 								.addComponent(FillBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120,
 										javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addComponent(comingBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120,
+								.addComponent(GradingBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120,
 										javax.swing.GroupLayout.PREFERRED_SIZE)
 								.addComponent(listStudentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120,
 										javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -271,15 +269,29 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 								.addComponent(exportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120,
 										javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addComponent(GradingBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120,
+								.addComponent(AnnouncingBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120,
 										javax.swing.GroupLayout.PREFERRED_SIZE)
 								.addComponent(editSubjectBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120,
 										javax.swing.GroupLayout.PREFERRED_SIZE))
 						.addGap(55, 55, 55)));
 	}// </editor-fold>
 
-	private void comingBtnActionPerformed(ActionEvent evt) {
-		JOptionPane.showMessageDialog(frame, "Coming Soon");
+	private void AnnouncingBtnActionPerformed(java.awt.event.ActionEvent evt) {
+		ArrayList<StudentResult> str = SubjectMgnt.checkGradingByGrade(sub.getExResult());
+		if (str == null) {
+			if (SubjectMgnt.sendEmailAll(sub)) {
+				JOptionPane.showMessageDialog(frame, "ส่งผลเกรดเข้าสู่ email ของนักศึกษาทุกคนแล้ว");
+			} else {
+				JOptionPane.showMessageDialog(frame, "ไม่สามารถประกาศผลได้", "Warning!!", JOptionPane.ERROR_MESSAGE);
+			}
+		} else {
+			String strList = "";
+			for (StudentResult sr : str) {
+				strList += sr.getIDStudent() + "\n";
+			}
+			strList += "ยังไม่มีเกรด โปรดเช็คการตัดเกรดก่อนประกาศผล";
+			JOptionPane.showMessageDialog(frame, strList, "Warning!!", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	private void GradingBtnActionPerformed(ActionEvent evt) {
@@ -289,63 +301,49 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 	private void backBtnActionPerformed(ActionEvent e) {
 		JOptionPane.showMessageDialog(this, "HomePage Coming Soon / goto Login");
 		this.frame.dispose();
-		LoginPage lp = new LoginPage();
+		new LoginPage();
 	}
 
 	private void FillBtnActionPerformed(ActionEvent evt) {
-		JOptionPane.showMessageDialog(frame, "Coming Soon");
+		new FillScorePage(sub);
 	}
 
 	private void listStudentBtnActionPerformed(ActionEvent evt) {
-		JOptionPane.showMessageDialog(frame, "Coming Soon");
+		new ClassListPage(sub.getClassList(), sub.getNameEng());
 	}
 
 	private void editSubjectBtnActionPerformed(ActionEvent evt) {
 		new EditSubjectPage(sub, us);
 	}
 
-	private void validateFn() {
-		ArrayList<StudentResult> str = SubjectMgnt.checkGrading(sub.getExResult());
-		if (str != null) {
-			String strList = "";
-			for (StudentResult sr : str) {
-				strList += sr.getID() + "\n";
-			}
-			strList += "ยังไม่มีคะแนนในบางส่วน โปรดเช็คการให้คะแนน";
-			JOptionPane.showMessageDialog(frame, strList, "Warning!!", JOptionPane.ERROR_MESSAGE);
-		} else {
-			JOptionPane.showMessageDialog(frame, "ตรวจสอบเสร็จสิ้น ท่านสามารถ export ได้แล้วขณะนี้");
-			this.isGrading = true;
-		}
-	}
-
 	private void gradingFn() {
-		JOptionPane.showMessageDialog(frame,
-				"ตอนนี้ระบบยังไม่มีระบบการตัดเกรด สามารถทำได้แค่ตรวจสอบความถูกต้องของคะแนนเท่านั้น");
-		validateFn();
+		if (SubjectMgnt.gradingExam(sub)) {
+			JOptionPane.showMessageDialog(frame, "การตัดเกรดเสร็จสิ้น ท่านสามารถ export ได้แล้วขณะนี้");
+		} 
 	}
 
 	private void exportBtnActionPerformed(ActionEvent evt) {
-		if (this.isGrading) {
+		ArrayList<StudentResult> str = SubjectMgnt.checkGradingByGrade(sub.getExResult());
+		if (str == null) {
 			if (FileMgnt.exportGrade(sub.getExResult())) {
 				JOptionPane.showMessageDialog(null, "Export เสร็จสิ้น");
 			}
 		} else {
-			int check = JOptionPane.showConfirmDialog(frame,
-					"ท่านยังไม่ได้ตรวจสอบความถูกต้องของคะแนน/ตัดเกรด  ต้องการ ตรวจสอบ/ตัดเกรด หรือไม่", "Message",
-					JOptionPane.YES_NO_OPTION);
-			if (check == JOptionPane.YES_OPTION) {
-				gradingFn();
+			String strList = "";
+			for (StudentResult sr : str) {
+				strList += sr.getIDStudent() + "\n";
 			}
+			strList += "ยังไม่มีเกรด โปรดเช็คการตัดเกรด";
+			JOptionPane.showMessageDialog(frame, strList, "Warning!!", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
 	// Variables declaration - do not modify
+	private javax.swing.JButton AnnouncingBtn;
 	private javax.swing.JButton FillBtn;
 	private javax.swing.JButton GradingBtn;
 	private javax.swing.JPanel HeadPanel;
 	private javax.swing.JButton backBtn;
-	private javax.swing.JButton comingBtn;
 	private javax.swing.JButton editSubjectBtn;
 	private javax.swing.JButton exportBtn;
 	private javax.swing.JPanel jPanel3;

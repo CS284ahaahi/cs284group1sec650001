@@ -6,15 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Properties;
-
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
 import Model.ClassList;
 import Model.EmailList;
@@ -28,19 +19,52 @@ import Model.User;
 
 public class SubjectMgnt {
 
+	public static String getNameByID(String id) {
+		String sql = "select * from CLASS_LIST Where USER_ID = '" + id + "'";
+		try {
+			Connection con = ConnectMgnt.getConnect();
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			if (rs.next()) {
+				return rs.getString("NAME");
+			}
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Database Error.!!!" + e.getMessage(), "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+		}
+		return null;
+	}
+
 	public static ArrayList<StudentResult> checkGrading(ExamResult er) { // return นักศึกษาที่คะแนนยังไม่ครบ
 		ArrayList<StudentResult> noneGrade = new ArrayList<>();
 		for (StudentResult sr : er.getList()) {
-			if (sr.getFinalScore() == -2) {
-				noneGrade.add(sr);
-			} else if (sr.getMidScore() == -2) {
-				noneGrade.add(sr);
-			} else {
-				for (int i = 0; i < sr.getScoreAmount(); i++) {
-					if (sr.getScore()[i] == -2) {
-						noneGrade.add(sr);
-						break;
+			if (sr.getStatus().equals("N")) {
+				if (sr.getFinalScore() == -2) {
+					noneGrade.add(sr);
+				} else if (sr.getMidScore() == -2) {
+					noneGrade.add(sr);
+				} else {
+					for (int i = 0; i < sr.getScoreAmount(); i++) {
+						if (sr.getScore()[i] == -2) {
+							noneGrade.add(sr);
+							break;
+						}
 					}
+				}
+			}
+		}
+		if (noneGrade.size() > 0) {
+			return noneGrade;
+		}
+		return null;
+	}
+
+	public static ArrayList<StudentResult> checkGradingByGrade(ExamResult er) { // return นักศึกษาที่เกรดยังไม่ครบ
+		ArrayList<StudentResult> noneGrade = new ArrayList<>();
+		for (StudentResult sr : er.getList()) {
+			if (sr.getStatus().equals("N")) {
+				if (sr.getGrade().equals("-")) {
+					noneGrade.add(sr);
 				}
 			}
 		}
@@ -88,7 +112,7 @@ public class SubjectMgnt {
 		if (noneGrd != null) {
 			String strList = "";
 			for (StudentResult sr : noneGrd) {
-				strList += sr.getID() + "\n";
+				strList += sr.getIDStudent() + "\n";
 			}
 			strList += "ยังไม่มีคะแนนในบางส่วน โปรดเช็คการให้คะแนน";
 			JOptionPane.showMessageDialog(null, strList, "Warning!!", JOptionPane.ERROR_MESSAGE);
@@ -279,10 +303,13 @@ public class SubjectMgnt {
 	public static boolean editExamCri(ExamCriteria ec) {
 		String sql = "update EXAM_CRITERIA_LIST SET `MID_FULL` = '" + ec.getMidFull() + "',`MID_PER` = '"
 				+ ec.getMidPer() + "',`FINAL_FULL` = '" + ec.getFinalFull() + "',`FINAL_PER` = '" + ec.getFinalPer()
-				+ "',`SCORE_AMT` = '" + ec.getScoreAmount() + "',";
+				+ "',`SCORE_AMT` = '" + ec.getScoreAmount() + "'";
 		try {
 			Connection con = ConnectMgnt.getConnect();
 			Statement st = con.createStatement();
+			if (ec.getScoreAmount() > 0) {
+				sql += ",";
+			}
 			for (int i = 0; i < ec.getScoreAmount(); i++) {
 				int index = i + 1;
 				int scoreFull = ec.getScore()[i];
@@ -338,7 +365,10 @@ public class SubjectMgnt {
 			int fail = 0;
 			for (StudentResult sr : er.getList()) {
 				String sql = "UPDATE SCORE_LIST SET `SCORE_MID` = '" + sr.getMidScore() + "',`SCORE_FINAL` = '"
-						+ sr.getFinalScore() + "',";
+						+ sr.getFinalScore() + "'";
+				if (sr.getScoreAmount() > 0) {
+					sql += ",";
+				}
 				for (int i = 0; i < sr.getScoreAmount(); i++) {
 					double score = sr.getScoreByIndex(i);
 					int index = i + 1;
@@ -682,42 +712,11 @@ public class SubjectMgnt {
 				String email = sn.email;
 				String text = "สวัสดี คุณ " + sn.name + " รหัสนักศึกษา " + sr.getIDStudent()
 						+ "\nผลเกรดของวิชาของคุณคือ... " + sr.getGrade();
-				if (!sendEmail(email, title, text)) {
+				if (!ConnectMgnt.sendEmail(email, title, text)) {
 					return false;
 				}
 			}
 		}
 		return true;
-	}
-
-	public static boolean sendEmail(String email, String title, String text) {
-		String to = email;
-		String from = "cs284cstu@gmail.com";
-		final String username = "cs284cstu@gmail.com";
-		final String password = "0822808826";
-		String host = "smtp.gmail.com";
-		Properties props = new Properties();
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", host);
-		props.put("mail.smtp.port", "587");
-		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(username, password);
-			}
-		});
-		try {
-			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress(from));
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-			message.setSubject(title);
-			message.setText(text);
-			// Send message
-			Transport.send(message);
-			return true;
-		} catch (MessagingException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-			return false;
-		}
 	}
 }

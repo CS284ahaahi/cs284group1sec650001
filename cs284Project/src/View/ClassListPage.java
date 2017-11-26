@@ -14,7 +14,6 @@ public class ClassListPage extends javax.swing.JFrame {
 		initComponents();
 		table.setFont(new Font("", 1, 14));
 		table.setRowHeight(25);
-		SubjectMgnt.addEmailToClassList(FileMgnt.readEmailExcelFile(), cl);
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		for (Student st : cl.getClassList()) {
 			model.addRow(new Object[0]);
@@ -25,7 +24,7 @@ public class ClassListPage extends javax.swing.JFrame {
 			model.setValueAt("N", row, 3);
 		}
 		setTitle("รายชื่อนักศึกษาที่ลงทะเบียน " + subname);
-		setSize(620, 720);
+		setSize(680, 720);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setResizable(false);
 		setLocationRelativeTo(null); // center on screen
@@ -101,10 +100,6 @@ public class ClassListPage extends javax.swing.JFrame {
 
 	private void backBttActionPerformed(java.awt.event.ActionEvent evt) {
 		this.dispose();
-	}
-
-	public static void main(String args[]) {
-		new ClassListPage(FileMgnt.readClassListFile(), "CS284");
 	}
 
 	// Variables declaration - do not modify

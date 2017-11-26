@@ -1,7 +1,6 @@
 package View;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -602,7 +601,7 @@ public class EditSubjectPage extends javax.swing.JPanel {
 	}// </editor-fold>
 
 	private void criteriaBtnActionPerformed(ActionEvent evt) {
-		
+		ExamCriteriaPage ecp = new ExamCriteriaPage(sub.getExamCri(), true);
 	}
 
 	private void backBtnActionPerformed(ActionEvent e) {

@@ -52,7 +52,11 @@ public class StudentResult {
 	}
 
 	public int getScoreAmount() {
-		return score.length;
+		if (score != null) {
+			return score.length;
+		} else {
+			return 0;
+		}
 	}
 
 	public double getScoreByIndex(int index) {
