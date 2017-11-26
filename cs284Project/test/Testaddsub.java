@@ -16,7 +16,7 @@ public class Testaddsub {
 	@Test
 	public void testadd() throws Exception {
 		ClassList cs =new ClassList();
-		int row = SubjectMgnt.getRowClassList();
+		int row = SubjectMgnt.getLastIDClassList();
 		cs.add(new Student(row++,"5909650158","pcn","pkak2@gmail.com"));
 		cs.add(new Student(row++, "5909650029","pot","potsathon20@gmail.com"));
 		us = new User("5909650158", "pcn","123456","pcn","h","pkak@gmail.com", "N");
@@ -27,13 +27,13 @@ public class Testaddsub {
 		ec.setMidPer(25);
 		ec.setScore(new int[] {5,5,5,5,5});
 		ec.setScorePer(new int[] {5,5,5,5,5});
-		s = new Subject(2, "®’¬Ÿ‰Õ", "GUI", "cs211", "650005", "Owner", "1","2560", cs, null, new GradingCriteria(1,95,75,70,65,60,55,50), ec,null);
+		s = new Subject(2, "®’¬Ÿ‰Õ", "GUI", "cs211", "650006", "Owner", "1","2560", cs, null, new GradingCriteria(1,95,75,70,65,60,55,50), ec,null);
 		assertTrue(SubjectMgnt.addSubject(s));
 	}
 	@Test
 	public void testadd2() throws Exception {
 		ClassList cs =new ClassList();
-		int row = SubjectMgnt.getRowClassList();
+		int row = SubjectMgnt.getLastIDClassList();
 		cs.add(new Student(row++,"5909650158","pcn","pkak2@gmail.com"));
 		cs.add(new Student(row++, "5909650029","pot","potsathon20@gmail.com"));
 		us = new User("5909650158", "pcn","123456","pcn","h","pkak@gmail.com", "N");
@@ -44,7 +44,7 @@ public class Testaddsub {
 		ec.setMidPer(25);
 		ec.setScore(new int[] {5,5,5,5,5});
 		ec.setScorePer(new int[] {5,5,5,5,5});
-		s = new Subject(2, "®’¬Ÿ‰Õ", "GUI", "cs211", "650004", "Owner", "1","2560", cs, null, new GradingCriteria(1,95,75,70,65,60,55,50), ec,null);
+		s = new Subject(2, "®’¬Ÿ‰Õ", "GUI", "cs211", "650006", "Owner", "1","2560", cs, null, new GradingCriteria(1,95,75,70,65,60,55,50), ec,null);
 		assertFalse(SubjectMgnt.addSubject(s));
 	}
 	
