@@ -70,10 +70,10 @@ public class FileMgnt {
 					// This data needs to be written (Object[])
 					Map<String, Object[]> data = new TreeMap<String, Object[]>();
 					data.put("1", new Object[] { "เลขทะเบียนนักศึกษา", "เกรด" });
-					for (int i = 2; i < result.getSize(); i++) {
-						StudentResult sr = result.get(i - 2);
+					for (int i = 0; i < result.getSize(); i++) {
+						StudentResult sr = result.get(i);
 						if (sr.getStatus().equals("N")) {
-							data.put(i + "", new Object[] { sr.getIDStudent(), sr.getGrade() });
+							data.put(i + 2 + "", new Object[] { sr.getIDStudent(), sr.getGrade() });
 						}
 					}
 					// Iterate over data and write to sheet
