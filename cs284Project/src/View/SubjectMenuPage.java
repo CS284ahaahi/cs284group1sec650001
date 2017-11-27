@@ -1,5 +1,6 @@
 package View;
 
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 	private JFrame frame;
 	private Subject sub;
 	private User us;
+	private Cursor waitCursor = new Cursor(Cursor.WAIT_CURSOR);
+	private Cursor defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
 
 	public SubjectMenuPage(Subject sub, User us) {
 		initComponents();
@@ -279,11 +282,13 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 	private void AnnouncingBtnActionPerformed(java.awt.event.ActionEvent evt) {
 		ArrayList<StudentResult> str = SubjectMgnt.checkGradingByGrade(sub.getExResult());
 		if (str == null) {
+			frame.setCursor(waitCursor);
 			if (SubjectMgnt.sendEmailAll(sub)) {
 				JOptionPane.showMessageDialog(frame, "ส่งผลเกรดเข้าสู่ email ของนักศึกษาทุกคนแล้ว");
 			} else {
 				JOptionPane.showMessageDialog(frame, "ไม่สามารถประกาศผลได้", "Warning!!", JOptionPane.ERROR_MESSAGE);
 			}
+			frame.setCursor(defaultCursor);
 		} else {
 			String strList = "";
 			for (StudentResult sr : str) {
@@ -315,9 +320,11 @@ public class SubjectMenuPage extends javax.swing.JPanel {
 	}
 
 	private void gradingFn() {
+		frame.setCursor(waitCursor);
 		if (SubjectMgnt.gradingExam(sub)) {
 			JOptionPane.showMessageDialog(frame, "การตัดเกรดเสร็จสิ้น ท่านสามารถ export ได้แล้วขณะนี้");
 		}
+		frame.setCursor(defaultCursor);
 	}
 
 	private void exportBtnActionPerformed(ActionEvent evt) {

@@ -1,5 +1,6 @@
 package View;
 
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
@@ -13,6 +14,8 @@ import Model.User;
 public class EditSubjectPage extends javax.swing.JPanel {
 	private JFrame frame;
 	private Subject sub;
+	private Cursor waitCursor = new Cursor(Cursor.WAIT_CURSOR);
+	private Cursor defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
 
 	public EditSubjectPage(Subject sub, User us) {
 		this.sub = sub;
@@ -625,8 +628,10 @@ public class EditSubjectPage extends javax.swing.JPanel {
 						GradingCriteria gc;
 						try {
 							gc = new GradingCriteria(sub.getGradeCri().getId(), A, Bp, B, Cp, C, Dp, D);
+							frame.setCursor(waitCursor);
 							if (SubjectMgnt.editGradingCriteria(gc, sub)) {
 								sub.setGradeCri(gc);
+								frame.setCursor(defaultCursor);
 								JOptionPane.showMessageDialog(frame, "Save Complete");
 								frame.dispose();
 								return;

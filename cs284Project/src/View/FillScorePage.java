@@ -1,5 +1,6 @@
 package View;
 
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
@@ -18,6 +19,8 @@ public class FillScorePage extends javax.swing.JFrame {
 	private Subject sub;
 	private HashMap<String, String> listName;
 	public boolean haveChange;
+	private Cursor waitCursor = new Cursor(Cursor.WAIT_CURSOR);
+	private Cursor defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
 
 	public FillScorePage(Subject sub) {
 		haveChange = false;
@@ -335,9 +338,11 @@ public class FillScorePage extends javax.swing.JFrame {
 
 	private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {
 		if (haveChange) {
+			setCursor(waitCursor);
 			if (SubjectMgnt.editExamResult(sub.getExResult())) {
 				JOptionPane.showMessageDialog(this, "บันทึกผลทั้งหมดลงฐานข้อมูลเรียบร้อย");
 			}
+			setCursor(defaultCursor);
 		}
 		this.dispose();
 	}

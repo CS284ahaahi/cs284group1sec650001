@@ -1,5 +1,7 @@
 package View;
 
+import java.awt.Cursor;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -20,6 +22,8 @@ public class CreateSubjectPage extends javax.swing.JPanel {
 	private EmailList el;
 	private GradingCriteria gc;
 	private ExamCriteriaPage ecp;
+	private Cursor waitCursor = new Cursor(Cursor.WAIT_CURSOR);
+	private Cursor defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
 
 	public CreateSubjectPage(User us, JFrame seframe) {
 		this.us = us;
@@ -681,12 +685,15 @@ public class CreateSubjectPage extends javax.swing.JPanel {
 						gc = new GradingCriteria(0, A, Bp, B, Cp, C, Dp, D);
 						Subject sub = new Subject(0, nameThai, nameEng, code, section, us.getUserName(), semester, year,
 								cl, null, gc, ec, null);
+						frame.setCursor(waitCursor);
 						if (SubjectMgnt.addSubject(sub)) {
 							frame.dispose();
+							frame.setCursor(defaultCursor);
 							JOptionPane.showMessageDialog(frame, "สร้างวิชาเรียนสำเร็จ\nกำลังโหลดหน้าเลือกวิชาใหม่");
 							old.dispose();
 							new SelectSubPage(us);
 						}
+						frame.setCursor(defaultCursor);
 					} catch (Exception e) {
 						JOptionPane.showMessageDialog(frame, "ใส่เกณฑ์คะแนนผิด", "ERROR", JOptionPane.ERROR_MESSAGE);
 					}

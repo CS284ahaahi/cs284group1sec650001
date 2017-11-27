@@ -10,17 +10,13 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.Collections;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
-import Model.Subject;
 import Model.User;
 import Controller.ConnectMgnt;
-import Controller.SubjectMgnt;
 import Controller.UserMgnt;
 
 public class LoginPage extends JPanel {

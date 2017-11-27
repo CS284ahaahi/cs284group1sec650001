@@ -1,10 +1,10 @@
 package View;
 
+import java.awt.Cursor;
 import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
-
 import Controller.SubjectMgnt;
 import Model.Subject;
 import Model.User;
@@ -14,9 +14,12 @@ public class SelectSubPage extends javax.swing.JPanel {
 	private User us;
 	private JFrame frame;
 	private ArrayList<Subject> mySubList;
+	private Cursor waitCursor = new Cursor(Cursor.WAIT_CURSOR);
+	private Cursor defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
 
 	public SelectSubPage(User us) {
 		this.frame = new JFrame();
+		frame.setCursor(waitCursor);
 		this.us = us;
 		initComponents();
 		this.nameSurname.setText(us.getFirstName() + " " + us.getLastName());
@@ -34,12 +37,14 @@ public class SelectSubPage extends javax.swing.JPanel {
 			model.setValueAt(st.getYear(), row, 4);
 		}
 		this.frame.add(this);
+		frame.setCursor(defaultCursor);
 		this.frame.setTitle("เลือกวิชา");
 		this.frame.setSize(984, 715);
 		this.frame.setResizable(false);
 		this.frame.setLocationRelativeTo(null);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.frame.setVisible(true);
+
 	}
 
 	@SuppressWarnings("unchecked")
