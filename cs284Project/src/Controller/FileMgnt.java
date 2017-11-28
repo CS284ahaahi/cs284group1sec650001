@@ -8,9 +8,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -152,7 +154,13 @@ public class FileMgnt {
 					i++;
 				}
 				return list;
-			} catch (Exception e) {
+			} catch (NoSuchElementException e) {
+				return list;
+			} catch (SQLException e) {
+				JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+			} catch (FileNotFoundException e) {
+				JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+			} catch (IOException e) {
 				JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 			}
 		}
@@ -188,10 +196,18 @@ public class FileMgnt {
 					el.list.put(id, email);
 				}
 				return el;
-			} catch (Exception e) {
+			} catch (NoSuchElementException e) {
+				return el;
+			} catch (FileNotFoundException e) {
+				JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+			} catch (IOException e) {
 				JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		return null;
+	}
+
+	public static void main(String[] args) {
+		FileMgnt.readEmailExcelFile();
 	}
 }
