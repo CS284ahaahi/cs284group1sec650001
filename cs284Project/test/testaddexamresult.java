@@ -14,7 +14,7 @@ public class testaddexamresult {
 		ec.setFinalFull(70);
 		ec.setFinalPer(50);
 		ec.setMidFull(50);
-		ec.setMidPer(25);
+		ec.setMidPer(30);
 		ec.setScore(new int[] {5,5,5,5,5});
 		ec.setScorePer(new int[] {5,5,5,5,5});
 		assertFalse(SubjectMgnt.checkExamCri(ec));
